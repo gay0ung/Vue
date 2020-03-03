@@ -1,29 +1,38 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import NewsView from '../views/NewsView.vue'
+import AskView from '../views/AskView.vue'
+import JobsView from '../views/JobsView.vue'
 
+
+
+// router기능을 사용하기위해 .
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/",
+    name: "home",
+    component: NewsView
+
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    path: "/news",
+    name: "news",
+    component: NewsView
+
+  },
+  {
+    path: "/ask",
+    name: "ask",
+    component: AskView
+  },
+  {
+    path: "/jobs",
+    name: "jobs",
+    component: JobsView
+  },
 ]
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
-})
+export const router = new VueRouter({ routes });
 
-export default router
