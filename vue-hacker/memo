@@ -1,0 +1,20 @@
+** 라우터 설정으로 필요한 화면 보여주기
+1) ./main.js 를 셋팅한다.
+2) ./app.vue 에서 TooBar컴포넌트 설치태그와 자식(지역) 컴포넌트로 등록.
+3) ./components/TooBar.vue 라우터링크셋팅과 CSS셋팅
+4) ./router/index.js 컨텐츠로 사용할 컴포넌트 불어오고, 경로마다 셋팅.
+5) ./views/AskView.vue, JobsView.vue, NewsView.vue 파일 만들기
+
+** vuex 데이터를 요청하고 받아오고 사용하기
+1) ./views/NewsView.vue에서 vuex를 import해서 데이터를 받아온다.
+2) ./views/NewsView.vue에서 style과 마크업을 셋팅한다
+3) ./views/NewsView.vue에서 받아온 데이터를 이용해 v-for로 화면에 맞는 데이터와 함께 랜더링한다.
+4) *실습* AskView, JobsView도 해본다.
+
+
+** Store를 이용해 데이터를 요청하고 받아오고 저장하고 사용하기
+1) ./api/index.js 를 만들고 통신으로 데이터를 요청하는 함수들을 설정한다.
+2) ./store/index.js 를 만들고 1)에 만든 함수들을 실행시켜 약속된 타이밍에 데이터를 받아오고, 저장하는 함수들을 설정한다.
+3) ./views/NewsView.vue 에서 FETCH_로 된 함수들을 실행하면 store의 장치들이 돌면서 데이터를 저장한다.
+4) ./views/NewsView.vue 에서 store에 저장된 데이터를 필요한 페이지에 다시 가져와서 사용한다.
+5) *실습* AskView, JobsView도 해본다.
