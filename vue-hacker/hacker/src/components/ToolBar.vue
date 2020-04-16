@@ -15,7 +15,7 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
 header {
   position: relative;
   padding: 20px 30px;

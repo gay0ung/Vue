@@ -2,15 +2,20 @@
   <div id="app">
     <!-- component이름 / 이안에 다 들어온다. -->
     <tool-bar />
+    <!-- 메뉴 -->
     <router-view />
+    <!-- 컨텐츠 -->
   </div>
 </template>
 <script>
 import ToolBar from "./components/ToolBar";
 
 export default {
+  data() {
+    return {};
+  },
   // 지역변수로 사용하기 위해서는 components로 등록 한다.
-  components: { ToolBar } //지역 컴포넌트다.
+  components: { ToolBar }, //지역 컴포넌트다.
 };
 </script>
 <style>
