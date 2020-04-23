@@ -11,11 +11,8 @@
 import ToolBar from "./components/ToolBar";
 
 export default {
-  data() {
-    return {};
-  },
   // 지역변수로 사용하기 위해서는 components로 등록 한다.
-  components: { ToolBar }, //지역 컴포넌트다.
+  components: { ToolBar } //지역 컴포넌트다.
 };
 </script>
 <style>

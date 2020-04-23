@@ -4,71 +4,42 @@
     <header>
       <!-- a와 같은 기능을 한다. 컴파일링 하는 과정에서a태그로 변경 시킨다.-->
       <!-- router-link공부하기 -->
-      <!-- <router-link to="/news">News</router-link>
+      <router-link to="/news">News</router-link>
       <router-link to="/ask">Ask</router-link>
-      <router-link to="/jobs">Jobs</router-link>-->
-
-      <router-link
-        :class="{'click': click === 'yes' && index === 1}"
-        @click.native="clickBg(1, 'yes')"
-        to="/news"
-      >News</router-link>
-      <router-link
-        :class="{'click': click === 'yes' && index === 2}"
-        @click.native="clickBg(2, 'yes')"
-        to="/Ask"
-      >Ask</router-link>
-      <router-link
-        :class="{'click': click === 'yes' && index === 3}"
-        @click.native="clickBg(3, 'yes')"
-        to="/Jobs"
-      >Jobs</router-link>
+      <router-link to="/jobs">Jobs</router-link>
     </header>
   </div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      index: 1,
-      click: "no"
-    };
-  },
-  // computed: {
-  //     baseIndexClick() {
-  //         this.index = 1
-  //         this.click = 'yes'
-  //     }
-  // },
-  methods: {
-    clickBg(index, click) {
-      this.index = index;
-      this.click = click;
-    }
-  }
-};
+export default {};
 </script>
 
 <style scoped>
 header {
-  padding: 15px 30px;
-  background-color: rgb(255, 190, 51);
+  position: relative;
+  padding: 20px 30px;
+  background: black;
+  font-size: 24px;
+  border-bottom: 8px solid lime;
 }
-header > * {
-  margin-right: 20px;
-  padding: 5px 10px;
+header h1 {
+  position: absolute;
+  color: white;
+  top: 21px;
+  right: 30px;
+  font-size: 18px;
+}
+header a {
+  color: white;
   text-decoration: none;
-  color: #fff;
-  font-weight: 600;
-  font-size: 20px;
+  padding-bottom: 3px;
 }
-header > *:hover {
-  text-decoration: underline;
+header a + a {
+  margin-left: 20px;
 }
-
-.click {
-  background-color: rgba(255, 255, 255, 0.4);
-  text-decoration: underline;
+header .active {
+  color: coral;
+  border-bottom: 3px solid coral;
 }
 </style>

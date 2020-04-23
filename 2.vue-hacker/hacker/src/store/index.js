@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { fetchListItem } from "../api/index.js";
+import { fetchCommentItem } from "../api/index.js";
 
 Vue.use(Vuex);
 
@@ -8,11 +9,15 @@ export const store = new Vuex.Store({
   state: {
     // 데이터 저장
     list: [],
+    commentlist: [],
   },
   mutations: {
     //state에 저장.
     SET_LIST(state, list) {
       state.list = list;
+    },
+    SET_COMMENT(state, commentlist) {
+      state.commentlist = commentlist;
     },
   },
   actions: {
@@ -24,6 +29,15 @@ export const store = new Vuex.Store({
         .then((res) => {
           context.commit("SET_LIST", res.data);
           return res;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    FETCH_COMMENT(context, commId) {
+      fetchCommentItem(commId)
+        .then((res) => {
+          context.commit("SET_COMMENT", res.data);
         })
         .catch((err) => {
           console.log(err);
