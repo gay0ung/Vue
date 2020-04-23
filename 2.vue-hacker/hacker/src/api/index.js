@@ -10,9 +10,13 @@ const config = {
 function fetchListItem(pageName) {
   return axios.get(`${config.baseUrl}${pageName}/1.json`);
 }
+// user
+function fetchUserInfo(userName) {
+  return axios.get(`${config.baseUrl}user/${userName}.json`);
+}
 function fetchCommentItem(commentId) {
   return axios.get(`${config.baseUrl}item/${commentId}.json`);
 }
 
 // 3. export : 행동대장들을 actions가 쓸 수 있도록 export해둠.
-export { fetchListItem, fetchCommentItem };
+export { fetchListItem, fetchCommentItem, fetchUserInfo };

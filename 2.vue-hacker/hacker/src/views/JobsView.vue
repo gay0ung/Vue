@@ -1,23 +1,11 @@
 <template>
-  <ol class="list">
-    <li v-for="item in list" v-bind:key="item.id">
-      <b>{{ item.time_ago }}</b>
-      <!-- <span>{{ item.user }}</span> <br/> -->
-      <a v-bind:href="item.url" target="blank">{{ item.title }}</a>
-    </li>
-  </ol>
+  <list-item></list-item>
 </template>
 
 <script>
+import listItem from "../components/ListItem";
 export default {
-  computed: {
-    list() {
-      return this.$store.state.list;
-    }
-  },
-  created() {
-    this.$store.dispatch("FETCH_LIST", "jobs");
-  }
+  components: { listItem }
 };
 </script>
 

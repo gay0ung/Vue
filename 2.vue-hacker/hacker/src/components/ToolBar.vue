@@ -8,21 +8,9 @@
       <router-link to="/ask">Ask</router-link>
       <router-link to="/jobs">Jobs</router-link>-->
 
-      <router-link
-        :class="{'click': click === 'yes' && index === 1}"
-        @click.native="clickBg(1, 'yes')"
-        to="/news"
-      >News</router-link>
-      <router-link
-        :class="{'click': click === 'yes' && index === 2}"
-        @click.native="clickBg(2, 'yes')"
-        to="/Ask"
-      >Ask</router-link>
-      <router-link
-        :class="{'click': click === 'yes' && index === 3}"
-        @click.native="clickBg(3, 'yes')"
-        to="/Jobs"
-      >Jobs</router-link>
+      <router-link :class="{active:isNav.isNews}" @click.native="setNav()" to="/news">News</router-link>
+      <router-link :class="{active:isNav.isNews}" @click.native="setNav()" to="/ask">Ask</router-link>
+      <router-link :class="{active:isNav.isNews}" @click.native="setNav()" to="/jobs">Jobs</router-link>
     </header>
   </div>
 </template>
@@ -31,8 +19,11 @@
 export default {
   data() {
     return {
-      index: 1,
-      click: "no"
+      isNav: {
+        isNews: true,
+        isAsk: false,
+        isJobs: false
+      }
     };
   },
   // computed: {
@@ -45,6 +36,19 @@ export default {
     clickBg(index, click) {
       this.index = index;
       this.click = click;
+    },
+    setNav() {
+      let currentName = localStorage.getItem("nav");
+      let uppCrrName =
+        currentName.charAt(0).toUpeerCase() + currentName.slice(1);
+
+      for (let item in this.isNav) {
+        if (item === `is${uppCrrName}`) {
+          this.isNav[item] = true;
+        } else {
+          this.isNav[item] = false;
+        }
+      }
     }
   }
 };
@@ -67,8 +71,13 @@ header > *:hover {
   text-decoration: underline;
 }
 
-.click {
+/* .click {
   background-color: rgba(255, 255, 255, 0.4);
   text-decoration: underline;
+} */
+
+.active {
+  /* background-color: rgba(255, 255, 255, 0.4);
+  text-decoration: underline; */
 }
 </style>

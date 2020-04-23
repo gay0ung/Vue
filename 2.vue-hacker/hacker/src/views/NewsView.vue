@@ -1,29 +1,13 @@
 <template>
-  <ol class="list">
-    <li v-for="item in list" v-bind:key="item.id">
-      <b>{{ item.time_ago }}</b>
-      <span>by {{ item.user }}</span>
-      <br />
-      <a v-bind:href="item.url" target="blank">{{ item.title }}</a>
-      <router-link :to="`/item/${item.id}`">
-        <span>( {{ item.comments_count }} )</span>
-      </router-link>
-    </li>
-  </ol>
+  <list-item></list-item>
 </template>
 
 <script>
+import listItem from "../components/ListItem";
 export default {
-  // 속성으로 읽을때 사용할수 있게 하는 기능
-  computed: {
-    list() {
-      return this.$store.state.list;
-    }
-  },
-  created() {
-    this.$store.dispatch("FETCH_LIST", "news");
-  }
+  components: { listItem }
 };
+
 </script>
 
 <style>
