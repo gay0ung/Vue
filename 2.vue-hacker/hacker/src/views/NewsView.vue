@@ -14,6 +14,7 @@
 
 <script>
 export default {
+  // 속성으로 읽을때 사용할수 있게 하는 기능
   computed: {
     list() {
       return this.$store.state.list;

@@ -13,18 +13,14 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
-  data() {
-    return {
-      list: []
-    };
+  computed: {
+    list() {
+      return this.$store.state.list;
+    }
   },
   created() {
-    axios.get("https://api.hnpwa.com/v0/ask/1.json").then(res => {
-      this.list = res.data;
-    });
+    this.$store.dispatch("FETCH_LIST", "ask");
   }
 };
 </script>

@@ -1,3 +1,4 @@
+// 요청 시스템(장치)_ 요청하기 위한 애들만 여기에 가져온다.
 import axios from "axios";
 
 // 1.http request & respons 설정
