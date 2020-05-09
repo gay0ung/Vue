@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1_기존 웹개발 방식</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      let div = document.querySelector("#app");
+      let str = "hello world";
+
+      div.innerHTML = str;
+
+      // 갱신된 변수값을 다시 innerHTML에 넣어준다.
+      str = "hellow world !!!";
+      div.innerHTML = str;
+    </script>
+  </body>
+</html>
