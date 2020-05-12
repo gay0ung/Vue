@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>watch</title>
+  </head>
+
+  <body>
+    <div id="app">
+      {{num}}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          num: 10,
+        },
+        computed: {
+          // 단순값을 계산하는 함수
+          doubleNum: function () {
+            return this.num * 2;
+          },
+        },
+        watch: {
+          // 무거운로직, 매번 실행시키기에는 부담스러운
+          // 데이터 요청
+          num: function (newValue) {
+            this.fetchUserByNumber(newValue);
+          },
+        },
+        methods: {
+          fetchUserByNumber: function (num) {
+            console.log(num);
+            // axio.get(num)
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
