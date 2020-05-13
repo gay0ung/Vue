@@ -26,6 +26,8 @@
             axios
               .get("https://jsonplaceholder.typicode.com/users/")
               .then(function (response) {
+                console.log(this);
+
                 vm.users = response.data;
                 console.log(response);
               })
