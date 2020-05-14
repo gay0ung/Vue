@@ -9,29 +9,43 @@
     <span class="addContainer" v-on:click="addTodo">
       <i class="addBtn fa fa-plus" aria-hidden="true"></i>
     </span>
+    <modal v-if="showModal" @close="showModal=false">
+      <h3 slot="header">경고</h3>
+      <span slot="footer" @click="showModal=false">
+        할일을 입력하세요
+        <i class="closeModalBtn fas fa-times" aria-hidden="true"></i>
+      </span>
+    </modal>
   </div>
 </template>
 
 <script>
+import Modal from "./common/Modal.vue";
 export default {
   data() {
     return {
-      newTodoItem: ""
+      newTodoItem: "",
+      showModal: false
     };
   },
   methods: {
     addTodo() {
-      if (this.newTodoItem != "") {
+      if (this.newTodoItem !== "") {
         let value = this.newTodoItem && this.newTodoItem.trim();
         // 인풋 박스에 입력되는 텍스트의 앞뒤 공백 문자열 제거
         this.$emit("addTodo", value);
-        localStorage.setItem(value, value);
         this.clearInput();
+      } else {
+        // 텍스트 미입력시 모달 등장
+        this.showModal = !this.showModal;
       }
     },
     clearInput() {
       this.newTodoItem = "";
     }
+  },
+  components: {
+    Modal: Modal
   }
 };
 </script>
