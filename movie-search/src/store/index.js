@@ -6,18 +6,28 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    list: [],
+    movieLS: [],
+    title: '',
   },
   mutations: {
-    set_list(state, list) {
-      state.list = list;
+    SET_LIST(state, movieLS) {
+      console.log(movieLS);
+
+      state.movieDB = movieLS;
+    },
+    SET_TITLE(state, title) {
+      console.log(title);
+
+      state.movieDB = title;
     },
   },
   actions: {
-    FetchList(context, title) {
-      return searchMovie(title)
+    FETCH_LIST(context, title) {
+      console.log(title);
+
+      return searchMovie(title.movieDB)
         .then(res => {
-          context.commit('set_list', res.data);
+          context.commit('SET_TITLE', res.data);
 
           return res;
         })

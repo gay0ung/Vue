@@ -11,6 +11,10 @@ export default new VueRouter({
       component: () => import('@/views/SearchPage.vue'),
     },
     {
+      path: '/search',
+      component: () => import('@/views/SearchPage.vue'),
+    },
+    {
       path: '/info',
       component: () => import('@/views/InfoPage.vue'),
     },

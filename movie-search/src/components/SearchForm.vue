@@ -3,18 +3,24 @@
     <form @submit.prevent="submitForm" class="search-form">
       <P>this is searchform page</P>
       <div>
-        <input id="title" type="text" v-model="title" />
+        <input
+          id="title"
+          type="text"
+          v-model="title"
+          placehoder="제목을 입력해주세요."
+        />
         <button class="search-btn" type="submit">search</button>
       </div>
       <div class="mv-content">
-        <!-- {{ movieInfo }} -->
-        {{ movieList }}
+        {{ movieInfo }}
       </div>
     </form>
   </div>
 </template>
 
 <script>
+// import { FETCH_TITLE } from '@/store/index.js';
+
 export default {
   data() {
     return {
@@ -25,7 +31,7 @@ export default {
   methods: {
     submitForm() {
       console.log('폼제출');
-      this.$store.dispatch('FetchList', this.title);
+      this.$store.dispatch('FETCH_LIST', this.title);
       // const TITLE = {
       //   title: this.title,
       // };
@@ -41,9 +47,9 @@ export default {
     },
   },
   computed: {
-    movieList() {
-      return this.$store.state.list;
-    },
+    // FETCH_TITLE() {
+    //   return this.$store.state.list;
+    // },
   },
 };
 </script>
