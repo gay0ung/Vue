@@ -1,40 +1,26 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { searchMovie } from '@/api/index';
-
+import { searchMovie } from '@/api/index.js';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    movieLS: [],
     title: '',
+    director: '',
   },
   mutations: {
-    SET_LIST(state, movieLS) {
-      console.log(movieLS);
-
-      state.movieDB = movieLS;
-    },
+    // 데이터를 변경하는곳
     SET_TITLE(state, title) {
-      console.log(title);
-
-      state.movieDB = title;
+      state.title = title;
+    },
+    SET_DIRECTOR(state, director) {
+      state.director = director;
     },
   },
   actions: {
-    FETCH_LIST(context, title) {
-      console.log(title);
-
-      return searchMovie(title.movieDB)
-        .then(res => {
-          context.commit('SET_TITLE', res.data);
-
-          return res;
-        })
-        .catch(err => {
-          console.log(err);
-        });
+    SEARCH(movieData) {
+      const res = searchMovie(movieData);
+      console.log(res);
     },
   },
-  modules: {},
 });

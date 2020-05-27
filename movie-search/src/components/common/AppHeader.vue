@@ -1,24 +1,20 @@
 <template>
-  <header>
-    <router-link to="/" class="title">
-      <h1>Korea Movie DB🎞</h1>
-    </router-link>
-  </header>
+  <router-link to="/" class="logo"><h1>MOVIE</h1></router-link>
 </template>
 
 <script>
 export default {};
 </script>
 
-<style>
-h1 {
-  text-align: center;
-  background-color: #adaca9f3;
-  color: white;
-  line-height: 80px;
-  font-size: 40px;
-}
-h1:hover {
+<style scoped>
+.logo {
   color: black;
+  text-decoration-line: none;
+}
+.logo h1 {
+  font-size: 40px;
+  background-color: rgb(151, 150, 150);
+  color: aliceblue;
+  text-align: center;
 }
 </style>

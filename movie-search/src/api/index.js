@@ -7,23 +7,23 @@ const config = {
 };
 
 // title
-function searchMovie(movieDB) {
+function searchMovie(movieData) {
   return axios.get(
-    `${config.BASE_URL}titie=${movieDB}&ServiceKey=${config.KEY}`,
+    `${config.BASE_URL}titie=${movieData}&ServiceKey=${config.KEY}`,
   );
 }
 
 // director
-function movieDirector(movieDB) {
+function movieDirector(movieData) {
   return axios.get(
-    `${config.BASE_URL}&director=${movieDB}&ServiceKey=${config.KEY}`,
+    `${config.BASE_URL}&director=${movieData}&ServiceKey=${config.KEY}`,
   );
 }
 
 // posters
-function moviePosters(movieDB) {
+function moviePosters(movieData) {
   return axios.get(
-    `${config.BASE_URL}&posterUrl=${movieDB}&ServiceKey=${config.KEY}`,
+    `${config.BASE_URL}&posterUrl=${movieData}&ServiceKey=${config.KEY}`,
   );
 }
 

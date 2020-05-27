@@ -8,15 +8,19 @@ export default new VueRouter({
   routes: [
     {
       path: '/',
-      component: () => import('@/views/SearchPage.vue'),
+      redirect: '/search',
     },
     {
       path: '/search',
       component: () => import('@/views/SearchPage.vue'),
     },
     {
-      path: '/info',
+      path: '/movieInfo',
       component: () => import('@/views/InfoPage.vue'),
+    },
+    {
+      path: '*',
+      component: () => import('@/views/NotFoundPage.vue'),
     },
   ],
 });

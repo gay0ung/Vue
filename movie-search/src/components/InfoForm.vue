@@ -1,17 +1,16 @@
 <template>
-  <form action="">
-    영화정보가 담길 페이지
-  </form>
+  <form></form>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      //director: '', // 감독명
-      // plot: '', // 줄거리
-      // releaseDts: '', // 개봉날짜
-      // movieId: '', // movie id
+      title: '', // 영화 제목
+      director: '', // 감독 이름
+      plot: '', // 줄거리
+      releaseDts: '', // 개봉날짜
+      movieId: '', // movie id
     };
   },
   methods: {

@@ -1,5 +1,8 @@
 <template>
-  <InfoForm></InfoForm>
+  <div>
+    <h1>영화정보가 담길 페이지</h1>
+    <InfoForm></InfoForm>
+  </div>
 </template>
 
 <script>

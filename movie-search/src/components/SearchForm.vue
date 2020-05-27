@@ -1,67 +1,39 @@
 <template>
   <div>
-    <form @submit.prevent="submitForm" class="search-form">
-      <P>this is searchform page</P>
-      <div>
-        <input
-          id="title"
-          type="text"
-          v-model="title"
-          placehoder="제목을 입력해주세요."
-        />
-        <button class="search-btn" type="submit">search</button>
-      </div>
-      <div class="mv-content">
-        {{ movieInfo }}
-      </div>
+    <form action="" @submit.prevent="submitForm">
+      this is searchform page
+      <input type="text" v-model="title" />
+      <button type="submit">search</button>
     </form>
   </div>
 </template>
 
 <script>
-// import { FETCH_TITLE } from '@/store/index.js';
-
+// import { searchMovie } from '@/api/index.js';
 export default {
   data() {
     return {
-      title: '', // 영화제목
-      movieInfo: '', // 결과물내용
+      title: '', // 영화 제목
+      director: '', // 감독 이름
     };
   },
   methods: {
-    submitForm() {
-      console.log('폼제출');
-      this.$store.dispatch('FETCH_LIST', this.title);
-      // const TITLE = {
-      //   title: this.title,
-      // };
-      // const response = searchMovie(TITLE);
-      // console.log(response.data);
-      // this.movieInfo = response;
-      // this.initForm();
-      console.log(this.title);
-    },
+    async submitForm() {
+      try {
+        const movieData = {
+          title: this.title,
+          director: this.director,
+        };
+        await this.$store.dispatch('SEARCH', movieData);
+        console.log('search');
 
-    initForm() {
-      this.title = '';
+        this.$router.push('/movieInfo');
+      } catch (error) {
+        console.log(error);
+      }
     },
-  },
-  computed: {
-    // FETCH_TITLE() {
-    //   return this.$store.state.list;
-    // },
   },
 };
 </script>
 
-<style>
-form {
-  text-align: center;
-}
-.mv-content {
-  margin-top: 50px;
-}
-h2 {
-  font-size: 30px;
-}
-</style>
+<style></style>
