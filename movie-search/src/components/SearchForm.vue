@@ -1,8 +1,12 @@
 <template>
   <div>
-    <form action="" @submit.prevent="submitForm">
-      this is searchform page
-      <input type="text" v-model="title" />
+    <form class="form" @submit.prevent="submitForm">
+      <input
+        type="text"
+        id="title-input"
+        v-model="title"
+        placeholder="영화 제목을 입력해주세요"
+      />
       <button type="submit">search</button>
     </form>
   </div>
@@ -14,17 +18,13 @@ export default {
   data() {
     return {
       title: '', // 영화 제목
-      director: '', // 감독 이름
+      //director: '', // 감독 이름
     };
   },
   methods: {
     async submitForm() {
       try {
-        const movieData = {
-          title: this.title,
-          director: this.director,
-        };
-        await this.$store.dispatch('SEARCH', movieData);
+        await this.$store.dispatch('SEARCH', this.title);
         console.log('search');
 
         this.$router.push('/movieInfo');
@@ -36,4 +36,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.form {
+  text-align: center;
+}
+#title-input {
+  width: 60%;
+}
+</style>

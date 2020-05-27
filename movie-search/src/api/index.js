@@ -2,29 +2,23 @@ import axios from 'axios';
 
 const config = {
   BASE_URL:
-    'http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&posterUrl=',
-  KEY: '6H19HF3Z57ETOX71I7T1',
+    'http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&detail=Y&',
+  KEY: '&ServiceKey=6H19HF3Z57ETOX71I7T1',
 };
 
 // title
 function searchMovie(movieData) {
-  return axios.get(
-    `${config.BASE_URL}titie=${movieData}&ServiceKey=${config.KEY}`,
-  );
+  return axios.get(`${config.BASE_URL}title=${movieData}${config.KEY}`);
 }
 
 // director
 function movieDirector(movieData) {
-  return axios.get(
-    `${config.BASE_URL}&director=${movieData}&ServiceKey=${config.KEY}`,
-  );
+  return axios.get(`${config.BASE_URL}director=${movieData}${config.KEY}`);
 }
 
 // posters
 function moviePosters(movieData) {
-  return axios.get(
-    `${config.BASE_URL}&posterUrl=${movieData}&ServiceKey=${config.KEY}`,
-  );
+  return axios.get(`${config.BASE_URL}posterUrl=${movieData}${config.KEY}`);
 }
 
 export { searchMovie, movieDirector, moviePosters };
