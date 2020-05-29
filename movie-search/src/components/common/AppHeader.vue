@@ -16,5 +16,6 @@ export default {};
   background-color: rgb(151, 150, 150);
   color: aliceblue;
   text-align: center;
+  margin-bottom: 50px;
 }
 </style>

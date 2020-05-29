@@ -1,12 +1,12 @@
 <template>
-  <InfoForm></InfoForm>
+  <DetailForm></DetailForm>
 </template>
 
 <script>
-import InfoForm from '@/components/InfoForm.vue';
+import DetailForm from '@/components/DetailForm.vue';
 export default {
   components: {
-    InfoForm,
+    DetailForm,
   },
 };
 </script>

@@ -19,6 +19,10 @@ export default new VueRouter({
       component: () => import('@/views/InfoPage.vue'),
     },
     {
+      path: '/mDetail',
+      component: () => import('@/views/DetailPage.vue'),
+    },
+    {
       path: '*',
       component: () => import('@/views/NotFoundPage.vue'),
     },

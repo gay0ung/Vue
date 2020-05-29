@@ -6,28 +6,33 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    // movieValue: [],
-    movieData: '',
+    movieList: [],
+    inputQuery: '', // 검색데이터
+    option: '',
   },
   mutations: {
     // 데이터를 변경하는곳
-    // SET_VALUE(state, movieValue) {
-    //   state.movieValue = movieValue;
-    // },
-    SET_MOVIEDB(state, movieData) {
-      state.movieData = movieData;
+    SET_LIST(state, movieList) {
+      state.movieList = movieList.Data[0].Result;
+    },
+    SET_TITLE(state, inputQuery) {
+      state.inputQuery = inputQuery;
+    },
+    SET_OPTION(state, option) {
+      state.option = option;
     },
   },
   actions: {
-    async SEARCH({ commit }, movieData) {
-      const { data } = await searchMovie(movieData);
+    FETCH_LIST(context, inputQuery) {
+      return searchMovie(inputQuery)
+        .then(res => {
+          context.commit('SET_LIST', res.data);
 
-      console.log(data.Data[0].Result[0].title);
-
-      //commit('SET_VALUE', data);
-      commit('SET_MOVIEDB', data.Data[0].Result[0]);
-
-      return data;
+          return res;
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
   },
 });

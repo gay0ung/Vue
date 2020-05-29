@@ -7,20 +7,10 @@ const config = {
 };
 
 // title
-function searchMovie(movieData) {
-  return axios.get(`${config.BASE_URL}title=${movieData}${config.KEY}`);
+function searchMovie(inputQuery) {
+  return axios.get(`${config.BASE_URL}${inputQuery}${config.KEY}`);
 }
 
-// director
-function movieDirector(movieData) {
-  return axios.get(`${config.BASE_URL}director=${movieData}${config.KEY}`);
-}
-
-// posters
-function moviePosters(movieData) {
-  return axios.get(`${config.BASE_URL}posterUrl=${movieData}${config.KEY}`);
-}
-
-export { searchMovie, movieDirector, moviePosters };
+export { searchMovie };
 
 // http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_xml2.jsp?collection=kmdb_new2&detail=N&director=%EB%B0%95%EC%B0%AC%EC%9A%B1&ServiceKey=인증키값
