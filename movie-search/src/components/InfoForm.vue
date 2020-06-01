@@ -1,27 +1,34 @@
 <template>
-  <form class="form" v-if="movieList">
-    <ul class="movie-container">
-      <li class="movie-list" v-for="(item, index) in movieList" :key="index">
-        <img
-          class="poster"
-          v-if="item.posters"
-          :src="item.posters.split('|')[0]"
-        />
-        <!-- 포스터가 없을경우 이미지 집어 넣기 -->
-        <!-- <img v-else  /> -->
-        <div class="info-wrap" v-if="item.posters">
-          <p class="plot">줄거리: {{ item.plots.plot[0].plotText }}</p>
-          <span>director : {{ directorNm(item.directors.director[0]) }}</span>
-          <span class="more-btn">detail > </span>
-        </div>
-        <div class="txt-box">
-          <strong class="title-ko">{{ replaceTitle(item.title) }}</strong>
-          <span class="title-en">{{ item.titleEng }}</span>
-          <span class="date">{{ repRlsDateReplace(item.repRlsDate) }}</span>
-        </div>
-      </li>
-    </ul>
-  </form>
+  <div class="wrap info">
+    <form class="" v-if="movieList">
+      <ul class="movie-container">
+        <li class="movie-list" v-for="(item, index) in movieList" :key="index">
+          <a href="" @click.prevent="movedDetail">
+            <img
+              class="poster"
+              v-if="item.posters"
+              :src="item.posters.split('|')[0]"
+            />
+            <!-- 포스터가 없을경우 이미지 집어 넣기 -->
+            <!-- <img v-else  /> -->
+            <div class="info-wrap" v-if="item.posters">
+              <p class="plot">줄거리: {{ item.plots.plot[0].plotText }}</p>
+              <span
+                >director : {{ directorNm(item.directors.director[0]) }}</span
+              >
+              <span class="more-btn">detail > </span>
+            </div>
+          </a>
+
+          <div class="txt-box">
+            <strong class="title-ko">{{ replaceTitle(item.title) }}</strong>
+            <span class="title-en">{{ item.titleEng }}</span>
+            <span class="date">{{ repRlsDateReplace(item.repRlsDate) }}</span>
+          </div>
+        </li>
+      </ul>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -57,6 +64,9 @@ export default {
     },
     directorNm(director) {
       return director.directorNm.replace(/!HS|\s!HE\s/gi, '');
+    },
+    movedDetail() {
+      this.$router.push('/mDetail');
     },
   },
 };

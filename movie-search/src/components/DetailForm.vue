@@ -1,7 +1,9 @@
 <template>
-  <form action="">
-    <h1>영화상세정보페이지</h1>
-  </form>
+  <div class="wrap detail">
+    <form action="">
+      <h1>영화상세정보페이지</h1>
+    </form>
+  </div>
 </template>
 
 <script>

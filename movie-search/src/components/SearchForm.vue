@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="wrap search">
+    <form class="bgImg"><div></div></form>
     <form class="form" @submit.prevent="submitForm">
       <select v-model="selected">
         <option
@@ -10,14 +11,13 @@
         >
         <input type="text" />
       </select>
-
       <input
         type="text"
         id="title-input"
         v-model="inputQuery"
         :placeholder="placeholder"
       />
-      <button type="submit">search</button>
+      <button type="submit"><i class="fas fa-search"></i></button>
     </form>
   </div>
 </template>
@@ -32,15 +32,15 @@ export default {
       selected: 'title',
       options: [
         {
-          text: 'Title',
+          text: 'title',
           value: 'title',
         },
         {
-          text: 'Director',
+          text: 'director',
           value: 'director',
         },
         {
-          text: 'Keyword',
+          text: 'keyword',
           value: 'keyword',
         },
       ],
