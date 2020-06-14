@@ -6,7 +6,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    movieList: [],
+    movieList: [], // 데이터들이 담길 배열
     inputQuery: '', // 검색데이터
     option: '',
   },

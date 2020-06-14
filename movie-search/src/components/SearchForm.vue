@@ -1,6 +1,6 @@
 <template>
   <div class="wrap search">
-    <form class="bgImg"><div></div></form>
+    <!-- <form class="bgImg"><div></div></form> -->
     <form class="form" @submit.prevent="submitForm">
       <select v-model="selected">
         <option

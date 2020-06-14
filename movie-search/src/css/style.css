@@ -6,9 +6,26 @@
 text-align: center;
 }
 
-/* appHeader */
+/* common */
+.clear::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+.bar::after {
+    content: '';
+    width: 1px;
+    height: 12px;
+    background-color: rgb(199, 193, 193);
+    vertical-align: middle;
+    position: absolute;
+    top: 4px;
+    right: 0;
+}
+
+/* appHeader------------------------------------------------------- */
 .mHeader {
-    padding-top: 10px ;
+    padding-top: 30px ;
 }
 .mHeader .logo {
     display: block;
@@ -18,10 +35,11 @@ text-align: center;
     margin: 0 auto;
 }
 
-/* searchForm */
+
+/* searchForm------------------------------------------------------- */
 .wrap {
     height: 85vh;
-    padding: 20px 0;
+    padding: 30px 0;
     position: relative;
 }
 .wrap.search > * {
@@ -36,7 +54,7 @@ text-align: center;
 .bgImg > div {
     width: 100%;
     height: 100%;
-    background-image: url('../images/photo-1543536448-d209d2d13a1c.jpg');
+    background-image: url('../images/no-image-2048-5e88c1b20e087fb7bbe9a3771824e743c244f437e4f8ba93bbf7b11b53f7824c.gif');
     background-position: center top;
     background-size: contain;
     background-repeat: no-repeat;
@@ -46,8 +64,8 @@ text-align: center;
     display: block;
     padding:10px;
     text-align: center;
-    top: 20%;
-    background-color: rgba(245, 245, 220, 0.746);
+    top: 10%;
+    background-color: #73aca9d7;
     width: 50%;
     height: 50px;
 }
@@ -85,26 +103,167 @@ select {
     font-size: 30px;
 }
 
-/* infoForm */
-.movie-container{
-    outline: 1px solid red;
+
+/* infoForm ---------------------------------------------------------*/
+.wrap.info {
+    padding-top: 70px;
 }
-.movie-container::before {
+.movie-container::after {
     content: "";
     display: block;
     clear: both;
 }
 .movie-container > li {
-    outline:  3px solid green;
+    /* outline:  1px solid green; */
     float: left;
     width: 25%;
+    height: 400px;
+    position: relative;
+    margin-bottom: 60px;
 }
 .movie-container > li > a {
     display: block;
+    width: 210px;
+    height:310px;
+    overflow:hidden;
+    margin: 0 auto;
+    position: relative;
+    margin-bottom: 16px;
 }
-.movie-container > li > a {
+.movie-container img {
     width: 100%;
+    height: 100%;
 }
 .info-wrap {
-    background-color: grey;
+    background-color: black;
+    position: absolute;
+    left: 0; top: 0;right: 0;bottom: 0;
+    z-index: 100;
+    color: blanchedalmond;
+    opacity: 0;
+    padding: 4px;
+    box-sizing: border-box;
+    transition: 0.2s ease-in;
+}
+.info-wrap > * {
+    display: block;
+}
+.movie-container > li > a:hover .info-wrap{
+    opacity: .7;
+}
+
+.plot {
+    height:15em;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    display: -ms-flexbox;
+    word-wrap: break-word;
+    -webkit-line-clamp:6;
+    -webkit-box-orient: vertical;
+    display:-webkit-box;
+}
+.more-btn {
+    font-size: 15px;
+    padding: 10px;
+    position: absolute;
+    bottom: 5px; left: 50%; 
+    transform: translateX(-50%);
+    width: 39%;
+    background-color: white;
+    color: black;
+    font-weight: 700;
+}
+
+.more-btn:hover {
+    
+    color: crimson;
+}
+
+/*  */
+.txt-box{
+    text-align: center;
+}
+.txt-box > *{
+    display: block;
+}
+.title-ko {
+    font-size: 18px;
+    font-weight: 500;
+}
+.directorNm {
+    font-size: 10px;
+}
+
+
+/* detailForm -------------------------------------------------------- */
+.wrap.detail {
+    padding: 30px 12%;
+    height: auto;
+}
+.main > form {
+    position: relative;
+    padding-top: 70px;
+    text-align: left;
+}
+h5 {
+    font-size: 26px;
+    text-align: left;
+    padding: 4px 7px;
+    font-weight: 600;
+    color: #2eb3ac;
+    position: absolute;
+    top: 0;
+    border-bottom:2px solid #2eb3ac;
+}
+
+
+.main-wrap h5 {
+    float: none;
+}
+.main-wrap > *  {
+    float: left;
+}
+.de-poster {
+    width: 210px;
+    height: 310px;
+    margin-right: 30px;
+}
+.de-poster > .poster {
+    width: 100%;
+}
+
+.detail-box > * {
+    display: block;
+    margin-top: 3px;
+}
+.detail-box .title-ko {
+    font-size: 29px;
+    line-height: 35px;
+}
+.etc > span{position: relative;}
+.genre {padding-right: 4px;}
+.date {padding:  0 3px;}
+.rating {padding-left: 4px;}
+.directorNm-ko {
+    position: relative;
+    padding-right: 7px;
+}
+.directorNm-ko.bar::after {right:3px;}
+.de-plot {
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 28px;
+    margin-top: 20px;
+    padding: 7px 0;
+}
+/*  */
+.stils-cut{
+    padding:30px 0 50px !important;
+    height: 540px;
+   
+}
+.stils-cut > div {
+    height: 100%;
+     outline: 1px solid #2eb3ac;
+
 }
