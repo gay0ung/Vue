@@ -34,5 +34,16 @@ export default new Vuex.Store({
           console.log(err);
         });
     },
+    FETCH_KEYWORD(context, keyword) {
+      return searchMovie(keyword)
+        .then(res => {
+          context.commit('SET_LIST', res.data);
+
+          return res;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
   },
 });

@@ -24,6 +24,8 @@
 
 <script>
 // import { searchMovie } from '@/api/index.js';
+// import {}  from '@/utils/cookies';
+
 export default {
   data() {
     return {
@@ -45,6 +47,9 @@ export default {
         },
       ],
     };
+  },
+  created() {
+    // 쿠키가 들어갈 자리
   },
   computed: {
     placeholder() {

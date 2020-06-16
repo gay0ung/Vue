@@ -1,8 +1,8 @@
 /* app */
 #app {
     padding: 0 1.5%;
-    max-width: 1766px;
-    min-width: 1500px;
+    /* max-width: 1766px;*/
+    min-width: 1040px; 
 text-align: center;
 }
 
@@ -26,6 +26,7 @@ text-align: center;
 /* appHeader------------------------------------------------------- */
 .mHeader {
     padding-top: 30px ;
+   
 }
 .mHeader .logo {
     display: block;
@@ -38,7 +39,7 @@ text-align: center;
 
 /* searchForm------------------------------------------------------- */
 .wrap {
-    height: 85vh;
+    height: 30vh;
     padding: 30px 0;
     position: relative;
 }
@@ -65,8 +66,8 @@ text-align: center;
     padding:10px;
     text-align: center;
     top: 10%;
-    background-color: #73aca9d7;
-    width: 50%;
+    background-color: #2c3e50;
+    width: 68%;
     height: 50px;
 }
 .form > * {
@@ -95,14 +96,49 @@ select {
 }
 .form > button > i {
     width: 100%;
-    color: rgb(54, 53, 53);
+    color: #fff;
     vertical-align: middle;
     text-align: right;
 }
 .fa-search:before {
     font-size: 30px;
 }
-
+/* genresearch */
+.genre-wrap > h3 {
+    margin-top: 30px;
+    opacity: .1;
+}
+.genre-wrap:hover > h3 {
+    opacity: .4;
+}
+.genre-btn {
+     display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.genre-btn > button {
+    width: 70px;
+    height: 70px;
+    padding: 10px;
+    border-radius:50% ;
+    opacity: 0.7;
+    font-weight: 500;
+    color: rgb(255, 255, 255);
+}
+.genre-btn > button:hover {
+    opacity: 1;
+}
+.genre-btn > button+button{
+    margin-left: 20px;
+}
+.genre-btn > button:nth-child(1){background-color: #78909C;}
+.genre-btn > button:nth-child(2){background-color: #789c93;}
+.genre-btn > button:nth-child(3){background-color: #869c78;}
+.genre-btn > button:nth-child(4){background-color:#9c9b78 ;}
+.genre-btn > button:nth-child(5){background-color: #9c8878;}
+.genre-btn > button:nth-child(6){background-color: #9c7878;}
+.genre-btn > button:nth-child(7){background-color: #9c7889;}
+.genre-btn > button:nth-child(8){background-color: #9c7896;}
 
 /* infoForm ---------------------------------------------------------*/
 .wrap.info {
