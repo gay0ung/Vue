@@ -3,11 +3,11 @@
     <form class="" v-if="movieList" @submit.prevent="submitForm">
       <ul class="movie-container">
         <li class="movie-list" v-for="(item, index) in movieList" :key="index">
-          <a href="" @click.prevent="movedDetail">
+          <a @click.prevent="movedDetail">
             <img
               class="poster"
               v-if="item.posters"
-              :src="item.posters.split('|')[0]"
+              :src="isPoster(item.posters)"
             />
             <!-- 포스터가 없을경우 이미지 집어 넣기 -->
             <img
@@ -35,11 +35,19 @@
 </template>
 
 <script>
+import {
+  replaceName,
+  repRlsDateReplace,
+  splitPoster,
+  specialStrRemove,
+} from '@utils/filters.js';
+
+//import { saveItemToCookie, saveDirectorToCookie } from '@/utils/cookies.js';
 export default {
   data() {
     return {
-      inputQuery: this.$store.state.inputQuery,
-      options: this.$store.state.option,
+      getvalue: this.$store.state.getvalue,
+      seleted: this.$store.state.seleted,
     };
   },
   computed: {
@@ -48,21 +56,40 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('FETCH_LIST', `${this.options}=${this.inputQuery}`);
+    const listCount = 'listCount=100&';
+    this.$store.dispatch(
+      'FETCH_LIST',
+      `${listCount}${this.seleted}=${this.getvalue}`,
+    );
   },
   methods: {
-    submitForm() {
-      if (this.inputQuery) {
-        this.$store.commit('SET_TITLE', this.inputQuery);
-      }
+    replaceTitle(name) {
+      return replaceName(name);
     },
-    replaceTitle(title) {
-      // 제목에 !HS !HE 나오는 문제를 해결함
-      return title.replace(/!HS|\s!HE\s/gi, '');
+    isPoster(posters) {
+      return splitPoster(posters);
+    },
+    spcCharRemove(list) {
+      return specialStrRemove(list);
+    },
+
+    // 해당 영화를 클릭했을때 해당 관련상세페이지로 간다.
+    submitForm(item) {
+      const keyword = this.spcCharRemove(item.keyword);
+      const genre = this.spcCharRemove(item.genre);
+
+      this.$store.commit('SET_DEITEM', item); // 클릭한 영화 배열 저장.
+      let KEYWORD = 'keyword';
+      if (KEYWORD) {
+        this.$store.commit('SET_KEYWORD', `${KEYWORD}=${keyword}`);
+      } else {
+        let GENRE = 'genre';
+        this.$store.commit(`SET_KEYWORD`, `${GENRE} = ${genre}`);
+      }
     },
     // 개봉날짜
     repRlsDateReplace(date) {
-      return date.replace(/(\d{4})(\d{2})(\d{2})/g, '$1-$2-$3');
+      return repRlsDateReplace(date);
     },
     directorNm(director) {
       return director.directorNm.replace(/!HS|\s!HE\s/gi, '');

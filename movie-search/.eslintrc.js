@@ -18,7 +18,9 @@ module.exports = {
       printWidth: 80,
       bracketSpacing: true,
       arrowParens: 'avoid',
-    }]
+      extends: "eslint:recommended"
+    }],
+
   },
   parserOptions: {
     parser: "babel-eslint"
