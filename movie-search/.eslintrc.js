@@ -18,7 +18,7 @@ module.exports = {
       printWidth: 80,
       bracketSpacing: true,
       arrowParens: 'avoid',
-      extends: "eslint:recommended"
+      eslint:"recommended"
     }],
 
   },
