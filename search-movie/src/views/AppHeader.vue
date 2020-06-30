@@ -1,6 +1,6 @@
 <template>
   <div class="app-header">
-    <h1>MOVIE</h1>
+    <h1><router-link to="/">MOVIE</router-link></h1>
   </div>
 </template>
 

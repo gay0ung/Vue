@@ -1,4 +1,3 @@
-// 공공 api가 들어올 자리
 import axios from 'axios';
 
 const config = {
@@ -7,8 +6,8 @@ const config = {
   KEY: '&ServiceKey=6H19HF3Z57ETOX71I7T1',
 };
 
-function movieDate(value) {
+function movieData(value) {
   return axios.get(`${config.BASE_URL}${value}${config.KEY}`);
 }
 
-export { movieDate };
+export { movieData };

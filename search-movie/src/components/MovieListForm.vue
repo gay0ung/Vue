@@ -1,5 +1,7 @@
 <template>
-  <div class="movie-list-form"></div>
+  <div class="movie-list-form">
+    검색한 영화 리스트들이 보여질 페이지
+  </div>
 </template>
 
 <script>
