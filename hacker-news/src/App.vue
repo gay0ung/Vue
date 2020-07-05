@@ -37,6 +37,9 @@ export default {
   created() {
     bus.$on('start:spinner', this.startSpinner);
     bus.$on('end:spinner', this.endSpinner);
+
+    // .env 파일에서 내용을 사용하고 싶을때
+    console.log(process.env.VUE_APP_TITLE);
   },
   beforeDestroy() {
     // 컴포넌트의 역할을 끝난후  evetbus기능 을 꺼준다.
