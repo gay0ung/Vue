@@ -1,4 +1,4 @@
-# vue-news2
+# hacker-news
 
 ## Project setup
 ```
