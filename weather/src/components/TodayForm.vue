@@ -1,30 +1,23 @@
 <template>
   <div class="today-wrap">
-    <form id="search-city" @submit.prevent="submitForm">
-      <input
-        type="text"
-        v-model="searchCity"
-        placeholder="Please write the city name in English."
-      />
-
-      {{ weatherData }}
-    </form>
-    <template v-if="weatherData">
+    <form id="search-city" @submit.prevent="">
       <div class="today-main">
-        <h1 class="city-name">{{}}</h1>
+        <h1 class="city-name">{{ todayList.name }}</h1>
         <div class="temp-minmax">
-          <span class="hight">H {{}}℃</span>
-          <span class="low">L {{}}℃</span>
+          <span class="hight">H {{ todayList.main.temp_max }}℃</span>
+          <span class="low">L {{ todayList.main.temp_min }}℃</span>
+          <span class="feels">😵{{ todayList.main.feels_like }}</span>
         </div>
         <div class="temp-now">
-          <p>{{}}℃</p>
-          <p>{{}}</p>
+          <p>{{ todayList.main.temp }}℃</p>
+          <p>{{ todayList.weather[0].description }}</p>
         </div>
         <div class="weathe-img">
-          <i>{{}}</i>
+          <i>{{ todayList.weather[0].icon }}</i>
         </div>
       </div>
-    </template>
+    </form>
+    {{ weatherData }}
   </div>
 </template>
 
@@ -32,52 +25,23 @@
 export default {
   data() {
     return {
-      searchCity: '',
-      weatherList: {
-        HTemp: 0,
-        LTemp: 0,
-        NowTemp: 0,
-        cityName: '',
-        bgi: '',
-        weather: '',
-      },
+      todayList: [],
       errMessage: '',
     };
   },
   computed: {
-    weatherData() {
-      return this.$store.state.todayDATA;
-    },
+    // weatherData() {
+    //   return this.$store.state.todayDATA;
+    // },
   },
   create() {
-    console.log(this.weatherList.lenght);
+    this.weatherData;
   },
+
   methods: {
-    submitForm() {
-      try {
-        let searchCity = this.searchCity;
-        let weatherList = this.weatherList;
-        // let icon = this.bgi;
-
-        if (searchCity == '') {
-          alert('please wirte the city name');
-        } else {
-          this.$store.dispatch('FETCH_TODAYW', searchCity);
-          // this.$store.dispatch('FETCH_ICON', icon);
-
-          weatherList.HTemp = this.$store.state.todayDATA.main.temp_max;
-          weatherList.LTemp = this.$store.state.todayDATA.main.temp_min;
-          weatherList.NowTemp = this.$store.state.todayDATA.main.temp;
-          weatherList.cityName = this.$store.state.todayDATA.name;
-          weatherList.weather = this.$store.state.todayDATA.weather[0].main;
-          weatherList.bgi = this.$store.state.todayDATA.weather[0].icon;
-        }
-      } catch (err) {
-        this.errMessage = err.response.message;
-        console.log(err.Response.message);
-      } finally {
-        this.cityName = '';
-      }
+    weatherData() {
+      this.todayList = this.$store.state.todayDATA;
+      console.log(this.todayList);
     },
   },
 };
