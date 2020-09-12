@@ -1,12 +1,14 @@
 <template>
-  <form action="" @submit.prevent="submitForm">
-    <input
-      type="text"
-      v-model="searchCity"
-      placeholder="Please write the city name in English."
-    />
-    <button type="submit">click</button>
-  </form>
+  <div class="search-cont">
+    <form @submit.prevent="submitForm">
+      <input
+        type="text"
+        v-model="searchCity"
+        placeholder="Please write on the city name in English."
+      />
+      <button type="submit">search</button>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -16,20 +18,17 @@ export default {
       searchCity: '',
     };
   },
-  created() {
-    // this.searchCity = 'seoul';
-    this.$store.dispatch('FETCH_TODAYW', 'seoul');
-  },
+  created() {},
+  computed: {},
   methods: {
     submitForm() {
       try {
-        let searchCity = this.searchCity;
-        // let icon = this.bgi;
-        console.log(searchCity);
-        if (searchCity === '') {
+        if (this.searchCity === '') {
           alert('please wirte the city name');
         } else {
-          this.$store.dispatch('FETCH_TODAYW', searchCity);
+          console.log(`입력 이름: ${this.searchCity}`);
+          this.$store.dispatch('FETCH_TODAY_W', this.searchCity);
+          this.$store.dispatch('FETCH_WEEK_W', this.searchCity);
         }
       } catch (error) {
         console.log(error);

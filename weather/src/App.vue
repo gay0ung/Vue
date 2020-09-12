@@ -7,6 +7,7 @@
 
 <script>
 import AppHeader from '@/views/AppHeader.vue';
+
 export default {
   components: {
     AppHeader,
@@ -16,4 +17,5 @@ export default {
 
 <style>
 @import url('./assets/css/reset.css');
+@import url('./assets/css/style.css');
 </style>
