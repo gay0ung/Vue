@@ -11,7 +11,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    user: [],
+    user: '',
     todayDATA: [],
     weekDATA: [],
     //wIcon: [],
@@ -39,24 +39,29 @@ export default new Vuex.Store({
       return data.name;
     },
     async FETCH_TODAY_W({ commit }, city) {
-      const { data } = await weatherCity(city);
-      commit('SET_TODAY', data);
-      return data;
+      try {
+        const { data } = await weatherCity(city);
+        commit('SET_TODAY', data);
+        return data;
+      } catch (error) {
+        const errNum = error.request.status;
+        console.log(error.request.status);
+        errNum === 404
+          ? alert('잘못된 정보입니다 .다시 입력해주세요.')
+          : alert('검색어를 다시 확인해 주세요');
+      }
     },
 
     async FETCH_WEEK_W({ commit }, city) {
-      const { data } = await weatherWeek(city);
+      try {
+        const { data } = await weatherWeek(city);
 
-      commit('SET_WEEK', data);
+        commit('SET_WEEK', data);
 
-      return data;
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
     },
-
-    // async FETCH_ICON({ commit }, icon) {
-    //   const { data } = await weatherIcon(icon);
-    //   console.log(data);
-    //   commit('SET_ICON', data);
-    //   return data;
-    // },
   },
 });

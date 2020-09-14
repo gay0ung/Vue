@@ -1,16 +1,18 @@
 <template>
   <div id="app">
     <AppHeader></AppHeader>
-    <router-view></router-view>
+    <MainPage></MainPage>
   </div>
 </template>
 
 <script>
 import AppHeader from '@/views/AppHeader.vue';
+import MainPage from '@/views/MainPage.vue';
 
 export default {
   components: {
     AppHeader,
+    MainPage,
   },
 };
 </script>

@@ -1,12 +1,12 @@
 <template>
   <div class="search-cont">
     <form @submit.prevent="submitForm">
+      <button type="submit"><i class="fas fa-search-location"></i></button>
       <input
         type="text"
         v-model="searchCity"
-        placeholder="Please write on the city name in English."
+        placeholder="Please write the city name in English"
       />
-      <button type="submit">search</button>
     </form>
   </div>
 </template>
@@ -22,19 +22,14 @@ export default {
   computed: {},
   methods: {
     submitForm() {
-      try {
-        if (this.searchCity === '') {
-          alert('please wirte the city name');
-        } else {
-          console.log(`입력 이름: ${this.searchCity}`);
-          this.$store.dispatch('FETCH_TODAY_W', this.searchCity);
-          this.$store.dispatch('FETCH_WEEK_W', this.searchCity);
-        }
-      } catch (error) {
-        console.log(error);
-      } finally {
-        this.searchCity = '';
+      if (this.searchCity === '') {
+        alert('please wirte on the city name');
+      } else {
+        this.$store.dispatch('FETCH_TODAY_W', this.searchCity);
+        this.$store.dispatch('FETCH_WEEK_W', this.searchCity);
       }
+
+      this.searchCity = '';
     },
   },
 };

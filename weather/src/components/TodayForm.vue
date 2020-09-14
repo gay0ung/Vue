@@ -1,24 +1,31 @@
 <template>
   <div class="today-cont">
-    <h1 class="city-name">
-      {{ cityName }}.<span class="coun">{{ countryName }}</span>
-    </h1>
-    <div class="temp-minmax">
-      <span class="hight">H {{ mathTemp(maxTemp) }}℃</span>
-      <span class="low">L {{ mathTemp(minTemp) }}℃</span>
-      <span class="feels">😵{{ mathTemp(feelsTemp) }}℃</span>
+    <div class="tday-inner">
+      <section class="td-1">
+        <h1 class="city-name">
+          <i class="fas fa-map-marker-alt"></i>{{ cityName
+          }}<span class="coun"> . {{ countryName }}</span>
+        </h1>
+        <div class="weathe-img">
+          <img :src="`https://openweathermap.org/img/wn/${icon}@2x.png`" />
+        </div>
+        <div class="w-ds">
+          <p class="">{{ mainDS }}</p>
+        </div>
+      </section>
+      <section class="td-2">
+        <p class="temp-now">{{ mathTemp(nowTemp) }}℃</p>
+        <div class="temp-minmax">
+          <p class="hight"><span>H</span>{{ mathTemp(maxTemp) }}℃</p>
+          <p class="low"><span>L</span> {{ mathTemp(minTemp) }}℃</p>
+          <p class="feels"><span>Feels</span>{{ mathTemp(feelsTemp) }}℃</p>
+        </div>
+      </section>
+      <p class="todayIs">
+        {{ today.hours }} {{ today.today }}
+        <span class="week">{{ today.week }}</span>
+      </p>
     </div>
-    <div class="temp-now">
-      <p>{{ mathTemp(nowTemp) }}℃</p>
-      <p>{{ mainDS }}</p>
-    </div>
-    <div class="weathe-img">
-      <img :src="`https://openweathermap.org/img/wn/${icon}@2x.png`" />
-    </div>
-    <p class="todayIs">
-      {{ today.hours }} {{ today.today }}
-      <span class="week">{{ today.week }}</span>
-    </p>
   </div>
 </template>
 
@@ -26,15 +33,17 @@
 export default {
   data() {
     return {
-      errMessage: '',
       today: {},
     };
   },
   created() {
     this.loadedLocation();
-    this.getDate();
+    setInterval(this.getDate, 1000);
   },
   computed: {
+    setUser() {
+      return this.$store.state.user;
+    },
     // 나라, 도시 이름
     cityName() {
       return this.$store.state.todayDATA.name;
@@ -94,7 +103,7 @@ export default {
       const loadedLocation = localStorage.getItem('positon');
       const loadedCityN = localStorage.getItem('city_name');
 
-      if (loadedLocation !== null) {
+      if (loadedLocation !== null && loadedCityN !== null) {
         const parsedLocation = JSON.parse(loadedLocation);
         const parsedCityN = JSON.parse(loadedCityN);
 
@@ -130,15 +139,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.today-wrap {
-  background-color: beige;
-}
-i {
-  outline: 1px solid green;
-  display: block;
-  width: 100px;
-  height: 100px;
-}
-</style>
