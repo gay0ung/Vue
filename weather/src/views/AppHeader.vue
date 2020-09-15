@@ -25,8 +25,7 @@ export default {
     logoSplit() {
       let logo = 'weather'.split('');
       let newEl = [];
-      // console.log(logo);
-      console.log(document.innerHtml);
+
       logo.map(str => {
         if (str === 'a') {
           newEl.push(`<span class="newStr" id="aA">${str}</span>`);

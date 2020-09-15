@@ -23,7 +23,20 @@ button{border: none; cursor: pointer;}
 input:focus,
 button:focus {
   outline: none;
+  outline-offset:unset;
 }
+/* input:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+input:focus::-moz-placeholder {
+  color: transparent;
+}
+input:focus:-ms-input-placeholder {
+  color: transparent;
+}
+input:focus::-ms-input-placeholder {
+  color: transparent;
+} */
 
 a{
   text-decoration: none;

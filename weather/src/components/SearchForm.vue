@@ -8,6 +8,7 @@
         placeholder="Please write the city name in English"
       />
     </form>
+    {{ getUserCity }}
   </div>
 </template>
 
@@ -19,14 +20,18 @@ export default {
     };
   },
   created() {},
-  computed: {},
+  computed: {
+    getUserCity() {
+      return this.$store.state.userCity;
+    },
+  },
   methods: {
     submitForm() {
       if (this.searchCity === '') {
         alert('please wirte on the city name');
       } else {
-        this.$store.dispatch('FETCH_TODAY_W', this.searchCity);
-        this.$store.dispatch('FETCH_WEEK_W', this.searchCity);
+        this.$store.dispatch('FETCH_TODAY_W', `q=${this.searchCity}`);
+        this.$store.dispatch('FETCH_WEEK_W', `q=${this.searchCity}`);
       }
 
       this.searchCity = '';
