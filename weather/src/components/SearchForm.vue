@@ -1,12 +1,11 @@
 <template>
   <div class="search-cont">
     <form @submit.prevent="submitForm">
+      <label for="search-input" v-if="!searchCity"
+        >Please write the city name in English</label
+      >
       <button type="submit"><i class="fas fa-search-location"></i></button>
-      <input
-        type="text"
-        v-model="searchCity"
-        placeholder="Please write the city name in English"
-      />
+      <input type="text" id="search-input" v-model="searchCity" />
     </form>
     {{ getUserCity }}
   </div>

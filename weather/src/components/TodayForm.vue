@@ -1,6 +1,6 @@
 <template>
   <div class="today-cont">
-    <div class="tday-inner">
+    <div class="tday-inner" v-if="todayData && weatherMain && weatherInfo">
       <section class="td-1">
         <h1 class="city-name">
           <i class="fas fa-map-marker-alt"></i>{{ todayData.name
@@ -18,7 +18,7 @@
         </div>
       </section>
       <section class="td-2">
-        <p class="temp-now">{{ mathTemp(weatherMain.temp) }}℃</p>
+        <p class="temp-now">{{ Math.round(weatherMain.temp) }}℃</p>
         <div class="temp-minmax">
           <p class="hight">
             <span>Max</span>{{ Math.round(weatherMain.temp_max) }}℃
@@ -99,9 +99,6 @@ export default {
         week: `${week[day]}`,
       };
       this.date = timeObj;
-    },
-    mathTemp(temp) {
-      return Math.round(temp);
     },
   },
 };
