@@ -1,6 +1,10 @@
 <template>
   <div class="week-cont" @mousewheel.prevent="scrollHorizon">
-    <!-- v-for로 해준다. -->
+    <div id="scroll" v-if="scroll">
+      <i class="scroll-icon"><span></span></i>
+      <span>scroll</span>
+    </div>
+    <!-- 5시간 단위 날씨 -->
     <ul>
       <li v-for="item in weekList" :key="item.id">
         <p class="week-date">{{ todayWeek(item.dt_txt) }}</p>
@@ -20,9 +24,10 @@
 import { splitDate } from '../utils/filtersDate.js';
 export default {
   data() {
-    return {};
+    return {
+      scroll: true,
+    };
   },
-  created() {},
   computed: {
     weekList() {
       return this.$store.state.weekDATA.list;
@@ -34,6 +39,8 @@ export default {
     },
     scrollHorizon(e) {
       const scrollH = document.querySelector('.week-cont');
+      // e ? (this.scroll = false) : (this.scroll = true);
+      // console.log(e);
 
       e = window.event || e;
       let delta = Math.max(-1, Math.min(1, e.wheelDelta || -e.detail));
@@ -42,9 +49,3 @@ export default {
   },
 };
 </script>
-
-<style scope>
-li {
-  list-style: none;
-}
-</style>

@@ -5,16 +5,15 @@
   min-height: 850px;
 }
 .app-header {
-  height: 100px;
+  height: 90px;
   display: flex; 
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
 
 }
 .header-wrap {
   position: relative;
   width: 600px;
-  height: 100%;
 }
 .w-logo {
   position: absolute;
@@ -33,8 +32,7 @@
 .search-cont {
   position: absolute;
   height: 37px;
-  width: 330px;
-  left: 112px;
+  width: 100%;
   top: 50%;
   transform: translateY(-50%);
 }
@@ -55,6 +53,7 @@
   font-size: 1.6em;
   color:#5a5c5185 ;
 }
+
 .search-cont > form > input {
   height: 100%;
   width: 100%;
@@ -62,19 +61,16 @@
   padding: 0 15px;
   border: none;
   font-size: 15px;
-  border: 4px solid #4b4b4b44;
   font-weight: 700;
 }
-/* .search-cont > form > input:focus::-webkit-input-placeholder {
-  color: transparent;
- 
-} */
+
 
 /* mainPage ------------------------------------------------- */
 .main-page {
   height: calc(100% - 100px);
   display: grid;
   grid-template-rows: 1fr 300px;
+  position: relative;
 }
 
 /* today ----*/
@@ -93,6 +89,7 @@
 .tday-inner > * {
   position: absolute;
 }
+
 /*  */
 .td-1 {
   left: 0;
@@ -111,7 +108,7 @@
 .city-name > i {
   font-size: 38px;
   margin-right: 5px;
-  color: #d1c300;
+  color:gray;
 }
 .city-name > .coun {
   font-size: 20px;
@@ -124,7 +121,7 @@
   position: absolute;
   left: 0;
   bottom: 4px;
-  background-color: #d1c300 ;
+  background-color: gray;
   border-radius: 40px;
 }
 
@@ -132,7 +129,6 @@
 .weathe-img {
   width: 200px;
   border-radius: 40px;
-  background-color: rgba(44, 44, 36, 0.349);
 }
 .weathe-img > img {
   width: 100%;
@@ -153,18 +149,6 @@
   top: 50%; left: 50%;
   transform: translate(-50%,-50%) ;
 }
-/* .w-ds::after{
-  content: '';
-  position: absolute;
-  width:90px;
-  height: 20px;
-  background-color: rgba(159, 205, 50, 0.541);
-  top: 50%;
-  left: 50%;
-  z-index: 200;
-  border-radius:10px;
-  transform: translate(-50%,-50%) rotateZ(-13deg);
-} */
 
 /*  */
 .td-2 {
@@ -180,16 +164,16 @@
 .temp-now {
   font-size: 90px;
   line-height: initial;
+  margin: 110px 0 30px;
 }
 
 .temp-minmax {
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
 }
 
 .temp-minmax > p {
-  background-color: gray;
+  background-color: rgb(255, 248, 248);
   width: 55px;
   height: 55px;
   border-radius: 15px;
@@ -200,24 +184,24 @@
   font-weight: 700;
 
 }
-.temp-minmax > p.hight {
-  background-color: #e17055;
+.temp-minmax > p.hight > span {
+  color: #e17055;
 }
-.temp-minmax > p.low {
-  background-color: #559de1;
+.temp-minmax > p.low > span {
+  color: #559de1;
 }
-.temp-minmax > p.feels {
-  background-color: #dfe155;
+.temp-minmax > p.feels > span {
+  color: #dfe155;
 }
 .temp-minmax > p > span {
   font-size: 13px;
   font-weight: 500;
-  color: white;
+  color: black;
 }
 .todayIs {
   position: absolute;
-  bottom: 0;
-  right:0;
+  top: 62px;
+  right: 66px;
 }
 /* week ----*/
 .week-cont {
@@ -231,7 +215,6 @@
 }
 .week-cont > ul {
   display: flex;
-  /* width: 100%; */
 }
 .week-cont > ul li {
   width: 188px;
@@ -254,4 +237,63 @@
 }
 .week-DS {
   color: #5e3131a2;
+}
+
+/* scroll icon */
+#scroll {
+  position: absolute;
+  left: -50px;
+  height: 90px;
+  width: 40px;
+}
+
+#scroll > span {
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  color: rgba(110, 102, 102, 0.452);
+}
+.scroll-icon {
+  padding-top: 70px;
+}
+.scroll-icon span {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
+  border-left: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -webkit-animation: scrollIcon 1.5s infinite;
+  animation: scrollIcon 1.5s infinite;
+  box-sizing: border-box;
+}
+@-webkit-keyframes scrollIcon {
+  0% {
+    -webkit-transform: rotate(-45deg) translate(0, 0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: rotate(-45deg) translate(-20px, 20px);
+    opacity: 0;
+  }
+}
+@keyframes scrollIcon {
+  0% {
+    transform: rotate(-45deg) translate(0, 0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(-45deg) translate(-20px, 20px);
+    opacity: 0;
+  }
 }

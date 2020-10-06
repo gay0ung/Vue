@@ -14,6 +14,7 @@ export default new Vuex.Store({
     todayDATA: [],
     wMain: null,
     wInfo: null,
+    Wind: null,
     weekDATA: [],
   },
   mutations: {
@@ -25,18 +26,13 @@ export default new Vuex.Store({
       state.todayDATA = today;
       state.wMain = today.main;
       state.wInfo = today.weather[0];
+      state.wind = today.wind;
     },
     SET_WEEK(state, week) {
       state.weekDATA = week;
     },
   },
   actions: {
-    // // 비동기 처리 해준다. Backend API를 통신한다.
-    // async GET_USER_LOCATION({ commit }, location) {
-    //   const { data } = await getUserWeather(location[0], location[1]);
-    //   commit('SET_USER', data.name);
-    //   return data.name;
-    // },
     async FETCH_TODAY_W({ commit }, position) {
       try {
         const { data } = await weatherCity(position);

@@ -64,6 +64,9 @@ export default {
     weatherInfo() {
       return this.$store.state.wInfo;
     },
+    weaterWind() {
+      return this.$store.state.wind;
+    },
   },
 
   methods: {

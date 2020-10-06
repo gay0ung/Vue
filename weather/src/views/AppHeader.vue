@@ -1,7 +1,7 @@
 <template>
   <div class="app-header">
     <div class="header-wrap">
-      <h1 class="w-logo" v-html="logoSplit()"></h1>
+      <!-- <h1 class="w-logo" v-html="logoSplit()"></h1> -->
       <SearchForm></SearchForm>
     </div>
   </div>
@@ -22,19 +22,18 @@ export default {
     SearchForm,
   },
   methods: {
-    logoSplit() {
-      let logo = 'weather'.split('');
-      let newEl = [];
-
-      logo.map(str => {
-        if (str === 'a') {
-          newEl.push(`<span class="newStr" id="aA">${str}</span>`);
-        } else {
-          newEl.push(`<span class="newStr">${str}</span>`);
-        }
-      });
-      return newEl.join('');
-    },
+    // logoSplit() {
+    //   let logo = 'weather'.split('');
+    //   let newEl = [];
+    //   logo.map(str => {
+    //     if (str === 'a') {
+    //       newEl.push(`<span class="newStr" id="aA">${str}</span>`);
+    //     } else {
+    //       newEl.push(`<span class="newStr">${str}</span>`);
+    //     }
+    //   });
+    //   return newEl.join('');
+    // },
   },
 };
 </script>
