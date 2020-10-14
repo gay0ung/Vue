@@ -1,0 +1,43 @@
+table {
+  border-collapse: collapse;
+  background-color: rgba(214, 146, 57, 0.89);
+  border-radius: 10px;
+  overflow: hidden;
+}
+td {
+  border: 1px solid black;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  font-size:40px;
+}
+#app {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#app > div {
+  text-align: center;
+}
+h1 {
+  margin-bottom:60px ;
+  text-align: center;
+}
+p {
+  font-size: 1.4em;
+  color: rgb(61, 60, 60);
+}
+#turn {margin-bottom: 30px;}
+#turn > span{
+  font-weight: bold;
+}
+#winner {
+  height: 38px;
+  color: rgb(243, 151, 2);
+  margin-top: 20px;
+}
+#winner > span {
+  font-weight: bold;
+  color: rgb(243, 151, 2);
+}

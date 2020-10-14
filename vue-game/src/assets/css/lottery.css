@@ -1,0 +1,64 @@
+#app {
+  width: 570px;
+  position: relative;
+  background-color: rgba(209, 216, 224,1.0);
+  border-radius: 40px;
+  padding: 20px;
+
+}
+#app h2 {
+  position: absolute;
+  top:-200px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2em;
+}
+.lotto-wrap {
+  display: flex;
+  position: relative;
+  justify-content: space-around;
+  height: 40px;
+  align-items: center;
+}
+
+.lotto-wrap p {
+  position: absolute;
+  top: -50px;
+}
+#result-num {
+  left: 20px;
+}
+#bonus-num {
+  right: 20px;
+}
+
+.ball {
+  display: inline-block;
+  border: 1px solid black;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 20px;
+  text-align: center;
+  margin-right: 20px;
+}
+.fas {
+  color: white;
+  font-size: 30px;
+  width: fit-content;
+  height: fit-content;
+}
+
+button {
+  position: absolute;
+  top: -80px;
+  border:none;
+  background-color: rgba(75, 101, 132,1.0);
+  padding: 10px;
+  cursor: pointer;
+  font-family: 'InfinitySans-RegularA1';
+  font-weight:400;
+  color: white;
+  border-radius: 20px;
+}
