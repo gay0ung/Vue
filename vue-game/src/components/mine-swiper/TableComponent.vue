@@ -35,6 +35,7 @@ export default {
           case CODE.MINE:
             return {
               background: '#444',
+              fontSize: 0,
             };
           case CODE.CLICKED_MINE:
           case CODE.OPENED:
