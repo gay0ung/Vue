@@ -1,67 +1,47 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { movieData } from '@/api/index.js';
-import { getValueFromCookie, getTypeFromCooke } from '@/utils/cookies.js';
-import { getIDFromCookie } from '../utils/cookies';
+import { movieAPI } from '@/api/index.js';
+import { getCookieFromTitle } from '@/utils/cookies.js';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    movieData: [],
-    mResult: [],
-    searchTxtBox: {
-      serachInput: getValueFromCookie() || '',
-      option: getTypeFromCooke() || '',
-    },
-    // keywordFirstBox: {
-    //   searchTxt: getFirstKey() || '',
-    //   check: '',
-    // },
-    // similarMovieData: [],
-    // movieID: {
-    //   serachTxt: getIDFromCookie() || '',
-    // },
+    // search input
+    inputValue: getCookieFromTitle() || '',
+    // input result
+    movieDB: [],
+    movieDT: [],
   },
   mutations: {
-    SET_DATA(state, data) {
-      console.log(data);
-
-      // 영화 전체 데이터
-      state.movieData = data;
-      // 영화 세부정보 데이터
-      state.mResult = data.Data[0].Result;
+    // searchForm
+    SET_VALUE(state, inputValue) {
+      state.inputValue = inputValue;
     },
-    INPUT_VALUE(state, searchTxtBox) {
-      console.log(searchTxtBox);
-      state.searchTxtBox = searchTxtBox;
+    SET_MOVIE_DATA(state, data) {
+      state.movieDB = data;
     },
-    SET_OPTION(state, seleted) {
-      state.seleted = seleted;
-    },
-    MOVIE_ID(state, id) {
-      state.movieID = id;
-    },
-    SIMILAR_MOVIE_API(state, keywordFirstBox) {
-      state.keywordFirstBox = keywordFirstBox;
-    },
-    SIMILAR_MOVIES(state, data) {
-      state.similarMoviedata = data;
+    SET_MOVIE_DETAILE(state, data) {
+      state.movieDT = data.results[0];
     },
   },
   actions: {
-    FETCH_DATA(context, data) {
-      console.log(data);
-      return movieData(data.searchTxt)
+    async FETCH_DATA({ commit }, mTitle) {
+      return await movieAPI(mTitle)
         .then(res => {
-          context.commit('SET_DATA', res.data);
-          console.log(res);
-
+          commit('SET_MOVIE_DATA', res.data);
           return res;
         })
-        .catch(err => {
-          console.log(err);
-        });
+        .catch(err => console.log(err));
+    },
+
+    async FETCH_DETAILE({ commit }, mTitle) {
+      return await movieAPI(mTitle)
+        .then(res => {
+          commit('SET_MOVIE_DETAILE', res.data);
+          return res;
+        })
+        .catch(err => console.log(err));
     },
   },
 });

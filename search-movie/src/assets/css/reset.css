@@ -10,6 +10,9 @@ body {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	/* color: black; */
+	/* background-color: #0D0D0D;
+	color: white; */
 }
 
 h1,
@@ -29,6 +32,7 @@ textarea {
 	resize: none;
 }
 
+a{cursor: pointer;}
 li {
 	list-style: none;
 }
@@ -38,12 +42,9 @@ button {
 	font-size: 90%;
 	margin: 0;
 	cursor: pointer;
-	color:rgba(255, 255, 255, .7);
+	/* color:rgba(255, 255, 255, .7); */
 }
-
-a, input{
-	color:rgba(255, 255, 255, .6);
-}
+button:focus,input:focus {outline: none;}
 
 *,
 *:after,

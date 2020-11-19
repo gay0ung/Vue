@@ -1,0 +1,22 @@
+/* Color Theme Swatches in Hex */
+.인터랙션-1-hex { color: #F2F2F2; }
+.인터랙션-2-hex { color: #BFBFBF; }
+.인터랙션-3-hex { color: #737373; }
+.인터랙션-4-hex { color: #262626; }
+.인터랙션-5-hex { color: #0D0D0D; }
+/* Color Theme Swatches in Hex */
+/* { color: #252626; }
+ { color: #358C7C; }
+ { color: #55D9C1; }
+ { color: #F2F2F2; }
+{ color: #0D0D0D; } */
+@import url('./reset.css');
+
+#app {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 80px 1fr;
+}
+
+.app-header {background-color: rgb(97, 153, 153);}
+
