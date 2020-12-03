@@ -13,12 +13,20 @@ const routes = [
     component: () => import('@/views/MainPage.vue'),
   },
   {
-    path: '/mList',
-    component: () => import('@/views/MovieListPage.vue'),
+    path: '/movie',
+    component: () => import('@/views/MoviePage.vue'),
   },
   {
-    path: '/mDetail',
-    component: () => import('@/views/MovieDetailPage.vue'),
+    path: '/tv',
+    component: () => import('@/views/TVPage.vue'),
+  },
+  {
+    path: '/sList',
+    component: () => import('@/views/SearchReaultPage.vue'),
+  },
+  {
+    path: '/sDetail',
+    component: () => import('@/views/DetailtPage.vue'),
   },
 ];
 

@@ -1,11 +1,16 @@
 <template>
-  <div class="app-header">
-    <h1><router-link to="/">MOVIE</router-link></h1>
-  </div>
+  <header class="app-header-page">
+    <headerForm></headerForm>
+  </header>
 </template>
 
 <script>
-export default {};
+import headerForm from '@/components/common/headerForm.vue';
+export default {
+  components: {
+    headerForm,
+  },
+};
 </script>
 
 <style></style>

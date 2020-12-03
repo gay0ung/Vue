@@ -1,15 +1,15 @@
 <template>
   <main class="main-page">
-    <MainForm></MainForm>
+    <MovieForm></MovieForm>
   </main>
 </template>
 
 <script>
-import MainForm from '@/components/MainForm.vue';
+import MovieForm from '@/components/MovieForm.vue';
 
 export default {
   components: {
-    MainForm,
+    MovieForm,
   },
 };
 </script>
