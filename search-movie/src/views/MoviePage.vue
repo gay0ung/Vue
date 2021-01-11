@@ -1,15 +1,15 @@
 <template>
   <main class="main-page">
-    <MovieForm></MovieForm>
+    <MediaTemplate></MediaTemplate>
   </main>
 </template>
 
 <script>
-import MovieForm from '@/components/MovieForm.vue';
+import MediaTemplate from '@/components/MediaTemplate.vue';
 
 export default {
   components: {
-    MovieForm,
+    MediaTemplate,
   },
 };
 </script>

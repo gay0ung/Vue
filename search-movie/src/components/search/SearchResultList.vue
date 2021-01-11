@@ -4,19 +4,14 @@
       <p class="message">{{ checkingResult(searchDB.length) }}</p>
       <ul class="list-wrap">
         <li
-          v-for="(item, idx) in searchDB"
+          v-for="(movie, idx) in searchDB"
           :key="idx"
-          @click.prevent="clickDetail(item.id, item.media_type)"
+          @click.prevent="clickDetail(movie.id, movie.media_type)"
         >
-          <img :src="checkPoster(item.poster_path)" />
-          <span v-show="item.adult === true">19</span>
+          <img :src="checkPoster(movie.poster_path)" />
+          <span v-show="movie.adult === true">19</span>
         </li>
       </ul>
-      <!-- <img :src="checkPoster(searchDB.poster_path)" alt="" />
-      <h3 class="md-title-ko">{{ searchDB.title }}</h3>
-      <span class="years">({{ checkYears(searchDB.release_date) }})</span>
-    
-      <strong class="md-title-en">{{ checkTilte(searchDB) }}</strong> -->
     </div>
 
     {{ searchDB }}

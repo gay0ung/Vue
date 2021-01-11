@@ -38,6 +38,9 @@ export default new Vuex.Store({
     SET_MEDIA_DETAILE(state, data) {
       state.detail = data.results;
     },
+    SET_PATH(state, path) {
+      state.currentPath = path;
+    },
   },
   actions: {
     // 오늘의 인기 데이터
@@ -58,7 +61,6 @@ export default new Vuex.Store({
       return await trending(typeObj.type, typeObj.time)
         .then(res => {
           commit('SET_TRENDING_WEEKLY', res.data);
-
           return res;
         })
         .catch(err => {
@@ -84,6 +86,11 @@ export default new Vuex.Store({
           return res;
         })
         .catch(err => console.log(err));
+    },
+
+    // 현재 위치의 path명
+    CHECKING_PATH({ commit }, path) {
+      console.log(commit);
     },
   },
 });

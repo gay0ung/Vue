@@ -1,14 +1,14 @@
 <template>
   <div>
-    <MediaDetailForm></MediaDetailForm>
+    <DetailForm></DetailForm>
   </div>
 </template>
 
 <script>
-import MediaDetailForm from '@/components/MediaDetailForm.vue';
+import DetailForm from '@/components/DetailForm.vue';
 export default {
   components: {
-    MediaDetailForm,
+    DetailForm,
   },
 };
 </script>

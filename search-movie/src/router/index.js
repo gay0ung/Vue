@@ -22,7 +22,7 @@ const routes = [
   },
   {
     path: '/sList',
-    component: () => import('@/views/SearchReaultPage.vue'),
+    component: () => import('@/views/SearchResultPage.vue'),
   },
   {
     path: '/sDetail',

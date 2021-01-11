@@ -41,6 +41,7 @@
 <script>
 import { mapActions, mapState, mapMutations } from 'vuex';
 import { checkPoster } from '@/utils/mList.js';
+import { eventBus } from '../main.js';
 // import { saveToCookie } from '@/utils/cookies.js';
 export default {
   data() {
@@ -78,7 +79,7 @@ export default {
     },
     // postDetail() {},
     clickDetail(id, type) {
-      console.log(type, id);
+      // console.log(type, id);
       // saveToCookie('id', [id, type]);
       // this.SET_ID([type, id]);
 

@@ -1,15 +1,15 @@
 <template>
   <main class="main-page">
-    <TvForm></TvForm>
+    <MediaTemplate></MediaTemplate>
   </main>
 </template>
 
 <script>
-import TvForm from '@/components/TvForm.vue';
+import MediaTemplate from '@/components/MediaTemplate.vue';
 
 export default {
   components: {
-    TvForm,
+    MediaTemplate,
   },
 };
 </script>
