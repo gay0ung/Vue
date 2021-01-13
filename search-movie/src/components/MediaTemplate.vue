@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="trandy-wrap">
     <div class="trand-daily">
       <form @submit.prevent="postDetail">
         <h3>지금 뜨는 콘텐츠</h3>
@@ -41,7 +41,6 @@
 <script>
 import { mapActions, mapState, mapMutations } from 'vuex';
 import { checkPoster } from '@/utils/mList.js';
-import { eventBus } from '../main.js';
 // import { saveToCookie } from '@/utils/cookies.js';
 export default {
   data() {

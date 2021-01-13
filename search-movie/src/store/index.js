@@ -17,6 +17,8 @@ export default new Vuex.Store({
 
     trandDaily: [], // trand daily
     trandWeekly: [], // trand weekly
+
+    beforePath: '',
   },
   mutations: {
     // searchForm
@@ -36,10 +38,11 @@ export default new Vuex.Store({
       state.searchDB = data.results;
     },
     SET_MEDIA_DETAILE(state, data) {
-      state.detail = data.results;
+      // console.log(data);
+      state.detail = data;
     },
-    SET_PATH(state, path) {
-      state.currentPath = path;
+    BEFORE_PATH(state, path) {
+      state.beforePath = path;
     },
   },
   actions: {
@@ -86,11 +89,6 @@ export default new Vuex.Store({
           return res;
         })
         .catch(err => console.log(err));
-    },
-
-    // 현재 위치의 path명
-    CHECKING_PATH({ commit }, path) {
-      console.log(commit);
     },
   },
 });

@@ -1,13 +1,44 @@
 <template>
   <div class="media-detail">
-    클릭했을때 상세페이지
+    <!-- 영화인경우 -->
+    <template v-if="beforePath === movie">
+      <div class="hero-image">
+        <img :src="checkPoster(detail.backdrop_path)" width="30%" />
+      </div>
+      <div class="poster">
+        <img :src="checkPoster(detail.poster_path)" width="30%" />
+      </div>
+      <div class="sort-of-media">
+        <h3 class="title">{{ detail.title }}</h3>
+        <p class="title en">{{ detail.original_title }}</p>
+        <span class="release-date">{{
+          detail.release_date.substring(0, 4)
+        }}</span>
+        <span>{{ checkingVoteAverage(detail.vote_average) }}</span>
+        <ul class="genres">
+          <li v-for="genre in detail.genres" :key="genre.id">
+            {{ genre.name }}
+          </li>
+        </ul>
+      </div>
+      <div class="media-contents">
+        <p class="overview">
+          {{ detail.overview }}
+        </p>
+      </div>
+    </template>
+    <!-- tv인 경우 -->
+    <template v-else>
+      티비 프로그램
+    </template>
+
     {{ detail }}
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import { eventBus } from '../main.js';
+import { checkPoster } from '@/utils/mList.js';
 
 export default {
   data() {
@@ -16,19 +47,20 @@ export default {
     };
   },
   created() {
-    // console.log(this.path);
-    eventBus.$on('current-path', path => {
-      console.log(path);
-      this.currentPath = path;
-    });
+    console.log(this.beforePath);
   },
 
   computed: {
-    ...mapState(['detail']),
+    ...mapState(['detail', 'beforePath']),
   },
   methods: {
-    // 영화에서 searchResult했을때 클릭하면 /type을 직접 넣어주고 tv일경우도 그렇게 해준다.
-    //
+    checkPoster(path) {
+      return checkPoster(path);
+    },
+    checkingVoteAverage(num) {
+      //10 점 만점이다.
+      console.log(num);
+    },
   },
 };
 </script>

@@ -13,7 +13,7 @@
         </li>
       </ul>
     </div>
-
+    {{ beforePath }}
     {{ searchDB }}
   </div>
 </template>
@@ -21,13 +21,22 @@ movieDB.results
 <script>
 import { checkPoster } from '@/utils/mList';
 import { mapState, mapActions } from 'vuex';
+// import { evnetBus } from '../../main.js';
 
 export default {
+  data() {
+    return {
+      // beforePath: '',
+    };
+  },
   created() {
     // this.checkingResult;
+    // evnetBus.$on('beforePath', path => {
+    //   this.beforePath = path;
+    // });
   },
   computed: {
-    ...mapState(['searchDB']),
+    ...mapState(['searchDB', 'beforePath']),
   },
   methods: {
     ...mapActions(['FETCH_DETAILE']),
@@ -44,7 +53,10 @@ export default {
       return data.title === data.original_title ? null : data.original_title;
     },
     clickDetail(id, type) {
-      this.FETCH_DETAILE({ type: type, id: id });
+      this.FETCH_DETAILE({
+        type: type !== undefined ? type : this.beforePath,
+        id: id,
+      });
       this.$router.push('/sDetail');
     },
   },

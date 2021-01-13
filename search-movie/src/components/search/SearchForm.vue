@@ -14,6 +14,8 @@
 <script>
 import { mapActions, mapMutations } from 'vuex';
 import { saveToCookie } from '@/utils/cookies.js';
+// import { evnetBus } from '../../main.js';
+
 export default {
   data() {
     return {
@@ -24,10 +26,12 @@ export default {
 
   computed: {},
   methods: {
-    ...mapMutations(['SET_VALUE']),
+    ...mapMutations(['SET_VALUE', 'BEFORE_PATH']),
     ...mapActions(['FETCH_DATA']),
     submitForm() {
       const path = this.$route.path;
+      console.log(path);
+      this.BEFORE_PATH(path.replace('/', ''));
 
       if (this.inputValue) {
         saveToCookie('title', this.inputValue);
@@ -40,6 +44,7 @@ export default {
           : this.FETCH_DATA({ type: 'movie', title: this.inputValue });
 
         this.inputValue = '';
+
         this.$router.push('/sList');
       }
     },
