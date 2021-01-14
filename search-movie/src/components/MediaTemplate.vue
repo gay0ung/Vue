@@ -78,12 +78,13 @@ export default {
     },
     // postDetail() {},
     clickDetail(id, type) {
-      // console.log(type, id);
-      // saveToCookie('id', [id, type]);
-      // this.SET_ID([type, id]);
-
+      console.log(type);
       this.FETCH_DETAILE({ type: type, id: id });
-      this.$router.push('/sDetail'); // 검색결과 페이지 이동.
+
+      this.$router.push({
+        name: 'Detail',
+        query: { path: type === 'tv' ? 'tv' : 'movie' },
+      }); // 검색결과 페이지 이동.
     },
     checkPoster(path) {
       return checkPoster(path);

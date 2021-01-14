@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import DetailForm from '@/components/DetailForm.vue';
+import DetailForm from '@/components/detail/DetailForm.vue';
 export default {
   components: {
     DetailForm,

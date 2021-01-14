@@ -1,19 +1,20 @@
 <template>
   <div class="movie-detail-form">
     <div class="detail-main">
-      <p class="message">{{ checkingResult(searchDB.length) }}</p>
+      <p class="message">검색결과 {{ searchDB.length }}</p>
+      <div class="list-wrap"></div>
       <ul class="list-wrap">
         <li
-          v-for="(movie, idx) in searchDB"
+          v-for="(media, idx) in searchDB"
           :key="idx"
-          @click.prevent="clickDetail(movie.id, movie.media_type)"
+          @click.prevent="clickDetail(media.id, media.media_type)"
         >
-          <img :src="checkPoster(movie.poster_path)" />
-          <span v-show="movie.adult === true">19</span>
+          <img :src="checkPoster(media.poster_path)" />
+          <span v-show="media.adult === true">19</span>
         </li>
       </ul>
     </div>
-    {{ beforePath }}
+
     {{ searchDB }}
   </div>
 </template>
@@ -21,7 +22,6 @@ movieDB.results
 <script>
 import { checkPoster } from '@/utils/mList';
 import { mapState, mapActions } from 'vuex';
-// import { evnetBus } from '../../main.js';
 
 export default {
   data() {
@@ -31,9 +31,7 @@ export default {
   },
   created() {
     // this.checkingResult;
-    // evnetBus.$on('beforePath', path => {
-    //   this.beforePath = path;
-    // });
+    this.arrangingData();
   },
   computed: {
     ...mapState(['searchDB', 'beforePath']),
@@ -53,11 +51,28 @@ export default {
       return data.title === data.original_title ? null : data.original_title;
     },
     clickDetail(id, type) {
-      this.FETCH_DETAILE({
-        type: type !== undefined ? type : this.beforePath,
-        id: id,
-      });
+      this.FETCH_DETAILE({ type: type, id: id });
       this.$router.push('/sDetail');
+    },
+    // 영화,tv,인물 끼리 정렬
+    arrangingData() {
+      const searchDB = this.searchDB;
+
+      let arranged = {
+        tv: [],
+        movie: [],
+        person: [],
+      };
+
+      searchDB.map(data => {
+        data.media_type === 'tv'
+          ? arranged.tv.push(data)
+          : data.media_type === 'movie'
+          ? arranged.movie.push(data)
+          : arranged.person.push(data);
+      });
+
+      return arranged;
     },
   },
 };

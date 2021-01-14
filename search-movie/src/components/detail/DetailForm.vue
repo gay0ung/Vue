@@ -1,7 +1,10 @@
 <template>
   <div class="media-detail">
     <!-- 영화인경우 -->
-    <template v-if="beforePath === movie">
+    <template
+      v-if="beforePath === '/movie' || this.$route.query.path === 'movie'"
+    >
+      영화보여지는곳
       <div class="hero-image">
         <img :src="checkPoster(detail.backdrop_path)" width="30%" />
       </div>
@@ -11,9 +14,9 @@
       <div class="sort-of-media">
         <h3 class="title">{{ detail.title }}</h3>
         <p class="title en">{{ detail.original_title }}</p>
-        <span class="release-date">{{
+        <!-- <span class="release-date">{{
           detail.release_date.substring(0, 4)
-        }}</span>
+        }}</span> -->
         <span>{{ checkingVoteAverage(detail.vote_average) }}</span>
         <ul class="genres">
           <li v-for="genre in detail.genres" :key="genre.id">
@@ -46,9 +49,7 @@ export default {
       currentPath: '',
     };
   },
-  created() {
-    console.log(this.beforePath);
-  },
+  created() {},
 
   computed: {
     ...mapState(['detail', 'beforePath']),
@@ -58,8 +59,7 @@ export default {
       return checkPoster(path);
     },
     checkingVoteAverage(num) {
-      //10 점 만점이다.
-      console.log(num);
+      return num;
     },
   },
 };

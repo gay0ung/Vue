@@ -25,6 +25,7 @@ const routes = [
     component: () => import('@/views/SearchResultPage.vue'),
   },
   {
+    name: 'Detail',
     path: '/sDetail',
     component: () => import('@/views/DetailtPage.vue'),
   },
