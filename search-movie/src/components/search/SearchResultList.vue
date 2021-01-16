@@ -2,36 +2,41 @@
   <div class="movie-detail-form">
     <div class="detail-main">
       <p class="message">검색결과 {{ searchDB.length }}</p>
-      <div class="list-wrap"></div>
-      <ul class="list-wrap">
-        <li
-          v-for="(media, idx) in searchDB"
-          :key="idx"
-          @click.prevent="clickDetail(media.id, media.media_type)"
-        >
-          <img :src="checkPoster(media.poster_path)" />
-          <span v-show="media.adult === true">19</span>
-        </li>
-      </ul>
+      <div class="list-wrap">
+        <!-- 사람,드라마, 영화 순으로 정리 하기 -->
+        <div class="s-person" v-show="arrangingData().person.length !== 0">
+          사람
+          <ListForm />
+        </div>
+        <div class="s-movie" v-show="arrangingData().movie.length !== 0">
+          영화
+          <ListForm />
+        </div>
+        <div class="s-tv" v-show="arrangingData().tv.length !== 0">
+          tv<ListForm />
+        </div>
+      </div>
     </div>
-
-    {{ searchDB }}
+    <!-- {{ arrangingData() }} -->
+    <!-- {{ searchDB }} -->
   </div>
 </template>
 movieDB.results
 <script>
 import { checkPoster } from '@/utils/mList';
 import { mapState, mapActions } from 'vuex';
+import ListForm from '@/components/search/ListForm';
 
 export default {
   data() {
-    return {
-      // beforePath: '',
-    };
+    return {};
   },
   created() {
     // this.checkingResult;
-    this.arrangingData();
+    // this.arrangingData();
+  },
+  components: {
+    ListForm,
   },
   computed: {
     ...mapState(['searchDB', 'beforePath']),
@@ -71,7 +76,7 @@ export default {
           ? arranged.movie.push(data)
           : arranged.person.push(data);
       });
-
+      console.log(arranged.tv.length);
       return arranged;
     },
   },

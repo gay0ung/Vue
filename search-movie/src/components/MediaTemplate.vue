@@ -11,6 +11,9 @@
               @click.prevent="clickDetail(daily.id, daily.media_type)"
             >
               <img :src="checkPoster(daily.poster_path)" alt="" />
+              <button type="button" @click="addYourFavList">
+                <i class="far fa-star"></i>
+              </button>
               <h4>{{ daily.title }}</h4>
             </li>
           </ul>
@@ -23,12 +26,16 @@
         <h3>이번주 인기 콘텐츠</h3>
         <div class="slide-wrap">
           <ul class="weekly-list">
-            <li
-              v-for="weekly in trandWeekly"
-              :key="weekly.id"
-              @click.prevent="clickDetail(weekly.id, weekly.media_type)"
-            >
-              <img :src="checkPoster(weekly.poster_path)" alt="" />
+            <li v-for="weekly in trandWeekly" :key="weekly.id">
+              <img
+                @click.prevent="clickDetail(weekly.id, weekly.media_type)"
+                :src="checkPoster(weekly.poster_path)"
+                alt=""
+              />
+              <button type="button" @click="addYourFavList">
+                <i class="far fa-star"></i>
+                <i class="fas fa-star"></i>
+              </button>
               <h4>{{ weekly.title }}</h4>
             </li>
           </ul>
@@ -39,7 +46,7 @@
 </template>
 
 <script>
-import { mapActions, mapState, mapMutations } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import { checkPoster } from '@/utils/mList.js';
 // import { saveToCookie } from '@/utils/cookies.js';
 export default {
@@ -55,7 +62,6 @@ export default {
     ...mapState(['trandDaily', 'trandWeekly']),
   },
   methods: {
-    ...mapMutations(['SET_ID']),
     ...mapActions([
       'FETCH_TRANDING_DAILY',
       'FETCH_TRANDING_WEEKLY',
@@ -88,6 +94,9 @@ export default {
     },
     checkPoster(path) {
       return checkPoster(path);
+    },
+    addYourFavList(e) {
+      console.log(e);
     },
   },
 };

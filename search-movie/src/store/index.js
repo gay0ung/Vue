@@ -1,6 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { trending, searchApi, detailApi } from '@/api/index.js';
+import {
+  trending,
+  searchApi,
+  detailApi,
+  genreApi,
+  findApi,
+} from '@/api/index.js';
 import { getCookieFromTitle } from '@/utils/cookies.js';
 
 Vue.use(Vuex);
@@ -18,7 +24,11 @@ export default new Vuex.Store({
     trandDaily: [], // trand daily
     trandWeekly: [], // trand weekly
 
-    beforePath: '',
+    mGenreList: [],
+    tGenreList: [],
+
+    movieList: [],
+    tvList: [],
   },
   mutations: {
     // searchForm
@@ -41,11 +51,49 @@ export default new Vuex.Store({
       // console.log(data);
       state.detail = data;
     },
-    BEFORE_PATH(state, path) {
-      state.beforePath = path;
+    SET_MOVIE_GENRES_LIST(state, list) {
+      state.mGenreList = list;
+    },
+    SET_TV_GENRES_LIST(state, list) {
+      state.tGenreList = list;
+    },
+    SET_MOVIE_LIST(state, data) {
+      state.movieList = data;
+    },
+    SET_TV_LIST(state, data) {
+      state.tvList = data;
     },
   },
   actions: {
+    // 장르별로 검색하기 위해 영화와 tv프로그램 리스트 불러오기
+    async FETCH_MEDIA_ALL_LIST({ commit }) {
+      return await findApi()
+        .then(res => {
+          // type === 'movie'
+          //   ? commit('SET_MOVIE_LIST', res)
+          //   : commit('SET_TV_LIST', res);
+          commit('SET_TV_LIST', res);
+          return res;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+
+    // 장르종류
+    async FETCH_GENRES_LIST({ commit }, type) {
+      return await genreApi(type)
+        .then(res => {
+          type === 'movie'
+            ? commit('SET_MOVIE_GENRES_LIST', res.data.genres)
+            : commit('SET_TV_GENRES_LIST', res.data.genres);
+
+          return res;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     // 오늘의 인기 데이터
     async FETCH_TRANDING_DAILY({ commit }, typeObj) {
       return await trending(typeObj.type, typeObj.time)

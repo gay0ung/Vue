@@ -33,6 +33,7 @@
     <!-- tv인 경우 -->
     <template v-else>
       티비 프로그램
+      <!--  tv 인 경우에는 에피소드 id가 있으면 for문으로 보여준다. -->
     </template>
 
     {{ detail }}
@@ -49,7 +50,10 @@ export default {
       currentPath: '',
     };
   },
-  created() {},
+  created() {
+    // https://developers.themoviedb.org/3/movies/get-similar-movies
+    // 클릭했을경우 비슷한 영화 추천해주는
+  },
 
   computed: {
     ...mapState(['detail', 'beforePath']),

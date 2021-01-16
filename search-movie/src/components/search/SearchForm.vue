@@ -5,7 +5,7 @@
       <input
         type="text"
         v-model="inputValue"
-        placeholder="제목, 키워드, 인물을 입력해주세요"
+        placeholder="영화, Tv프로그램, 인물을 입력해주세요"
       />
     </form>
   </div>
@@ -30,14 +30,11 @@ export default {
     submitForm() {
       const path = this.$route.path;
 
-      this.BEFORE_PATH(path.replace('/', ''));
-
       if (this.inputValue) {
         saveToCookie('title', this.inputValue);
         this.SET_VALUE(this.inputValue);
 
         this.FETCH_DATA({ type: 'multi', title: this.inputValue });
-        // this.FETCH_DATA({ type: 'person', title: this.inputValue });
 
         this.inputValue = '';
         if (path === '/sList') {

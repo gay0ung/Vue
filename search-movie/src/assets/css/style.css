@@ -17,22 +17,37 @@
   display: grid;
   grid-template-rows: 80px 1fr;
   gap: 10px;
-  /* padding: 0 20px; */
 }
 #app > * {padding: 0 50px;}
 /* header */
 .app-header {
   background-color: rgb(97, 153, 153);
   display: grid;
-  grid-template-columns: repeat(2,auto) 1fr;
+  grid-template-columns: repeat(3,auto) 1fr;
   height: 100%;
   align-items: center;
   gap: 25px;
 }
 .h-nav {
-  display: grid; grid-template-columns: repeat(2,auto);
+  display: grid; 
+  grid-template-columns: repeat(2,auto);
   gap: 20px;
 }
+.search-genres {
+  position: relative;
+}
+.genres-wrap {
+  position: absolute;
+  z-index: 30;
+  background: #F2F2F2;
+  display: none;
+  flex-wrap: wrap;
+  width: 300px;
+  padding: 10px;
+  gap: 10px;
+}
+
+.genres-wrap.on{display: flex;}
 .Search-form {
   justify-self: end;
 }
@@ -57,9 +72,10 @@
 }
 .slide-wrap ul > li, .list-wrap > li {
   width: 300px;
-  cursor: pointer;
+
 }
 .slide-wrap ul > li  img , .list-wrap img{
   width: 100%;
   border-radius: 20px;
+  cursor: pointer;
 }
