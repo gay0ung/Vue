@@ -1,0 +1,82 @@
+/* Main -----------------------------------------------------------------*/
+.main-page,
+.search-result-form {
+  height: 100%;
+}
+.main-page > div,
+.result-wrap {
+  height: 100%;
+  display: grid;
+  grid-auto-rows: minmax(370px,370px);
+  gap: 20px;
+}
+.main-page > div > div,
+.result-wrap > div {
+  display: grid;
+  grid-template-rows: 40px 1fr;
+}
+
+.slide-wrap {
+  background-color: rgba(240, 128, 128, 0.239);
+  height: 100%;
+  position: relative;
+  /* overflow-x: hidden; */
+}
+.slide-wrap > ul {
+  background-color: orange;
+  position: absolute;
+  display: flex;
+  height: 100%;
+  width: calc(100% * 4);
+}
+.slide-wrap li {
+  position: relative;
+  display: grid;
+  width: 20%;
+  height: 100%;
+  grid-template-rows: 1fr auto;
+}
+
+.slide-wrap li img {
+  height: 100%;
+  border-radius: 10px;
+  place-self: center;
+  cursor: pointer;
+  position: relative;
+}
+.slide-wrap li img:hover{
+  height: calc(100% + 79px);
+  transition: height ease .6s;
+  position: absolute;
+}
+.slide-info {
+  display: grid;
+  grid-template-columns: repeat(2,auto);
+  justify-items: center;
+}
+
+.fav-btn {
+  /* position: absolute;
+  right: 0; bottom: 0; */
+  width: 25px; height: 25px;
+}
+
+/* SearchResult ---------------------------------------------------------*/
+
+
+/* Detail ---------------------------------------------------------------*/
+.hero-img {
+  width: 100%;
+  height: 300px;
+  background-color: lime;
+}
+.poster {
+  width: 100px;
+  height: 200px;
+  background-color: magenta;
+}
+.contents {
+  background-color: mediumslateblue;
+}
+
+/* recommend movie&tv 일경우 */

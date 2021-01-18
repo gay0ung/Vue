@@ -7,13 +7,36 @@
         <li><router-link to="/movie">영화</router-link></li>
       </ul>
     </nav>
-    <div class="search-genres">
-      <button class="genres-btn" @click="openTheList">장르별검색</button>
-      <ul class="genres-wrap">
-        <li v-for="(genre, i) in getGenreList()" :key="i">
-          <button @click="selectedGenre(genre)">{{ genre.name }}</button>
-        </li>
-      </ul>
+    <div class="search-wrap">
+      <button class="search-btn" @click="openTheList">탐색하기</button>
+      <div>
+        <ul class="search-types">
+          <li>장르별</li>
+          <li>키워드</li>
+        </ul>
+        <ul class="search-lists">
+          <!-- 장르별 -->
+          <li>
+            <ul class="genres-wrap">
+              <li v-for="(genre, i) in getGenreList()" :key="i">
+                <button type="submit">
+                  {{ genre.name }}
+                </button>
+              </li>
+            </ul>
+          </li>
+          <!-- 키워드 -->
+          <li>
+            <ul class="keywords-wrap">
+              <li v-for="(genre, i) in getGenreList()" :key="i">
+                <button type="submit">
+                  {{ genre.name }}
+                </button>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
     <SearchForm></SearchForm>
   </div>

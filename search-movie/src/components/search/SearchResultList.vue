@@ -1,29 +1,37 @@
 <template>
-  <div class="movie-detail-form">
-    <div class="detail-main">
-      <p class="message">검색결과 {{ searchDB.length }}</p>
-      <div class="list-wrap">
-        <!-- 사람,드라마, 영화 순으로 정리 하기 -->
-        <div class="s-person" v-show="arrangingData().person.length !== 0">
-          사람
-          <ListForm />
-        </div>
-        <div class="s-movie" v-show="arrangingData().movie.length !== 0">
-          영화
-          <ListForm />
-        </div>
-        <div class="s-tv" v-show="arrangingData().tv.length !== 0">
-          tv<ListForm />
-        </div>
+  <div class="search-result-form">
+    <div class="result-wrap">
+      <!-- <p class="message">검색결과 {{ searchDB.length }}</p> -->
+
+      <!-- 사람,드라마, 영화 순으로 정리 하기 -->
+      <div class="s-person" v-if="arrangingData().person.length !== 0">
+        <strong>사람</strong>
+        <ListForm
+          :searchData="arrangingData().person"
+          :slideWidth="slideWidth(arrangingData().person.length)"
+        />
+      </div>
+      <div class="s-movie" v-if="arrangingData().movie.length !== 0">
+        <strong>영화</strong>
+        <ListForm
+          :searchData="arrangingData().movie"
+          :slideWidth="slideWidth(arrangingData().movie.length)"
+        />
+      </div>
+      <div class="s-tv" v-if="arrangingData().tv.length !== 0">
+        <strong>TV 프로그램</strong>
+        <ListForm
+          :searchData="arrangingData().tv"
+          :slideWidth="slideWidth(arrangingData().tv.length)"
+        />
       </div>
     </div>
-    <!-- {{ arrangingData() }} -->
-    <!-- {{ searchDB }} -->
   </div>
 </template>
 movieDB.results
 <script>
-import { checkPoster } from '@/utils/mList';
+import { checkPoster } from '@/utils/posterCheck.js';
+import { checkYears, checkTilte } from '@/utils/filters.js';
 import { mapState, mapActions } from 'vuex';
 import ListForm from '@/components/search/ListForm';
 
@@ -34,6 +42,7 @@ export default {
   created() {
     // this.checkingResult;
     // this.arrangingData();
+    // <i class="fas fa-star"></i> 즐겨찾기 했을 경우
   },
   components: {
     ListForm,
@@ -43,21 +52,14 @@ export default {
   },
   methods: {
     ...mapActions(['FETCH_DETAILE']),
-    checkingResult(len) {
-      console.log(len);
-    },
     checkPoster(path) {
       return checkPoster(path);
     },
     checkYears(date) {
-      return date.substring(0, 4);
+      return checkYears(date);
     },
     checkTilte(data) {
-      return data.title === data.original_title ? null : data.original_title;
-    },
-    clickDetail(id, type) {
-      this.FETCH_DETAILE({ type: type, id: id });
-      this.$router.push('/sDetail');
+      return checkTilte(data);
     },
     // 영화,tv,인물 끼리 정렬
     arrangingData() {
@@ -76,11 +78,17 @@ export default {
           ? arranged.movie.push(data)
           : arranged.person.push(data);
       });
-      console.log(arranged.tv.length);
+
       return arranged;
+    },
+    // 검색된 갯수에 따른 ul태그의 넓이 css
+    slideWidth(length) {
+      return length <= 5
+        ? `100%`
+        : length > 5 && length <= 10
+        ? `calc(100% * 2)`
+        : `calc(100% * 3)`;
     },
   },
 };
 </script>
-
-<style></style>

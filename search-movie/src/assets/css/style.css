@@ -1,25 +1,18 @@
-/* Color Theme Swatches in Hex */
-.인터랙션-1-hex { color: #F2F2F2; }
-.인터랙션-2-hex { color: #BFBFBF; }
-.인터랙션-3-hex { color: #737373; }
-.인터랙션-4-hex { color: #262626; }
-.인터랙션-5-hex { color: #0D0D0D; }
-/* Color Theme Swatches in Hex */
-/* { color: #252626; }
- { color: #358C7C; }
- { color: #55D9C1; }
- { color: #F2F2F2; }
-{ color: #0D0D0D; } */
 @import url('./reset.css');
+@import url('./main.css');
 
 #app {
   height: 100%;
+  min-width: 1400px;
+  max-width: 1600px;
   display: grid;
-  grid-template-rows: 80px 1fr;
+  grid-template-rows: 80px auto;
   gap: 10px;
+  margin: 0 auto;
 }
-#app > * {padding: 0 50px;}
-/* header */
+/* #app > * {padding: 0 50px;} */
+
+/* header ---------------------------------------------------------------*/
 .app-header {
   background-color: rgb(97, 153, 153);
   display: grid;
@@ -33,49 +26,44 @@
   grid-template-columns: repeat(2,auto);
   gap: 20px;
 }
-.search-genres {
+.search-wrap {
   position: relative;
 }
-.genres-wrap {
+.search-wrap > div {
   position: absolute;
   z-index: 30;
   background: #F2F2F2;
   display: none;
-  flex-wrap: wrap;
   width: 300px;
-  padding: 10px;
+  padding: 60px 10px 10px;
   gap: 10px;
+
 }
 
-.genres-wrap.on{display: flex;}
+.search-wrap > div.on {
+  display: grid;
+}
+
+.search-wrap > div > ul {
+  outline: 1px solid orange;
+  display: grid;
+}
+
+.search-types {
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(2,auto);
+  gap: 30px;
+  top: 10px;
+  left: 10px;
+}
+
+.search-types > li {
+  cursor: pointer;
+}
+
 .Search-form {
   justify-self: end;
 }
 
-/* mainPage */
-/* .main-page {width: 100%; overflow-x: hidden; height: 100%;} */
-.main-form {height: 100%;}
-.main-form > div {
-  display: grid;
-  position: relative;
-  /* grid-template-rows: repeat(2,auto); */
-  width: 100%;
-  height: auto;
-}
 
-.slide-wrap {background-color: khaki;}
-.slide-wrap ul {
-  position: absolute;
-  display: flex;
-  gap: 30px;
-  grid-template-rows: 1fr;
-}
-.slide-wrap ul > li, .list-wrap > li {
-  width: 300px;
-
-}
-.slide-wrap ul > li  img , .list-wrap img{
-  width: 100%;
-  border-radius: 20px;
-  cursor: pointer;
-}

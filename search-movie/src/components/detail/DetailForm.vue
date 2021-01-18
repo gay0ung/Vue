@@ -1,69 +1,41 @@
 <template>
   <div class="media-detail">
-    <!-- 영화인경우 -->
-    <template
-      v-if="beforePath === '/movie' || this.$route.query.path === 'movie'"
-    >
-      영화보여지는곳
-      <div class="hero-image">
-        <img :src="checkPoster(detail.backdrop_path)" width="30%" />
-      </div>
-      <div class="poster">
-        <img :src="checkPoster(detail.poster_path)" width="30%" />
-      </div>
-      <div class="sort-of-media">
-        <h3 class="title">{{ detail.title }}</h3>
-        <p class="title en">{{ detail.original_title }}</p>
-        <!-- <span class="release-date">{{
-          detail.release_date.substring(0, 4)
-        }}</span> -->
-        <span>{{ checkingVoteAverage(detail.vote_average) }}</span>
-        <ul class="genres">
-          <li v-for="genre in detail.genres" :key="genre.id">
-            {{ genre.name }}
-          </li>
-        </ul>
-      </div>
-      <div class="media-contents">
-        <p class="overview">
-          {{ detail.overview }}
-        </p>
-      </div>
+    <template v-if="checkType() === 'person'">
+      <PersonDetail :detailData="detail" />
     </template>
-    <!-- tv인 경우 -->
-    <template v-else>
-      티비 프로그램
-      <!--  tv 인 경우에는 에피소드 id가 있으면 for문으로 보여준다. -->
+    <template v-if="checkType() === 'movie'">
+      <MovieDetail :detailData="detail" />
     </template>
-
+    <template v-if="checkType() === 'tv'">
+      <TvDetail :detailData="detail" />
+    </template>
     {{ detail }}
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import { checkPoster } from '@/utils/mList.js';
+
+import PersonDetail from '@/components/detail/PersonDetail.vue';
+import MovieDetail from '@/components/detail/MovieDetail.vue';
+import TvDetail from '@/components/detail/TvDetail.vue';
 
 export default {
-  data() {
-    return {
-      currentPath: '',
-    };
+  components: {
+    PersonDetail,
+    MovieDetail,
+    TvDetail,
   },
-  created() {
-    // https://developers.themoviedb.org/3/movies/get-similar-movies
-    // 클릭했을경우 비슷한 영화 추천해주는
-  },
-
   computed: {
-    ...mapState(['detail', 'beforePath']),
+    ...mapState(['detail']),
   },
   methods: {
-    checkPoster(path) {
-      return checkPoster(path);
-    },
     checkingVoteAverage(num) {
       return num;
+    },
+    checkType() {
+      const type = this.$route.query.path;
+      return type === 'person' ? 'person' : type === 'movie' ? 'movie' : 'tv';
     },
   },
 };

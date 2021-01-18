@@ -1,54 +1,22 @@
 <template>
   <div class="trandy-wrap">
     <div class="trand-daily">
-      <form @submit.prevent="postDetail">
-        <h3>지금 뜨는 콘텐츠</h3>
-        <div class="slide-wrap">
-          <ul class="daily-list">
-            <li
-              v-for="daily in trandDaily"
-              :key="daily.id"
-              @click.prevent="clickDetail(daily.id, daily.media_type)"
-            >
-              <img :src="checkPoster(daily.poster_path)" alt="" />
-              <button type="button" @click="addYourFavList">
-                <i class="far fa-star"></i>
-              </button>
-              <h4>{{ daily.title }}</h4>
-            </li>
-          </ul>
-        </div>
-      </form>
+      <h3>지금 뜨는 콘텐츠</h3>
+      <ListForm :dailyData="trandDaily" />
     </div>
 
     <div class="trand-weekly">
-      <form @submit.prevent="postDetail">
-        <h3>이번주 인기 콘텐츠</h3>
-        <div class="slide-wrap">
-          <ul class="weekly-list">
-            <li v-for="weekly in trandWeekly" :key="weekly.id">
-              <img
-                @click.prevent="clickDetail(weekly.id, weekly.media_type)"
-                :src="checkPoster(weekly.poster_path)"
-                alt=""
-              />
-              <button type="button" @click="addYourFavList">
-                <i class="far fa-star"></i>
-                <i class="fas fa-star"></i>
-              </button>
-              <h4>{{ weekly.title }}</h4>
-            </li>
-          </ul>
-        </div>
-      </form>
+      <h3>이번주 인기 콘텐츠</h3>
+      <ListForm :weeklyData="trandWeekly" />
     </div>
   </div>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import { checkPoster } from '@/utils/mList.js';
+import ListForm from '@/components/search/ListForm.vue';
 // import { saveToCookie } from '@/utils/cookies.js';
+
 export default {
   data() {
     return {
@@ -58,17 +26,17 @@ export default {
   created() {
     this.checkTranding();
   },
+  components: {
+    ListForm,
+  },
   computed: {
     ...mapState(['trandDaily', 'trandWeekly']),
   },
   methods: {
-    ...mapActions([
-      'FETCH_TRANDING_DAILY',
-      'FETCH_TRANDING_WEEKLY',
-      'FETCH_DETAILE',
-    ]),
+    ...mapActions(['FETCH_TRANDING_DAILY', 'FETCH_TRANDING_WEEKLY']),
     // 현재 페이지 어디인지 확인
     checkTranding() {
+      // 현재 뜨는 콘텐츠 || 인기 콘텐츠 데이터를 받기 위해서.
       const path = this.path;
 
       if (path === '/main') {
@@ -82,19 +50,7 @@ export default {
         this.FETCH_TRANDING_WEEKLY({ type: 'movie', time: 'week' });
       }
     },
-    // postDetail() {},
-    clickDetail(id, type) {
-      console.log(type);
-      this.FETCH_DETAILE({ type: type, id: id });
 
-      this.$router.push({
-        name: 'Detail',
-        query: { path: type === 'tv' ? 'tv' : 'movie' },
-      }); // 검색결과 페이지 이동.
-    },
-    checkPoster(path) {
-      return checkPoster(path);
-    },
     addYourFavList(e) {
       console.log(e);
     },

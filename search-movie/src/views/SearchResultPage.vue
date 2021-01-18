@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <SearchResultList></SearchResultList>
-  </div>
+  <SearchResultList></SearchResultList>
 </template>
 
 <script>

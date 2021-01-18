@@ -35,7 +35,20 @@ function detailApi(mType, ID) {
     `${config.BASE_URL}${mType}/${ID}?${config.KEY}&language=ko-KR&page=1`,
   );
 }
+
+function recommendationsApi(mType, ID) {
+  return axios.get(
+    `${config.BASE_URL}${mType}/${ID}/recommendations?${config.KEY}&language=ko-KR&page=1`,
+  );
+}
 // 출연진을 알고 싶으면 ${id}/credits
 
 //company keyword movie multi person tv
-export { searchApi, detailApi, trending, genreApi, findApi };
+export {
+  searchApi,
+  detailApi,
+  trending,
+  genreApi,
+  findApi,
+  recommendationsApi,
+};

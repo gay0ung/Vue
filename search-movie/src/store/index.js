@@ -6,6 +6,7 @@ import {
   detailApi,
   genreApi,
   findApi,
+  recommendationsApi,
 } from '@/api/index.js';
 import { getCookieFromTitle } from '@/utils/cookies.js';
 
@@ -29,6 +30,8 @@ export default new Vuex.Store({
 
     movieList: [],
     tvList: [],
+
+    recommend: [],
   },
   mutations: {
     // searchForm
@@ -48,8 +51,10 @@ export default new Vuex.Store({
       state.searchDB = data.results;
     },
     SET_MEDIA_DETAILE(state, data) {
-      // console.log(data);
       state.detail = data;
+    },
+    SET_MEDIA_RECOMMEND(state, data) {
+      state.recommend = data;
     },
     SET_MOVIE_GENRES_LIST(state, list) {
       state.mGenreList = list;
@@ -134,6 +139,16 @@ export default new Vuex.Store({
       return await detailApi(dObj.type, dObj.id)
         .then(res => {
           commit('SET_MEDIA_DETAILE', res.data);
+          return res;
+        })
+        .catch(err => console.log(err));
+    },
+
+    async FETCH_RECOMMENDATIONS({ commit }, dObj) {
+      return await recommendationsApi(dObj.type, dObj.id)
+        .then(res => {
+          commit('SET_MEDIA_RECOMMEND', res.data.results);
+          console.log(res.data.results);
           return res;
         })
         .catch(err => console.log(err));
