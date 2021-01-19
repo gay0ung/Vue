@@ -3,52 +3,79 @@
     <div class="result-wrap">
       <!-- <p class="message">검색결과 {{ searchDB.length }}</p> -->
 
-      <!-- 사람,드라마, 영화 순으로 정리 하기 -->
-      <div class="s-person" v-if="arrangingData().person.length !== 0">
-        <strong>사람</strong>
-        <ListForm
-          :searchData="arrangingData().person"
-          :slideWidth="slideWidth(arrangingData().person.length)"
-        />
-      </div>
-      <div class="s-movie" v-if="arrangingData().movie.length !== 0">
-        <strong>영화</strong>
-        <ListForm
-          :searchData="arrangingData().movie"
-          :slideWidth="slideWidth(arrangingData().movie.length)"
-        />
-      </div>
-      <div class="s-tv" v-if="arrangingData().tv.length !== 0">
-        <strong>TV 프로그램</strong>
-        <ListForm
-          :searchData="arrangingData().tv"
-          :slideWidth="slideWidth(arrangingData().tv.length)"
-        />
-      </div>
+      <template v-if="path.path === 'search'">
+        <!-- 사람,드라마, 영화 순으로 정리 하기 -->
+        <div class="s-person" v-if="arrangingData().person.length !== 0">
+          <strong>사람</strong>
+          <ListForm
+            :searchData="arrangingData().person"
+            :slideWidth="slideWidth(arrangingData().person.length)"
+          />
+        </div>
+        <div class="s-movie" v-if="arrangingData().movie.length !== 0">
+          <strong>영화</strong>
+          <ListForm
+            :searchData="arrangingData().movie"
+            :slideWidth="slideWidth(arrangingData().movie.length)"
+          />
+        </div>
+        <div class="s-tv" v-if="arrangingData().tv.length !== 0">
+          <strong>TV 프로그램</strong>
+          <ListForm
+            :searchData="arrangingData().tv"
+            :slideWidth="slideWidth(arrangingData().tv.length)"
+          />
+        </div>
+      </template>
+
+      <!-- keyword로 검색했을 경우 -->
+      <template v-else>
+        <div
+          class="s-movie"
+          v-if="kMediaList.length !== 0 && path.type === 'movie'"
+        >
+          <strong
+            ><sapn>{{ path.name }}</sapn> 검색 결과</strong
+          >
+          <ListForm
+            :searchData="kMediaList"
+            :slideWidth="slideWidth(kMediaList.length)"
+          />
+        </div>
+        <!-- <div class="s-tv" v-else-if="arrangingData().tv.length !== 0">
+          <strong>TV 프로그램</strong>
+          <ListForm
+            :searchData="arrangingData().tv"
+            :slideWidth="slideWidth(arrangingData().tv.length)"
+          />
+        </div> -->
+      </template>
     </div>
+    {{ kMediaList }}
   </div>
 </template>
 movieDB.results
 <script>
 import { checkPoster } from '@/utils/posterCheck.js';
 import { checkYears, checkTilte } from '@/utils/filters.js';
+import { slideWidth } from '@/utils/style.js';
 import { mapState, mapActions } from 'vuex';
 import ListForm from '@/components/search/ListForm';
 
 export default {
   data() {
-    return {};
+    return {
+      path: this.$route.query,
+    };
   },
   created() {
-    // this.checkingResult;
-    // this.arrangingData();
     // <i class="fas fa-star"></i> 즐겨찾기 했을 경우
   },
   components: {
     ListForm,
   },
   computed: {
-    ...mapState(['searchDB', 'beforePath']),
+    ...mapState(['searchDB', 'kMediaList', 'kMediaList']),
   },
   methods: {
     ...mapActions(['FETCH_DETAILE']),
@@ -83,12 +110,10 @@ export default {
     },
     // 검색된 갯수에 따른 ul태그의 넓이 css
     slideWidth(length) {
-      return length <= 5
-        ? `100%`
-        : length > 5 && length <= 10
-        ? `calc(100% * 2)`
-        : `calc(100% * 3)`;
+      return slideWidth(length);
     },
+
+    keywordsResult() {},
   },
 };
 </script>

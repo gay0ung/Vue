@@ -7,15 +7,20 @@ import {
   genreApi,
   findApi,
   recommendationsApi,
+  similarApi,
+  kewordApi,
+  keywordGetMediaApi,
+  creditsApi,
+  personCreditsApi,
 } from '@/api/index.js';
-import { getCookieFromTitle } from '@/utils/cookies.js';
+// import { getCookieFromTitle } from '@/utils/cookies.js';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     // search input
-    inputValue: getCookieFromTitle() || '',
+    inputValue: '',
     searchDB: [], // search result
 
     // detail
@@ -32,6 +37,16 @@ export default new Vuex.Store({
     tvList: [],
 
     recommend: [],
+    similar: [],
+    keywords: [],
+    kMediaList: [],
+
+    credits: {
+      cast: [],
+      crew: [],
+    },
+
+    personCreidts: [],
   },
   mutations: {
     // searchForm
@@ -56,6 +71,15 @@ export default new Vuex.Store({
     SET_MEDIA_RECOMMEND(state, data) {
       state.recommend = data;
     },
+    SET_MEDIA_SIMILAR(state, data) {
+      state.similar = data;
+    },
+    SET_KEYOWRDS(state, data) {
+      state.keywords = data;
+    },
+    SET_KEYOWRDS_MEDIA_LIST(state, data) {
+      state.kMediaList = data;
+    },
     SET_MOVIE_GENRES_LIST(state, list) {
       state.mGenreList = list;
     },
@@ -67,6 +91,13 @@ export default new Vuex.Store({
     },
     SET_TV_LIST(state, data) {
       state.tvList = data;
+    },
+    SET_CREDITS_LIST(state, data) {
+      state.credits.cast = data.cast;
+      state.credits.crew = data.crew;
+    },
+    SET_PERSON_CREDITS(state, data) {
+      state.personCreidts = data;
     },
   },
   actions: {
@@ -143,12 +174,57 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err));
     },
-
+    // 추천 목록
     async FETCH_RECOMMENDATIONS({ commit }, dObj) {
       return await recommendationsApi(dObj.type, dObj.id)
         .then(res => {
           commit('SET_MEDIA_RECOMMEND', res.data.results);
-          console.log(res.data.results);
+          return res;
+        })
+        .catch(err => console.log(err));
+    },
+
+    // 비슷한 장르
+    async FETCH_SIMILAR_LIST({ commit }, dObj) {
+      return await similarApi(dObj.type, dObj.id)
+        .then(res => {
+          commit('SET_MEDIA_SIMILAR', res.data.results);
+          return res;
+        })
+        .catch(err => console.log(err));
+    },
+
+    async FETCH_KEYWORDS_LIST({ commit }, dObj) {
+      return await kewordApi(dObj.type, dObj.id)
+        .then(res => {
+          commit('SET_KEYOWRDS', res.data.keywords);
+          return res;
+        })
+        .catch(err => console.log(err));
+    },
+
+    async FETCH_KEYWORDS_MEDIA_LIST({ commit }, dObj) {
+      return await keywordGetMediaApi(dObj.id, dObj.type)
+        .then(res => {
+          commit('SET_KEYOWRDS_MEDIA_LIST', res.data);
+          return res;
+        })
+        .catch(err => console.log(err));
+    },
+
+    async FETCH_CREDITS_LIST({ commit }, dObj) {
+      return await creditsApi(dObj.type, dObj.id)
+        .then(res => {
+          commit('SET_CREDITS_LIST', res.data);
+          return res;
+        })
+        .catch(err => console.log(err));
+    },
+
+    async FETCH_PERSON_CREDITS({ commit }, id) {
+      return await personCreditsApi(id)
+        .then(res => {
+          commit('SET_PERSON_CREDITS', res.data);
           return res;
         })
         .catch(err => console.log(err));

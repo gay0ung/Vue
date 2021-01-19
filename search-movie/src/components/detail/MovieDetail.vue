@@ -1,7 +1,8 @@
 <template>
-  <div class="detail movie">
+  <div class="detail movie" v-if="detailData !== []">
     <h1>영화보여지는곳</h1>
 
+    <!-- 주요 정보 -->
     <div class="main-info">
       <div
         class="hero-img"
@@ -24,7 +25,7 @@
         </strong>
         <ul class="genres">
           <li v-for="genre in detailData.genres" :key="genre.id">
-            <span>#{{ genre.name }}</span>
+            <span>• {{ genre.name }}</span>
           </li>
         </ul>
         <div class="overview">
@@ -40,19 +41,30 @@
       </div>
       <div>
         <h3>출연진</h3>
-        <ul>
-          <li></li>
-        </ul>
+        <ListForm
+          :cast="splitTheActors(credits.cast)"
+          :slideWidth="`calc(100%*2)`"
+        />
       </div>
     </div>
-
-    <div class="recommendations">
-      <div class="similer-movie">
+    <!-- 추천목록 -->
+    <div class="similar-wrap">
+      <div class="similer movie">
         <h3>비슷한 영화</h3>
-        <ListForm :recommend="recommend" />
+        <ListForm :similar="similar" :slideWidth="slideWidth(similar.length)" />
       </div>
       <div class="keyword">
         <h3>키워드</h3>
+        <ul>
+          <li v-for="keyword in keywords" :key="keyword.id">
+            <button
+              type="button"
+              @click.prevent="getSimilerMedia(keyword.id, keyword.name)"
+            >
+              #{{ keyword.name }}
+            </button>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -60,22 +72,22 @@
 
 <script>
 import { checkPoster, checkBackDrop } from '@/utils/posterCheck.js';
-import { checkTilte, checkOverview } from '@/utils/filters.js';
-
+import { checkTilte, checkOverview, splitTheActors } from '@/utils/filters.js';
+import { slideWidth } from '@/utils/style.js';
 import ListForm from '@/components/search/ListForm';
-import { mapState } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default {
-  // https://developers.themoviedb.org/3/movies/get-similar-movies
-  // 클릭했을경우 비슷한 영화 추천해주는
   props: ['detailData'],
   components: {
     ListForm,
   },
+  created() {},
   computed: {
-    ...mapState(['recommend']),
+    ...mapState(['recommend', 'keywords', 'credits', 'similar']),
   },
   methods: {
+    ...mapActions(['FETCH_KEYWORDS_MEDIA_LIST']),
     checkPoster(path) {
       return checkPoster(path);
     },
@@ -91,6 +103,32 @@ export default {
     },
     checkYears(date) {
       return date.substr(0, 4);
+    },
+    slideWidth(length) {
+      return slideWidth(length);
+    },
+    getSimilerMedia(id, keyword) {
+      const type = this.$route.query.path;
+      console.log(id);
+      console.log(type);
+
+      this.FETCH_KEYWORDS_MEDIA_LIST({
+        id: id,
+        type: type === 'movie' ? 'movies' : type,
+      });
+
+      this.$router.push({
+        name: 'sList',
+        query: {
+          path: 'keyword',
+          name: keyword,
+          type,
+        },
+      });
+    },
+    // 출연진목록 계산
+    splitTheActors(data) {
+      return splitTheActors(data);
     },
   },
 };

@@ -79,4 +79,15 @@
   background-color: mediumslateblue;
 }
 
-/* recommend movie&tv 일경우 */
+.seasons-wrap {
+  background-color: rgb(105, 180, 83);
+}
+/* similer movie&tv 일경우 */
+.similar-wrap {
+  background-color: lightcoral;
+}
+
+.keyword {
+  background-color: rgba(224, 224, 0, 0.863);
+}
+

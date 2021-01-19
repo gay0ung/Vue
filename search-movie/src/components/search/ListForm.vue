@@ -1,11 +1,14 @@
 <template>
-  <div class="slide-wrap">
+  <div class="slide-wrap" v-if="searchDB">
     <ul class="slide-inr" :style="{ width: slideWidth }">
       <li
         v-for="(media, idx) in searchData ||
           dailyData ||
           weeklyData ||
-          recommend"
+          recommend ||
+          cast ||
+          seasons ||
+          similar"
         :key="idx"
       >
         <img
@@ -30,26 +33,53 @@ import { checkPoster } from '@/utils/posterCheck.js';
 
 export default {
   created() {},
-  props: ['searchData', 'dailyData', 'weeklyData', 'slideWidth', 'recommend'],
+  props: [
+    'searchData',
+    'dailyData',
+    'weeklyData',
+    'slideWidth',
+    'recommend',
+    'cast',
+    'seasons',
+    'similar',
+  ],
   computed: {
-    ...mapState(['searchDB', 'beforePath']),
+    ...mapState(['searchDB']),
   },
   methods: {
-    ...mapActions(['FETCH_DETAILE', 'FETCH_RECOMMENDATIONS']),
+    ...mapActions([
+      'FETCH_DETAILE',
+      'FETCH_RECOMMENDATIONS',
+      'FETCH_KEYWORDS_LIST',
+      'FETCH_CREDITS_LIST',
+      'FETCH_SIMILAR_LIST',
+      'FETCH_PERSON_CREDITS',
+    ]),
     checkPoster(data) {
       return checkPoster(data);
     },
     mediaDetail(id, type) {
-      // 출연진
-      this.FETCH_DETAILE({ type: type, id: id });
-      this.FETCH_RECOMMENDATIONS({ type: type, id: id });
+      let typeObj = { type: type, id: id };
+      console.log(type, id);
+      this.FETCH_DETAILE(typeObj);
+
+      if (type === 'movie' || type === 'tv') {
+        this.FETCH_RECOMMENDATIONS(typeObj);
+        this.FETCH_KEYWORDS_LIST(typeObj);
+        this.FETCH_CREDITS_LIST(typeObj);
+        this.FETCH_SIMILAR_LIST(typeObj);
+      }
+
+      if (type === 'person') {
+        this.FETCH_PERSON_CREDITS(id);
+      }
 
       this.$router.push({
         name: 'Detail',
         query: {
           path: type === 'tv' ? 'tv' : type === 'movie' ? 'movie' : 'person',
         },
-      }); // 검색결과 페이지 이동.
+      });
     },
   },
 };

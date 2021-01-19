@@ -6,7 +6,7 @@ function checkPoster(data) {
     path = data.poster_path;
   }
 
-  return path === undefined
+  return path === undefined || path === null
     ? 'https://underscoremusic.co.uk/site/wp-content/uploads/2014/05/no-poster.jpg'
     : `https://image.tmdb.org/t/p/original${path}`;
 }

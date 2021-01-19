@@ -36,13 +36,52 @@ function detailApi(mType, ID) {
   );
 }
 
+// 추천 영상
 function recommendationsApi(mType, ID) {
   return axios.get(
     `${config.BASE_URL}${mType}/${ID}/recommendations?${config.KEY}&language=ko-KR&page=1`,
   );
 }
-// 출연진을 알고 싶으면 ${id}/credits
 
+// 비슷한 영상
+function similarApi(mType, ID) {
+  return axios.get(
+    `${config.BASE_URL}${mType}/${ID}/similar?${config.KEY}&language=ko-KR&page=1`,
+  );
+}
+
+// 키워드 리스트
+function kewordApi(mType, ID) {
+  return axios.get(
+    `${config.BASE_URL}${mType}/${ID}/keywords?${config.KEY}&language=ko-KR&page=1`,
+  );
+}
+
+// 키워드별 미디어 목록
+function keywordGetMediaApi(keyword_ID, type) {
+  return axios.get(
+    `${config.BASE_URL}keyword/${keyword_ID}/${type}?${config.KEY}&language=ko-KR&page=1`,
+  );
+}
+// 출연진
+function creditsApi(mType, ID) {
+  return axios.get(
+    `${config.BASE_URL}${mType}/${ID}/credits?${config.KEY}&language=ko-KR&page=1`,
+  );
+}
+
+// 참여 작품
+function personCreditsApi(id) {
+  return axios.get(
+    `${config.BASE_URL}person/${id}/combined_credits?${config.KEY}&language=ko-KR&page=1`,
+  );
+}
+// 인물 사진들
+function personImagesApi(id) {
+  return axios.get(
+    `${config.BASE_URL}person/${id}/images?${config.KEY}&language=ko-KR&page=1`,
+  );
+}
 //company keyword movie multi person tv
 export {
   searchApi,
@@ -51,4 +90,10 @@ export {
   genreApi,
   findApi,
   recommendationsApi,
+  similarApi,
+  kewordApi,
+  keywordGetMediaApi,
+  creditsApi,
+  personCreditsApi,
+  personImagesApi,
 };

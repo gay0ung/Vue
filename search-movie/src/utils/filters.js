@@ -5,5 +5,8 @@ function checkTilte(data) {
 function checkOverview(text) {
   return text === '' ? '등록된 줄거리가 없습니다.' : text;
 }
+function splitTheActors(data) {
+  return data.filter((el, i) => i < 9);
+}
 
-export { checkTilte, checkOverview };
+export { checkTilte, checkOverview, splitTheActors };
