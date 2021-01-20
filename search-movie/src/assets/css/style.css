@@ -3,12 +3,14 @@
 
 #app {
   height: 100%;
-  min-width: 1400px;
+  /* min-width: 1400px; */
   max-width: 1600px;
   display: grid;
   grid-template-rows: 80px auto;
   gap: 10px;
   margin: 0 auto;
+  padding: 20px 3%;
+
 }
 /* #app > * {padding: 0 50px;} */
 

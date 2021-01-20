@@ -1,5 +1,5 @@
 <template>
-  <div class="media-detail" v-if="detail !== null">
+  <div class="media-detail" v-if="detail !== []">
     <template v-if="checkType() === 'person'">
       <PersonDetail :detailData="detail" />
     </template>
@@ -9,6 +9,7 @@
     <template v-if="checkType() === 'tv'">
       <TvDetail :detailData="detail" />
     </template>
+    <!-- {{ detail }} -->
   </div>
 </template>
 

@@ -40,10 +40,12 @@ button {
 	font-size: 90%;
 	margin: 0;
 	cursor: pointer;
-	/* color:rgba(255, 255, 255, .7); */
+	border: none;
 }
 button:focus,input:focus {outline: none;}
-
+button:active{
+	background-color: lightcoral;
+}
 *,
 *:after,
 *:before {
@@ -52,3 +54,6 @@ button:focus,input:focus {outline: none;}
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
+i {
+ 	font-style: normal;
+}

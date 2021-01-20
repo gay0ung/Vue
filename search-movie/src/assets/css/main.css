@@ -2,6 +2,7 @@
 .main-page,
 .search-result-form {
   height: 100%;
+  overflow-x: hidden;
 }
 .main-page > div,
 .result-wrap {
@@ -20,21 +21,22 @@
   background-color: rgba(240, 128, 128, 0.239);
   height: 100%;
   position: relative;
-  /* overflow-x: hidden; */
 }
-.slide-wrap > ul {
+.slide-wrap > .slides {
   background-color: orange;
   position: absolute;
   display: flex;
   height: 100%;
   width: calc(100% * 4);
+  transition: left 0.5s ease-out;
 }
-.slide-wrap li {
+.slides li {
   position: relative;
   display: grid;
   width: 20%;
   height: 100%;
   grid-template-rows: 1fr auto;
+  outline: 1px solid green;
 }
 
 .slide-wrap li img {
@@ -47,12 +49,26 @@
 .slide-wrap li img:hover{
   height: calc(100% + 79px);
   transition: height ease .6s;
-  position: absolute;
+  /* position: absolute; */
 }
 .slide-info {
   display: grid;
   grid-template-columns: repeat(2,auto);
   justify-items: center;
+}
+.controls {
+  position: relative;
+  top: 50%;
+
+}
+.controls > button {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  transform: translateY(-50%);
+}
+button#next {
+  right: 0;
 }
 
 .fav-btn {

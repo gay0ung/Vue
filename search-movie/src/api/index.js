@@ -11,18 +11,12 @@ function trending(mType, time) {
   );
 }
 
-function searchApi(mType, title) {
+function searchApi(title) {
   return axios.get(
-    `${config.BASE_URL}search/${mType}?query=${title}&${config.KEY}&language=ko-KR&page=1`,
+    `${config.BASE_URL}search/multi?query=${title}&${config.KEY}&language=ko-KR&page=1`,
   );
 }
 
-// 장르로 검색했을경우 영화와 tv프로그램 목록을 전부 불러온다.
-function findApi() {
-  return axios.get(
-    `${config.BASE_URL}search/multi?${config.KEY}&language=ko-KR&page=1`,
-  );
-}
 // 장르별로 검색
 function genreApi(mType) {
   return axios.get(
@@ -88,7 +82,6 @@ export {
   detailApi,
   trending,
   genreApi,
-  findApi,
   recommendationsApi,
   similarApi,
   kewordApi,

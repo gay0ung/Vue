@@ -38,4 +38,8 @@ const router = new VueRouter({
   routes,
 });
 
+// router.beforeRouteEnter((to, from, next) => {
+//   console.log(to, from, next);
+// });
+
 export default router;

@@ -5,7 +5,6 @@ import {
   searchApi,
   detailApi,
   genreApi,
-  findApi,
   recommendationsApi,
   similarApi,
   kewordApi,
@@ -13,7 +12,6 @@ import {
   creditsApi,
   personCreditsApi,
 } from '@/api/index.js';
-// import { getCookieFromTitle } from '@/utils/cookies.js';
 
 Vue.use(Vuex);
 
@@ -62,7 +60,7 @@ export default new Vuex.Store({
     SET_TRENDING_WEEKLY(state, tData) {
       state.trandWeekly = tData.results;
     },
-    SET_MEDIA_DATA(state, data) {
+    SET_SEARCH_RESULTS(state, data) {
       state.searchDB = data.results;
     },
     SET_MEDIA_DETAILE(state, data) {
@@ -101,21 +99,6 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    // 장르별로 검색하기 위해 영화와 tv프로그램 리스트 불러오기
-    async FETCH_MEDIA_ALL_LIST({ commit }) {
-      return await findApi()
-        .then(res => {
-          // type === 'movie'
-          //   ? commit('SET_MOVIE_LIST', res)
-          //   : commit('SET_TV_LIST', res);
-          commit('SET_TV_LIST', res);
-          return res;
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
-
     // 장르종류
     async FETCH_GENRES_LIST({ commit }, type) {
       return await genreApi(type)
@@ -150,16 +133,14 @@ export default new Vuex.Store({
           commit('SET_TRENDING_WEEKLY', res.data);
           return res;
         })
-        .catch(err => {
-          console.log(err);
-        });
+        .catch(err => console.log(err));
     },
 
     // 검색결과 data list
-    async FETCH_DATA({ commit }, sObj) {
-      return await searchApi(sObj.type, sObj.title)
+    async FETCH_DATA({ commit }, value) {
+      return await searchApi(value)
         .then(res => {
-          commit('SET_MEDIA_DATA', res.data);
+          commit('SET_SEARCH_RESULTS', res.data);
           return res;
         })
         .catch(err => console.log(err));
@@ -206,7 +187,7 @@ export default new Vuex.Store({
     async FETCH_KEYWORDS_MEDIA_LIST({ commit }, dObj) {
       return await keywordGetMediaApi(dObj.id, dObj.type)
         .then(res => {
-          commit('SET_KEYOWRDS_MEDIA_LIST', res.data);
+          commit('SET_KEYOWRDS_MEDIA_LIST', res.data.results);
           return res;
         })
         .catch(err => console.log(err));

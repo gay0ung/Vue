@@ -34,30 +34,19 @@
           class="s-movie"
           v-if="kMediaList.length !== 0 && path.type === 'movie'"
         >
-          <strong
-            ><sapn>{{ path.name }}</sapn> 검색 결과</strong
-          >
+          <strong>{{ path.name }} 검색 결과</strong>
           <ListForm
             :searchData="kMediaList"
             :slideWidth="slideWidth(kMediaList.length)"
           />
         </div>
-        <!-- <div class="s-tv" v-else-if="arrangingData().tv.length !== 0">
-          <strong>TV 프로그램</strong>
-          <ListForm
-            :searchData="arrangingData().tv"
-            :slideWidth="slideWidth(arrangingData().tv.length)"
-          />
-        </div> -->
       </template>
     </div>
-    {{ kMediaList }}
   </div>
 </template>
 movieDB.results
 <script>
 import { checkPoster } from '@/utils/posterCheck.js';
-import { checkYears, checkTilte } from '@/utils/filters.js';
 import { slideWidth } from '@/utils/style.js';
 import { mapState, mapActions } from 'vuex';
 import ListForm from '@/components/search/ListForm';
@@ -81,12 +70,6 @@ export default {
     ...mapActions(['FETCH_DETAILE']),
     checkPoster(path) {
       return checkPoster(path);
-    },
-    checkYears(date) {
-      return checkYears(date);
-    },
-    checkTilte(data) {
-      return checkTilte(data);
     },
     // 영화,tv,인물 끼리 정렬
     arrangingData() {
@@ -112,8 +95,6 @@ export default {
     slideWidth(length) {
       return slideWidth(length);
     },
-
-    keywordsResult() {},
   },
 };
 </script>

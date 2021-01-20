@@ -5,7 +5,7 @@
       <div class="profile">인물 사진 보여질 예정</div>
       <div class="contents">
         <div class="person-name">
-          <h2>{{ selectedKoreanName() }}</h2>
+          <h2>{{ selectedKoreanName(this.detailData.also_known_as) }}</h2>
           <strong>{{ detailData.name }}</strong>
         </div>
         <div class="more-info">
@@ -16,12 +16,8 @@
               <span>{{ detailData.known_for_department }}</span>
             </li>
             <li>
-              <strong>참여 작품 수 </strong>
-              <span></span>
-            </li>
-            <li>
               <strong>성별</strong>
-              <span>{{ detailData.gender === '1' ? '여성' : '남성' }}</span>
+              <span>{{ detailData.gender === 1 ? '여성' : '남성' }}</span>
             </li>
             <li>
               <strong>생일</strong>
@@ -34,18 +30,16 @@
           </ul>
         </div>
         <div class="main-works">
-          <div class="works-movie">
+          <div class="works-movie" v-if="dataObj.movie.length > 0">
             영화
+            <ListForm />
           </div>
-          <div class="works-tv">
+          <div class="works-tv" v-if="dataObj.tv.length > 0">
             티비
           </div>
           <ListForm />
         </div>
       </div>
-      <!-- {{ mainWorks(detailData.known_for_department) }} -->
-      <!-- :slideWidth="slideWidth(mainWorks(personCreidts.crew).length)" -->
-      {{ mainWorks() }}
     </div>
   </div>
 </template>
@@ -57,73 +51,79 @@ import { slideWidth } from '@/utils/style.js';
 
 export default {
   data() {
-    return {};
+    return {
+      dataObj: {
+        movie: [],
+        tv: [],
+      },
+    };
   },
   props: ['detailData'],
-  created() {},
-
   components: {
     ListForm,
   },
   computed: {
     ...mapState(['personCreidts']),
   },
+  created() {
+    this.mainWorks();
+  },
   methods: {
-    selectedKoreanName() {
-      let nameList = this.detailData.also_known_as;
+    selectedKoreanName(nameList) {
       let koreanName = nameList.filter(el => /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(el));
 
-      return koreanName.join(' ');
+      return koreanName[0];
     },
+
     mainWorks() {
-      let works = [];
       const creditsDB = this.personCreidts;
       const job = this.detailData.known_for_department;
+      let works = [];
 
-      if (job === 'Directing') {
-        works = creditsDB.crew.filter(el => el.department === 'Directing');
+      if (creditsDB.cast.length === 0) {
+        works = creditsDB.crew.filter(el => el.department === job);
       }
-      let creditsObj = {
-        tv: [],
-        movie: [],
-      };
+      if (creditsDB.crew.length === 0) {
+        works = creditsDB.cast.filter(el => el.department === job);
+      }
+
+      works = [...creditsDB.crew, ...creditsDB.cast].filter(
+        el => el.department === job,
+      );
+
+      this.categoryOfWorks(works);
+      return works;
+    },
+
+    categoryOfWorks(works) {
+      let creditsObj = this.dataObj;
 
       works.map(el => {
         return el.media_type === 'tv'
           ? creditsObj.tv.push(el)
           : creditsObj.movie.push(el);
       });
-
-      for (let el in creditsObj) {
-        // console.log(el);
-
-        return creditsObj[el].sort((a, b) => {
-          // console.log(
-          //   a.first_air_date.split('-').join('') * 1,
-          //   b.first_air_date.split('-').join('') * 1,
-          // );
-          if (el === 'tv') {
-            return (
-              b.first_air_date.split('-').join('') * 1 -
-              a.first_air_date.split('-').join('') * 1
-            );
-          } else {
-            return (
-              b.release_date.split('-').join('') * 1 -
-              a.release_date.split('-').join('') * 1
-            );
-          }
-        });
-      }
-
-      console.log(creditsObj);
-      // this.sortList(creditsObj);
-      // return creditsObj;
+      // this.sortOfWorks();
+      return creditsObj;
     },
 
-    // sortList(data) {
-    //   console.log(data);
-    // },
+    sortOfWorks() {
+      let creditsObj = this.dataObj;
+      for (let type in creditsObj) {
+        console.log(creditsObj[type]);
+        // if (creditsObj[type].first_air_date) {
+        //   // creditsObj[type].first_air_date.split('-').join('');
+        //   // console.log(creditsObj[type].first_air_date.split('-').join(''));
+        //   // creditsObj[type].sort((a,b)=>{
+        //   //   a.first_air_date
+        //   // })
+        // }
+        // creditsObj[tv].first_air_date
+        // creditsObj[movie].release_date
+      }
+      // console.log(creditsObj);
+    },
+
     slideWidth(length) {
       return slideWidth(length);
     },

@@ -13,12 +13,12 @@
         back drop image가 보여질 것이다.
       </div>
       <div class="poster">
-        poster가 보여질 것이다.
+        <img :src="checkPoster(detailData)" alt="" width="100%" />
       </div>
       <div class="contents">
         <h2 class="title">
           {{ detailData.title }}
-          <span>({{ checkYears(detailData.release_date) }})</span>
+          <span>({{ detailData.release_date.substr(0, 4) }})</span>
         </h2>
         <strong class="title en">
           {{ checkTilte(detailData.original_title) }}

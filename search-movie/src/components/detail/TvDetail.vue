@@ -10,7 +10,7 @@
         backdrop image가 보여질 것
       </div>
       <div class="poster">
-        poster가 보여질 곳
+        <img :src="checkPoster(detailData)" alt="" width="100%" />
       </div>
       <div class="contents">
         <h2 class="title">
