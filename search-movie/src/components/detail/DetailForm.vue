@@ -1,5 +1,5 @@
 <template>
-  <div class="media-detail" v-if="detail !== []">
+  <div class="media-detail">
     <template v-if="checkType() === 'person'">
       <PersonDetail :detailData="detail" />
     </template>

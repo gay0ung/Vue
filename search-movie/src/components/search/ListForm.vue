@@ -1,30 +1,35 @@
 <template>
-  <div class="slide-wrap" v-if="searchDB" @click="slideHandler">
-    <ul class="slides" :style="{ width: slideWidth }">
-      <li
-        v-for="(media, idx) in searchData ||
-          dailyData ||
-          weeklyData ||
-          recommend ||
-          cast ||
-          seasons ||
-          similar"
-        :key="idx"
-      >
-        <img
-          :src="checkPoster(media)"
-          alt=""
-          @click.prevent="mediaDetail(media.id, media.media_type)"
-        />
-        <div class="slide-info">
-          <h4>{{ media.title || media.name }}</h4>
-          <button type="button" class="fav-btn">
-            <i>★</i>
-          </button>
-        </div>
-      </li>
-    </ul>
-    <div class="controls">
+  <div class="slide-wrap">
+    <transition name="slides">
+      <ul class="slides" :style="{ width: slideWidth }">
+        <li
+          v-for="(media, idx) in searchData ||
+            dailyData ||
+            weeklyData ||
+            recommend ||
+            cast ||
+            seasons ||
+            similar"
+          :key="idx"
+        >
+          <img
+            :src="checkPoster(media)"
+            alt=""
+            @click.prevent="mediaDetail(media.id, media.media_type)"
+          />
+          <div class="slide-info">
+            <h4>{{ media.title || media.name }}</h4>
+            <transition>
+              <button type="button" v-if="save" key="save">
+                <i>{{ save ? '★' : '☆' }}</i>
+              </button>
+            </transition>
+          </div>
+        </li>
+      </ul>
+    </transition>
+
+    <div class="controls" @click="slideHandler">
       <button type="button" id="prev">prev</button>
       <button type="button" id="next">next</button>
     </div>
@@ -37,8 +42,12 @@ import { checkPoster } from '@/utils/posterCheck.js';
 // import { setItem } from '@/utils/localStorage.js';
 
 export default {
-  created() {
-    this.clonedSlide();
+  data() {
+    return {
+      save: true,
+      slideActive: '',
+      curPage: 1,
+    };
   },
   props: [
     'searchData',
@@ -50,6 +59,7 @@ export default {
     'seasons',
     'similar',
   ],
+  created() {},
   computed: {
     ...mapState(['searchDB']),
   },
@@ -93,58 +103,51 @@ export default {
         },
       });
     },
-    clonedSlide() {
-      // 슬라이드 구현하기
-      console.log(this.$el);
-      // const slideUl = this.$el.firstChild, //ul
-      //   slideLi = slideUl.children; // li
+    checkLength() {},
+    slideHandler(e) {
+      const tagID = e.target.id;
 
-      // const slideLen = slideLi.length, // li갯수
-      //   totalWidth = slideUl.clientWidth; // ul의 총넓이
+      const slides = this.$el.children[0], // ul
+        slide = Array.from(slides.children); //li
 
-      // let startNum = 0;
+      const slidesWidth = slides.clientWidth,
+        slideLen = slide.length;
 
-      // let division = Math.round(slideLen / 5),
-      //   slideWidth = totalWidth / division;
+      const pageNum = Math.round(slideLen / 5); // 1페이지당 5개li
+      const slideWidth = slidesWidth / pageNum;
 
-      // // 첫번째페이지와 마지막 페이지 영화 복사
-      // const firstPage = Array.from(slideLi).splice(0, 5),
-      //   lastPage = Array.from(slideLi).splice(5 * (division - 1), 5);
+      if (tagID === 'next') {
+        if (this.curPage === pageNum) {
+          slides.style.left = `0px`;
+          this.curPage = 1;
+          return;
+        }
+        slides.style.left = `${-slideWidth * this.curPage}px`;
+        this.curPage++;
+      } else {
+        if (this.curPage === 1) {
+          slides.style.left = `${-slideWidth * (pageNum - 1)}px`;
+          this.curPage = pageNum;
+          return;
+        }
+        slides.style.left = `${-slideWidth * (this.curPage - 2)}px`;
+        this.curPage--;
+      }
 
-      // const clonedFirst = firstPage.map(el => el.cloneNode(true)),
-      //   clonedLast = lastPage.map(el => el.cloneNode(true));
-
-      // clonedFirst.map(el => slideUl.appendChild(el));
-      // clonedLast
-      //   .reverse()
-      //   .map(el => slideUl.insertBefore(el, slideUl.firstElementChild));
-
-      // slideUl.style.left = `${-slideWidth * (startNum + 1)}px`;
-
-      // let curIndex = 5;
-      // let curSlide = Array.from(slideLi).splice(curIndex, 5);
-      // curSlide.map(el => el.classList.add('slide_active'));
-      // console.log(curSlide);
-    },
-    slideHandler() {
-      // 이전,다음 버튼 구현하기
-      // const parent = e.target.parentElement;
-      // if (!parent.classList.contains('controls')) return;
-      // // nextPage
-      // const NEXT = e.target.id === 'next',
-      //   PREV = e.target.id === 'prev';
-      // console.log(NEXT, PREV);
-      // if (NEXT) {
-      //   if (curIndex <= 5 * division) {
-      //     setTimeout(() => {
-      //       slideUl.style.transition = '0ms';
-      //       slideUl.style.left = `${-slideWidth * (startNum + 1)}px`;
-      //     }, 300);
-      //   }
-      // }
+      tagID === 'next'
+        ? (this.slideActive = 'next')
+        : (this.slideActive = 'prev');
     },
   },
 };
 </script>
 
-<style></style>
+<style>
+@import url('../../assets/css/slide.css');
+.slides-enter-active {
+  transition: left ease 0.4s;
+}
+/* .slide-leave-active {
+  transition: all ease 0.4s;
+} */
+</style>

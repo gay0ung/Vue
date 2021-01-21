@@ -1,5 +1,5 @@
 <template>
-  <div class="detail movie" v-if="detailData !== []">
+  <div class="detail movie" v-show="detailData !== []">
     <h1>영화보여지는곳</h1>
 
     <!-- 주요 정보 -->
