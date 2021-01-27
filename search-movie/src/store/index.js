@@ -36,6 +36,7 @@ export default new Vuex.Store({
 
     recommend: [],
     similar: [],
+
     keywords: [],
     kMediaList: [],
 

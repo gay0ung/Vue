@@ -1,7 +1,7 @@
 <template>
   <div class="slide-wrap">
-    <transition name="slides">
-      <ul class="slides" :style="{ width: slideWidth }">
+    <transition name="slide">
+      <ul class="slides" :style="slideWrapStyle">
         <li
           v-for="(media, idx) in searchData ||
             dailyData ||
@@ -11,12 +11,14 @@
             seasons ||
             similar"
           :key="idx"
+          :style="slideStyle"
         >
           <img
             :src="checkPoster(media)"
             alt=""
             @click.prevent="mediaDetail(media.id, media.media_type)"
           />
+
           <div class="slide-info">
             <h4>{{ media.title || media.name }}</h4>
             <transition>
@@ -29,7 +31,7 @@
       </ul>
     </transition>
 
-    <div class="controls" @click="slideHandler">
+    <div class="controls" @click="slideHandler" v-if="btnShow">
       <button type="button" id="prev">prev</button>
       <button type="button" id="next">next</button>
     </div>
@@ -37,32 +39,39 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 import { checkPoster } from '@/utils/posterCheck.js';
-// import { setItem } from '@/utils/localStorage.js';
 
 export default {
   data() {
     return {
       save: true,
-      slideActive: '',
       curPage: 1,
+      btnShow: true,
+      slideWidth: 0,
+      itemWidth: 0,
+      slideWrapStyle: {
+        width: `${this.slideWidth}px`,
+      },
+      slideStyle: {
+        width: `${this.itemWidth}px`,
+      },
     };
+  },
+  created() {},
+  beforeUpdate() {
+    this.slideWdithCheck();
   },
   props: [
     'searchData',
     'dailyData',
     'weeklyData',
-    'slideWidth',
     'recommend',
     'cast',
     'seasons',
     'similar',
   ],
-  created() {},
-  computed: {
-    ...mapState(['searchDB']),
-  },
+  computed: {},
   methods: {
     ...mapActions([
       'FETCH_DETAILE',
@@ -72,6 +81,7 @@ export default {
       'FETCH_SIMILAR_LIST',
       'FETCH_PERSON_CREDITS',
     ]),
+
     checkPoster(data) {
       return checkPoster(data);
     },
@@ -103,7 +113,21 @@ export default {
         },
       });
     },
-    checkLength() {},
+    slideWdithCheck() {
+      let parentWidth = this.$el.clientWidth;
+      let itemLen = 0;
+
+      for (let data in this.$props) {
+        if (this.$props[data] !== undefined) {
+          itemLen = this.$props[data].length;
+        }
+      }
+
+      let pages = Math.ceil(itemLen / 5);
+      console.log(pages);
+      this.slideWidth = parentWidth * pages;
+      console.log(parentWidth, this.slideWidth);
+    },
     slideHandler(e) {
       const tagID = e.target.id;
 
@@ -113,10 +137,11 @@ export default {
       const slidesWidth = slides.clientWidth,
         slideLen = slide.length;
 
-      const pageNum = Math.round(slideLen / 5); // 1페이지당 5개li
+      const pageNum = Math.ceil(slideLen / 5); // 1페이지당 5개li
       const slideWidth = slidesWidth / pageNum;
 
       if (tagID === 'next') {
+        // 마지막 페이지 인 경우
         if (this.curPage === pageNum) {
           slides.style.left = `0px`;
           this.curPage = 1;
@@ -130,13 +155,10 @@ export default {
           this.curPage = pageNum;
           return;
         }
+
         slides.style.left = `${-slideWidth * (this.curPage - 2)}px`;
         this.curPage--;
       }
-
-      tagID === 'next'
-        ? (this.slideActive = 'next')
-        : (this.slideActive = 'prev');
     },
   },
 };

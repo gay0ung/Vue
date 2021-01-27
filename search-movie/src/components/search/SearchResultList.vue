@@ -7,24 +7,15 @@
         <!-- 사람,드라마, 영화 순으로 정리 하기 -->
         <div class="s-person" v-if="arrangingData().person.length !== 0">
           <strong>사람</strong>
-          <ListForm
-            :searchData="arrangingData().person"
-            :slideWidth="slideWidth(arrangingData().person.length)"
-          />
+          <ListForm :searchData="arrangingData().person" />
         </div>
         <div class="s-movie" v-if="arrangingData().movie.length !== 0">
           <strong>영화</strong>
-          <ListForm
-            :searchData="arrangingData().movie"
-            :slideWidth="slideWidth(arrangingData().movie.length)"
-          />
+          <ListForm :searchData="arrangingData().movie" />
         </div>
         <div class="s-tv" v-if="arrangingData().tv.length !== 0">
           <strong>TV 프로그램</strong>
-          <ListForm
-            :searchData="arrangingData().tv"
-            :slideWidth="slideWidth(arrangingData().tv.length)"
-          />
+          <ListForm :searchData="arrangingData().tv" />
         </div>
       </template>
 
@@ -35,10 +26,7 @@
           v-if="kMediaList.length !== 0 && path.type === 'movie'"
         >
           <strong>{{ path.name }} 검색 결과</strong>
-          <ListForm
-            :searchData="kMediaList"
-            :slideWidth="slideWidth(kMediaList.length)"
-          />
+          <ListForm :searchData="kMediaList" />
         </div>
       </template>
     </div>
@@ -47,7 +35,7 @@
 movieDB.results
 <script>
 import { checkPoster } from '@/utils/posterCheck.js';
-import { slideWidth } from '@/utils/style.js';
+// import { calculatedSlideWidth } from '@/utils/style.js';
 import { mapState, mapActions } from 'vuex';
 import ListForm from '@/components/search/ListForm';
 
@@ -92,9 +80,9 @@ export default {
       return arranged;
     },
     // 검색된 갯수에 따른 ul태그의 넓이 css
-    slideWidth(length) {
-      return slideWidth(length);
-    },
+    // calculatedSlideWidth(length) {
+    //   return calculatedSlideWidth(length);
+    // },
   },
 };
 </script>

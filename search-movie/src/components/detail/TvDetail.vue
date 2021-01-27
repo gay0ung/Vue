@@ -1,14 +1,13 @@
 <template>
   <div class="detail tv" v-if="detailData !== []">
-    <h1>tv</h1>
     <!-- 주요 정보 -->
+    <div
+      class="hero-img"
+      :style="{
+        backgroundImage: `url(${checkBackDrop(detailData.backdrop_path)}`,
+      }"
+    ></div>
     <div class="main-info">
-      <div
-        class="hero-img"
-        :style="{ backgroundImage: checkBackDrop(detailData.backdrop_path) }"
-      >
-        backdrop image가 보여질 것
-      </div>
       <div class="poster">
         <img :src="checkPoster(detailData)" alt="" width="100%" />
       </div>
@@ -18,7 +17,7 @@
           <span>({{ checkYears(detailData.first_air_date) }})</span>
         </h2>
         <strong class="title en">
-          {{ checkTilte(detailData.original_name) }}
+          {{ detailData.original_name }}
         </strong>
         <ul class="genres">
           <li v-for="genre in detailData.genres" :key="genre.id">
@@ -29,18 +28,18 @@
           <strong>줄거리</strong>
           <p>{{ checkOverview(detailData.overview) }}</p>
         </div>
+        <div class="director">
+          <strong>감독</strong>
+        </div>
       </div>
     </div>
     <!-- 출연진 정보 -->
     <div class="cast">
       <div>
-        <h3>감독</h3>
-      </div>
-      <div>
         <h3>시리즈 출연진</h3>
         <ListForm
           :cast="credits.cast"
-          :slideWidth="slideWidth(credits.cast.length)"
+          :calWidth="calculatedSlideWidth(credits.cast.length)"
         />
       </div>
     </div>
@@ -65,7 +64,7 @@
         <h4>전체 시리즈</h4>
         <ListForm
           :seasons="detailData.seasons"
-          :slideWidth="slideWidth(detailData.seasons.length)"
+          :calWidth="calculatedSlideWidth(detailData.seasons.length)"
         />
       </div>
     </div>
@@ -74,7 +73,10 @@
     <div class="similar-wrap">
       <div class="similer tv">
         <h3>비슷한 TV프로그램</h3>
-        <ListForm :similar="similar" :slideWidth="slideWidth(similar.length)" />
+        <ListForm
+          :similar="similar"
+          :calWidth="calculatedSlideWidth(similar.length)"
+        />
       </div>
     </div>
   </div>
@@ -83,7 +85,7 @@
 <script>
 import { checkPoster, checkBackDrop } from '@/utils/posterCheck.js';
 import { checkTilte, checkOverview } from '@/utils/filters.js';
-import { slideWidth } from '@/utils/style.js';
+import { calculatedSlideWidth } from '@/utils/style.js';
 import ListForm from '@/components/search/ListForm';
 import { mapActions, mapState } from 'vuex';
 
@@ -114,8 +116,8 @@ export default {
     checkYears(date) {
       return date.substr(0, 4);
     },
-    slideWidth(length) {
-      return slideWidth(length);
+    calculatedSlideWidth(length) {
+      return calculatedSlideWidth(length);
     },
     getSimilerMedia(id, keyword) {
       const type = this.$route.query.path;
