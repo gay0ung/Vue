@@ -2,7 +2,6 @@
 
 html,
 body {
-	height: 100%;
 	width: 100%;
 	margin: 0;
 	padding: 0;
@@ -10,6 +9,7 @@ body {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	padding-bottom: 30px;
 }
 
 h1,

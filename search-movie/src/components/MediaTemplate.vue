@@ -1,18 +1,19 @@
 <template>
   <div class="trandy-wrap" v-if="(trandDaily && trandWeekly) !== undefined">
-    <div class="trand-daily">
+    <div class="list trand-daily">
       <h3>지금 뜨는 콘텐츠</h3>
       <ListForm :dailyData="trandDaily" />
     </div>
 
-    <div class="trand-weekly">
+    <div class="list trand-weekly">
       <h3>이번주 인기 콘텐츠</h3>
       <ListForm :weeklyData="trandWeekly" />
     </div>
 
-    <div class="my-list">
+    <!-- <div class="list my-list">
       <h3>내가 추가한 목록</h3>
-    </div>
+      <ListForm />
+    </div> -->
   </div>
 </template>
 

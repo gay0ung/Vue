@@ -1,7 +1,7 @@
 <template>
   <div class="slide-wrap">
     <transition name="slide">
-      <ul class="slides" :style="slideWrapStyle">
+      <ul class="slides" :style="{ width: slideWarpWidth }">
         <li
           v-for="(media, idx) in searchData ||
             dailyData ||
@@ -11,13 +11,15 @@
             seasons ||
             similar"
           :key="idx"
-          :style="slideStyle"
+          :style="{ width: slideWidth }"
         >
-          <img
-            :src="checkPoster(media)"
-            alt=""
+          <div
+            class="slide-poster"
+            :style="{
+              backgroundImage: `url(${checkingPathType(media)})`,
+            }"
             @click.prevent="mediaDetail(media.id, media.media_type)"
-          />
+          ></div>
 
           <div class="slide-info">
             <h4>{{ media.title || media.name }}</h4>
@@ -40,7 +42,8 @@
 
 <script>
 import { mapActions } from 'vuex';
-import { checkPoster } from '@/utils/posterCheck.js';
+
+import { checkPoster, checkProfileImg } from '@/utils/posterCheck.js';
 
 export default {
   data() {
@@ -48,17 +51,13 @@ export default {
       save: true,
       curPage: 1,
       btnShow: true,
-      slideWidth: 0,
-      itemWidth: 0,
-      slideWrapStyle: {
-        width: `${this.slideWidth}px`,
-      },
-      slideStyle: {
-        width: `${this.itemWidth}px`,
-      },
+      slideWarpWidth: '',
+      slideWidth: '',
     };
   },
-  created() {},
+  mounted() {
+    this.slideWdithCheck();
+  },
   beforeUpdate() {
     this.slideWdithCheck();
   },
@@ -85,6 +84,24 @@ export default {
     checkPoster(data) {
       return checkPoster(data);
     },
+    checkProfileImg(path) {
+      return checkProfileImg(path);
+    },
+    checkingPathType(data) {
+      const dataList = this.$props;
+      let existData = '';
+      // console.log(this.$props);
+      for (let name in dataList) {
+        if (dataList[name] !== undefined) {
+          existData = name;
+        }
+      }
+
+      return existData === 'cast'
+        ? this.checkProfileImg(data.profile_path)
+        : this.checkPoster(data.poster_path);
+    },
+
     mediaDetail(id, type) {
       let typeObj = { type: type, id: id };
 
@@ -123,10 +140,47 @@ export default {
         }
       }
 
-      let pages = Math.ceil(itemLen / 5);
-      console.log(pages);
-      this.slideWidth = parentWidth * pages;
-      console.log(parentWidth, this.slideWidth);
+      let pages = 0;
+      let ggrandParentCN = this.$el.offsetParent.classList;
+      // consoel.dir(this.$el);
+      switch (ggrandParentCN[0]) {
+        case 'similar-wrap':
+          pages = Math.ceil(itemLen / 6);
+          this.slideWarpWidth = `${parentWidth * pages}px`;
+          this.slideWidth = `${((parentWidth * pages) / 6) * pages}px`;
+          break;
+        case 'cast':
+          pages = Math.ceil(itemLen / 8);
+          this.slideWarpWidth = `${parentWidth * pages}px`;
+          this.slideWidth = `${((parentWidth * pages) / 8) * pages}px`;
+          break;
+        case 'seasons-wrap':
+          pages = Math.ceil(itemLen / 10);
+          this.slideWarpWidth = `${parentWidth * pages}px`;
+          this.slideWidth = `${((parentWidth * pages) / 10) * pages}px`;
+          break;
+        default:
+          pages = Math.ceil(itemLen / 5);
+          this.slideWarpWidth = `${parentWidth * pages}px`;
+          this.slideWidth = `${((parentWidth * pages) / 5) * pages}px`;
+          break;
+      }
+
+      // pages = Math.ceil(itemLen / 5);
+      // this.slideWarpWidth = `${parentWidth * pages}px`;
+      // this.slideWidth = `${((parentWidth * pages) / 5) * pages}px`;
+
+      // if (ggrandParentCN.contains('seasons-wrap')) {
+      //   pages = Math.ceil(itemLen / 10);
+      //   this.slideWidth = `${parentWidth * pages}px`;
+      //   this.slideWidth = `${((parentWidth * pages) / 10) * pages}px`;
+      // } else {
+      //   pages = Math.ceil(itemLen / 6);
+      //   this.slideWidth = `${parentWidth * pages}px`;
+      //   this.slideWidth = `${((parentWidth * pages) / 6) * pages}px`;
+      // }
+      console.log(parentWidth);
+      console.log(ggrandParentCN[0]);
     },
     slideHandler(e) {
       const tagID = e.target.id;

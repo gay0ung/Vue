@@ -1,46 +1,61 @@
+.main-page .list {
+  height: auto;
+}
+
+.list {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 10px;
+}
 .slide-wrap {
   height: 100%;
-  overflow: hidden;
-  position: relative;
   width: 100%;
+  position: relative;
 }
+
 .slide-wrap > .slides {
   background-color: orange;
   position: absolute;
   width: 100%;
   height: 100%;
   display: flex;
+  /* gap: 20px; */
 }
 .slides li {
   position: relative;
   display: grid;
-  width: 20%;
-  height: 100%;
   grid-template-rows: 1fr auto;
-  background-color: greenyellow;
+  padding: 0 10px;
+  /* width: 100%; */
 }
 
-.slide-wrap li img {
-  height: 100%;
+.slide-poster {
+  /* width: 80%; */
+  width: 100%;
   border-radius: 10px;
-  place-self: center;
   cursor: pointer;
-  position: relative;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  place-items: center;
+  justify-self: center;
 }
-.slide-wrap li img:hover{
-  height: calc(100% + 79px);
-  transition: height ease .6s;
-  /* position: absolute; */
+.main-page .slide-poster:hover {
+  transition: transform ease .6s;
+  transform: scale(1.2);
+  z-index: 200;
 }
+
 .slide-info {
   display: grid;
   grid-template-columns: repeat(2,auto);
   justify-items: center;
 }
 .controls {
-  position: relative;
+  position: absolute;
+  left: 0; 
+  right: 0;
   top: 50%;
-
 }
 .controls > button {
   width: 40px;
@@ -53,7 +68,5 @@ button#next {
 }
 
 .fav-btn {
-  /* position: absolute;
-  right: 0; bottom: 0; */
   width: 25px; height: 25px;
 }

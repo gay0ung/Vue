@@ -2,23 +2,18 @@
 @import url('./main.css');
 
 #app {
-  height: 100%;
   width: 100%;
-  /* min-width: 1400px; */
-  max-width: 1600px;
-  /* display: grid; */
-  /* grid-template-rows: 80px auto; */
+  min-width: 1500px;
   gap: 10px;
-  margin: 0 auto;
-  /* padding: 20px 3%; */
-
-
-  /* overflow-y: scroll;
-  overflow-x: hidden; */
+  margin: 0 auto 30px;
 }
-/* #app > * {padding: 0 50px;} */
 
 /* header ---------------------------------------------------------------*/
+header { 
+  position: fixed;
+  left: 0; right: 0;
+  z-index: 1000;
+}
 .app-header {
   background-color: transparent;
   display: grid;
@@ -27,9 +22,6 @@
   align-items: center;
   gap: 25px;
   padding: 0 20px;
-  position: fixed;
-  left: 0; right: 0;
-  z-index: 1000;
 }
 .h-nav {
   display: grid; 
@@ -66,7 +58,7 @@
   grid-template-columns: repeat(2,auto);
   gap: 30px;
   top: 10px;
-  left: 10px;
+  left: 10px; 
 }
 
 .search-types > li {
@@ -75,6 +67,28 @@
 
 .Search-form {
   justify-self: end;
+  right: 0;
+  background-color: lightblue;
+
+}
+.Search-form > form {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  width: 40px;
+  overflow: hidden;
+}
+.Search-form > form.on {
+  width: 300px;
+}
+.Search-form button {
+  width: 40px;
+  height: 40px;
+  background-color: rgb(56, 47, 56);
+}
+.Search-form  input {
+  padding-left: 10px;
+  box-sizing: unset;
+  background-color: lavenderblush;
 }
 
 

@@ -5,15 +5,15 @@
 
       <template v-if="path.path === 'search'">
         <!-- 사람,드라마, 영화 순으로 정리 하기 -->
-        <div class="s-person" v-if="arrangingData().person.length !== 0">
+        <div class="list s-person" v-if="arrangingData().person.length !== 0">
           <strong>사람</strong>
           <ListForm :searchData="arrangingData().person" />
         </div>
-        <div class="s-movie" v-if="arrangingData().movie.length !== 0">
+        <div class="list s-movie" v-if="arrangingData().movie.length !== 0">
           <strong>영화</strong>
           <ListForm :searchData="arrangingData().movie" />
         </div>
-        <div class="s-tv" v-if="arrangingData().tv.length !== 0">
+        <div class="list s-tv" v-if="arrangingData().tv.length !== 0">
           <strong>TV 프로그램</strong>
           <ListForm :searchData="arrangingData().tv" />
         </div>
@@ -22,7 +22,7 @@
       <!-- keyword로 검색했을 경우 -->
       <template v-else>
         <div
-          class="s-movie"
+          class="list s-movie"
           v-if="kMediaList.length !== 0 && path.type === 'movie'"
         >
           <strong>{{ path.name }} 검색 결과</strong>
@@ -79,10 +79,6 @@ export default {
 
       return arranged;
     },
-    // 검색된 갯수에 따른 ul태그의 넓이 css
-    // calculatedSlideWidth(length) {
-    //   return calculatedSlideWidth(length);
-    // },
   },
 };
 </script>

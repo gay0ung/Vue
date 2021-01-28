@@ -1,7 +1,7 @@
 <template>
   <div class="Search-form">
     <form @submit.prevent="submitForm">
-      <button type="submit"><i class="fas fa-search"></i></button>
+      <button @click.prevent="openSearchForm" :type="bType">search</button>
       <input
         type="text"
         v-model="inputValue"
@@ -18,6 +18,7 @@ export default {
   data() {
     return {
       inputValue: '',
+      bType: 'button',
     };
   },
   created() {},
@@ -42,6 +43,19 @@ export default {
           },
         });
       }
+    },
+
+    openSearchForm(e) {
+      const parentCN = e.target.parentNode.classList;
+      console.log(e.target);
+      if (parentCN.contains('on')) {
+        parentCN.remove('on');
+        this.bType = 'submit';
+        return;
+      }
+
+      parentCN.add('on');
+      this.bType = 'button';
     },
   },
 };

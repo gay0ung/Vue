@@ -8,9 +8,12 @@
       }"
     ></div>
     <div class="main-info">
-      <div class="poster">
-        <img :src="checkPoster(detailData)" alt="" />
-      </div>
+      <div
+        class="poster"
+        :style="{
+          backgroundImage: `url(${checkPoster(detailData.poster_path)})`,
+        }"
+      ></div>
       <div class="contents">
         <h2 class="title">
           {{ detailData.title }}
@@ -33,20 +36,23 @@
         </div>
       </div>
     </div>
+
     <!-- 출연진 정보 -->
     <div class="cast">
-      <div>
+      <div class="list">
         <h3>출연진</h3>
         <ListForm :cast="splitTheActors(credits.cast)" />
       </div>
     </div>
+
     <!-- 추천목록 -->
     <div class="similar-wrap">
-      <div class="similer movie">
+      <div class="list listsimiler movie">
         <h3>비슷한 영화</h3>
         <ListForm :similar="similar" />
       </div>
-      <div class="keyword">
+
+      <div class="list keyword">
         <h3>키워드</h3>
         <ul>
           <li v-for="keyword in keywords" :key="keyword.id">
@@ -78,6 +84,11 @@ export default {
     return {
       backDropUrl: '',
     };
+  },
+  beforeUpdate() {
+    // this.checkTilte();
+    // this.checkOverview();
+    // this.checkYears();
   },
   computed: {
     ...mapState(['recommend', 'keywords', 'credits', 'similar']),
