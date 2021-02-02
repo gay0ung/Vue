@@ -1,0 +1,232 @@
+@import './_mixins';
+@import './_variables';
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;700&display=swap');
+
+/* reset -----------------------------------------------------------------*/
+html,
+body {
+  @include widthHeigth; 
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	padding-bottom: 30px;
+}
+
+h1,
+p,
+ul {
+	margin: 0;
+	padding: 0;
+}
+h1,h2,h3,h4,h5{width: fit-content;}
+
+input,
+select,
+textarea {
+	border: 0;
+	padding: 0;
+	margin: 0;
+	background: transparent;
+	resize: none;
+}
+
+a {cursor: pointer;}
+li {
+	list-style: none;
+}
+
+button {
+	font-family: inherit;
+	font-size: 90%;
+	margin: 0;
+	cursor: pointer;
+  border: none;
+  &:focus {outline: none;};
+  &:active {background-color: lightcoral;}
+}
+input:focus {outline: none;}
+
+*,
+*:after,
+*:before {
+	box-sizing: border-box;
+	margin:0; padding:0;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+i {
+ 	font-style: normal;
+}
+
+
+/* common -------------------------------------------------------------- */
+#app {
+  width: 100%;
+  min-width: 1500px;
+  margin: 0 auto 30px;
+}
+
+
+/* main ---------------------------------------------------------------- */
+.r-veiw {
+  background-color: cadetblue;
+  // height: 100%;
+  .wrapper {
+    @include slideStyle('main');
+    padding: 100px 3% 0;
+    margin:0 10px;
+    .list {
+      display: grid;
+      grid-template-rows: 40px 1fr;
+    }
+  }
+}
+
+
+/* detail -------------------------------------------------------------- */
+.detail-page {
+  padding: 100px 3% 0;
+  .detail-info {
+    outline: 3px solid green;
+    display: grid;
+    height: 100%;
+    gap: 80px;
+    .d-list {
+      position: relative;
+      grid-auto-rows: auto;
+      div {
+        gap:10px
+      }
+    }
+
+    .hero-img {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      width: 100%;
+      height: 70% ;
+      @include backgroundStyle;
+      opacity: .9;
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        opacity: .74;
+      }
+    }
+
+    .main-info,
+    .last-s-wrap {
+      @include gridCol('col');
+      gap: 45px;
+    }
+
+    .main-info {
+      * {
+        color: white;
+      }
+
+      .poster {
+        width: 350px;
+        height: 500px;
+        border-radius: 15px;
+        @include backgroundStyle;
+      }
+    }
+
+    .contents {
+      display: grid;
+      height: 90%;
+      grid-template-rows: repeat(3,auto) 51% 1fr;
+
+      .title {
+        font-size: 2.4em;
+        height: fit-content;
+        span {
+          font-size: 0.7em;
+          font-weight: 300;
+        }
+      }
+      .title.en {
+        font-size: 1.4em;
+        padding-bottom: 10px;
+        font-weight: 300;
+      }
+
+      strong {
+        font-size: 1.4em;
+      }
+
+      .genres {
+        display: flex;
+        gap: 6px;
+        font-weight: 300;
+      }
+
+      .overview {
+        @include gridCol('col');
+        margin-top: 20px;
+        width: 100%;
+        p {
+          height: 100%;
+        }
+      }
+
+      .director {
+        margin-top: 20px;
+      }
+    }
+
+    // tv일경우
+    .seasons-wrap {
+      @include gridCol('col');
+      gap: 20px;
+      .poster {
+        width: 220px;
+        height: 340px;
+      }
+      .list {
+        @include slideStyle('seasons')
+      }
+    }
+
+    .keyword {
+      height: auto;
+      ul {
+        display: flex;
+        height: fit-content;
+        gap: 10px;
+        font-size: 1.3em;
+        li {
+          height: fit-content;
+          button {
+            padding: 3px 9px;
+            border-radius: 20px;
+            &:hover {
+              background-color: rgb(207, 209, 207);
+            }
+          }
+        }
+      }
+    }
+
+    .list {
+      @include slideStyle('detail')
+    }
+  }
+}
+
+/* search -------------------------------------------------------------- */
+
+
+/* favorit ------------------------------------------------------------- */
+

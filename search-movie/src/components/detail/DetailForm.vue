@@ -1,13 +1,16 @@
 <template>
-  <div class="media-detail">
-    <template v-if="checkType() === 'person'">
-      <PersonDetail :detailData="detail" />
+  <div class="detail-page">
+    <template v-if="media_info.type === 'person'">
+      <PersonDetail />
+      <!-- <MediaDetailTemp :detailData="detail" /> -->
     </template>
-    <template v-if="checkType() === 'movie'">
-      <MovieDetail :detailData="detail" />
+    <template v-if="media_info.type === 'movie'">
+      <!-- <MovieDetail :detailData="detail" /> -->
+      <MediaDetailTemp />
     </template>
-    <template v-if="checkType() === 'tv'">
-      <TvDetail :detailData="detail" />
+    <template v-if="media_info.type === 'tv'">
+      <!-- <TvDetail /> -->
+      <MediaDetailTemp />
     </template>
     <!-- {{ detail }} -->
   </div>
@@ -17,28 +20,24 @@
 import { mapState } from 'vuex';
 
 import PersonDetail from '@/components/detail/PersonDetail.vue';
-import MovieDetail from '@/components/detail/MovieDetail.vue';
-import TvDetail from '@/components/detail/TvDetail.vue';
+// import MovieDetail from '@/components/detail/MovieDetail.vue';
+// import TvDetail from '@/components/detail/TvDetail.vue';
+import MediaDetailTemp from '@/components/detail/MediaDetailTemp.vue';
 
 export default {
   components: {
     PersonDetail,
-    MovieDetail,
-    TvDetail,
+    // MovieDetail,
+    // TvDetail,
+    MediaDetailTemp,
   },
   computed: {
-    ...mapState(['detail']),
+    ...mapState(['media_info']),
   },
-  methods: {
-    checkingVoteAverage(num) {
-      return num;
-    },
-    checkType() {
-      const type = this.$route.query.path;
-      return type === 'person' ? 'person' : type === 'movie' ? 'movie' : 'tv';
-    },
-  },
+  methods: {},
 };
 </script>
 
-<style></style>
+<style lang="scss">
+@import './detail.scss';
+</style>

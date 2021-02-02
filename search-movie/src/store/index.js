@@ -22,7 +22,7 @@ export default new Vuex.Store({
     searchDB: [], // search result
 
     // detail
-    type: { type: '', id: 0 },
+    media_info: {},
     detail: [], // click detail
 
     trandDaily: [], // trand daily
@@ -53,7 +53,7 @@ export default new Vuex.Store({
       state.inputValue = inputValue;
     },
     SET_ID(state, mObj) {
-      state.type = { type: mObj.type, id: mObj.id };
+      state.media_info = { type: mObj.type, id: mObj.id };
     },
     SET_TRENDING_DAILY(state, tData) {
       state.trandDaily = tData.results;

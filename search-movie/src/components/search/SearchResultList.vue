@@ -1,6 +1,6 @@
 <template>
-  <div class="search-result-form">
-    <div class="result-wrap">
+  <div class="search-result-page">
+    <div class="wrapper result">
       <!-- <p class="message">검색결과 {{ searchDB.length }}</p> -->
 
       <template v-if="path.path === 'search'">
@@ -35,7 +35,6 @@
 movieDB.results
 <script>
 import { checkPoster } from '@/utils/posterCheck.js';
-// import { calculatedSlideWidth } from '@/utils/style.js';
 import { mapState, mapActions } from 'vuex';
 import ListForm from '@/components/search/ListForm';
 

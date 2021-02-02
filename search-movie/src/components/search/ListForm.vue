@@ -6,7 +6,6 @@
           v-for="(media, idx) in searchData ||
             dailyData ||
             weeklyData ||
-            recommend ||
             cast ||
             seasons ||
             similar"
@@ -41,7 +40,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 
 import { checkPoster, checkProfileImg } from '@/utils/posterCheck.js';
 
@@ -65,7 +64,6 @@ export default {
     'searchData',
     'dailyData',
     'weeklyData',
-    'recommend',
     'cast',
     'seasons',
     'similar',
@@ -74,12 +72,12 @@ export default {
   methods: {
     ...mapActions([
       'FETCH_DETAILE',
-      'FETCH_RECOMMENDATIONS',
       'FETCH_KEYWORDS_LIST',
       'FETCH_CREDITS_LIST',
       'FETCH_SIMILAR_LIST',
       'FETCH_PERSON_CREDITS',
     ]),
+    ...mapMutations(['SET_ID']),
 
     checkPoster(data) {
       return checkPoster(data);
@@ -108,28 +106,20 @@ export default {
       this.FETCH_DETAILE(typeObj);
 
       if (type === 'movie' || type === 'tv') {
-        this.FETCH_RECOMMENDATIONS(typeObj);
-        this.FETCH_KEYWORDS_LIST(typeObj);
-        this.FETCH_CREDITS_LIST(typeObj);
-        this.FETCH_SIMILAR_LIST(typeObj);
+        this.FETCH_KEYWORDS_LIST(typeObj); // 키워드리스트
+        this.FETCH_CREDITS_LIST(typeObj); // 관계자들 목록
+        this.FETCH_SIMILAR_LIST(typeObj); // 비슷한 장르 추천
       }
 
       if (type === 'person') {
         this.FETCH_PERSON_CREDITS(id);
       }
 
-      this.$router.push({
-        name: 'Detail',
-        query: {
-          path:
-            type === 'tv'
-              ? 'tv'
-              : type === 'movie' || type === undefined
-              ? 'movie'
-              : 'person',
-        },
-      });
+      this.SET_ID(typeObj);
+
+      this.$router.push({ name: 'Detail' });
     },
+
     slideWdithCheck() {
       let parentWidth = this.$el.clientWidth;
       let itemLen = 0;
@@ -179,9 +169,10 @@ export default {
       //   this.slideWidth = `${parentWidth * pages}px`;
       //   this.slideWidth = `${((parentWidth * pages) / 6) * pages}px`;
       // }
-      console.log(parentWidth);
-      console.log(ggrandParentCN[0]);
+      // console.log(parentWidth);
+      // console.log(ggrandParentCN[0]);
     },
+
     slideHandler(e) {
       const tagID = e.target.id;
 
@@ -223,7 +214,4 @@ export default {
 .slides-enter-active {
   transition: left ease 0.4s;
 }
-/* .slide-leave-active {
-  transition: all ease 0.4s;
-} */
 </style>

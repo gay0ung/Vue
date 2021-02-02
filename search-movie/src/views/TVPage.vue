@@ -1,15 +1,13 @@
 <template>
-  <main class="main-page">
-    <MediaTemplate></MediaTemplate>
-  </main>
+  <MainForm></MainForm>
 </template>
 
 <script>
-import MediaTemplate from '@/components/MediaTemplate.vue';
+import MainForm from '@/components/MainForm.vue';
 
 export default {
   components: {
-    MediaTemplate,
+    MainForm,
   },
 };
 </script>

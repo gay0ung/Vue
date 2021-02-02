@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <AppHeader></AppHeader>
-    <router-view class="view-page"></router-view>
+    <router-view class="r-veiw"></router-view>
   </div>
 </template>
 
@@ -15,6 +15,6 @@ export default {
 };
 </script>
 
-<style>
-@import url('./assets/css/style.css');
+<style lang="scss">
+@import './assets/scss/style.scss';
 </style>

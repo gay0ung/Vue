@@ -1,0 +1,66 @@
+@import '../../assets/scss/_mixins';
+@import '../../assets/scss/_variables';
+
+header {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+
+  .app-header {
+    background-color: transparent;
+    @include gridCol('col-L');
+    height: 80px;
+    align-items: center;
+    gap: 25px;
+    margin: 0 20px;
+    overflow: hidden;
+  }
+  
+  nav {
+    .h-nav {
+      @include gridCol('col-N');
+      gap: 20px;
+    }
+  }
+
+  .search-wrap {
+    position: relative;
+
+    div {
+      position: absolute;
+      z-index: 30;
+      background: #F2F2F2;
+      display: none;
+      width: 300px;
+      padding: 60px 10px 10px;
+      gap: 10px;
+    }
+    div.on {
+      display: grid;
+    }
+  }
+
+  .Search-form{
+    justify-self: end;
+    right: 0;
+    background-color: aqua;
+
+    form {
+      @include gridCol('col');
+      width: 40px;
+      button {
+        width: $search-btn;
+        height: $search-btn;
+        background-color: rgb(56, 47, 56);
+      }
+      input {
+        padding-left: 10px;
+        background-color: lavenderblush;
+      }
+    }
+    form.on{
+      width: 300px;
+    }
+  }
+}

@@ -1,5 +1,5 @@
 <template>
-  <div class="detail-person" v-if="detailData">
+  <div class="detail-info-wrap person" v-if="detailData">
     사람 보여지는 곳
     <div class="person-info">
       <div class="profile">인물 사진 보여질 예정</div>
@@ -47,7 +47,7 @@
 <script>
 import { mapState } from 'vuex';
 import ListForm from '@/components/search/ListForm';
-import { slideWidth } from '@/utils/style.js';
+// import { slideWidth } from '@/utils/style.js';
 
 export default {
   data() {
@@ -124,9 +124,9 @@ export default {
       // console.log(creditsObj);
     },
 
-    slideWidth(length) {
-      return slideWidth(length);
-    },
+    // slideWidth(length) {
+    //   return slideWidth(length);
+    // },
   },
 };
 </script>
