@@ -1,25 +1,26 @@
-@import '../../assets/scss/_mixins';
-@import '../../assets/scss/_variables';
+@import "../../assets/scss/_mixins";
 
+$search-btn: 40px;
 header {
   position: fixed;
   left: 0;
   right: 0;
   z-index: 1000;
+  // background-color: black;
 
   .app-header {
     background-color: transparent;
-    @include gridCol('col-L');
+    @include gridCol("col-L");
     height: 80px;
     align-items: center;
     gap: 25px;
-    margin: 0 20px;
+    margin: 0 40px;
     overflow: hidden;
   }
-  
+
   nav {
     .h-nav {
-      @include gridCol('col-N');
+      @include gridCol("col-N");
       gap: 20px;
     }
   }
@@ -30,7 +31,7 @@ header {
     div {
       position: absolute;
       z-index: 30;
-      background: #F2F2F2;
+      background: #f2f2f2;
       display: none;
       width: 300px;
       padding: 60px 10px 10px;
@@ -41,26 +42,29 @@ header {
     }
   }
 
-  .Search-form{
+  .Search-form {
     justify-self: end;
     right: 0;
-    background-color: aqua;
-
+    // background-color: aqua;
+    width: 40px;
     form {
-      @include gridCol('col');
-      width: 40px;
+      @include gridCol("col");
+
       button {
         width: $search-btn;
         height: $search-btn;
-        background-color: rgb(56, 47, 56);
+        background-color: transparent;
       }
       input {
         padding-left: 10px;
-        background-color: lavenderblush;
+        background-color: transparent;
+        color: white;
+        font-weight: bold;
       }
     }
-    form.on{
+    &.on {
       width: 300px;
+      background-color: rgb(93, 93, 93);
     }
   }
 }

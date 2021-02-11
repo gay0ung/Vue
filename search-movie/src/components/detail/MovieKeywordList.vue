@@ -1,5 +1,5 @@
 <template>
-  <div class="list keyword">
+  <div class="keyword d-list">
     <h3>키워드</h3>
     <template v-if="keywords !== undefined && keywords.length > 0">
       <ul>

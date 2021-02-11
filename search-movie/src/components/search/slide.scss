@@ -1,0 +1,92 @@
+@import "../../assets/scss/_mixins";
+
+$slide-btn: 40px;
+$fav-btn: 40px;
+$slid-pos: -34px;
+
+.slide-wrap {
+  @include widthHeigth;
+  position: relative;
+
+  .slides {
+    position: absolute;
+    @include widthHeigth;
+    display: flex;
+
+    // gap: 20px;
+
+    li {
+      position: relative;
+      padding: 0 10px;
+      @include slideStyle("slide");
+      // align-self: center;
+
+      .slide-poster {
+        @include backgroundStyle;
+        width: 100%;
+        border-radius: 10px;
+        cursor: pointer;
+
+        .favorite {
+          background-color: transparent;
+          position: absolute;
+          right: 0;
+          width: $fav-btn;
+          height: $fav-btn;
+          font-size: x-large;
+          display: grid;
+          place-items: center;
+          opacity: 0.3;
+        }
+      }
+    }
+  }
+
+  .controls {
+    background-color: lime;
+    position: absolute;
+    width: 100%;
+    // height: $slide-btn;
+    top: 50%;
+    // z-index: 400;
+
+    button {
+      position: absolute;
+      width: $slide-btn;
+      height: $slide-btn;
+      background-color: transparent;
+      color: white;
+      transform: translateY(-50%);
+      z-index: 400;
+      // left: $slid-pos;
+      opacity: 0.3;
+      &.prev {
+        left: $slid-pos;
+      }
+
+      &.next {
+        right: $slid-pos;
+      }
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .slide-info {
+    h4 {
+      font-size: 0.9em;
+    }
+  }
+}
+
+.main-page {
+  .slide-poster {
+    &:hover {
+      transition: transform ease 0.6s;
+      transform: scale(1.2);
+      z-index: 200;
+      position: relative;
+    }
+  }
+}

@@ -1,7 +1,9 @@
 <template>
   <div class="Search-form">
-    <form @submit.prevent="submitForm">
-      <button @click.prevent="openSearchForm" :type="bType">search</button>
+    <form @submit.prevent="submitForm" :ref="searchForm">
+      <button @click.prevent="openSearchForm" :type="bType">
+        <font-awesom-icon :icon="['fas', 'search']" :style="iconStyle" />
+      </button>
       <input
         type="text"
         v-model="inputValue"
@@ -19,6 +21,11 @@ export default {
     return {
       inputValue: '',
       bType: 'button',
+      iconStyle: {
+        color: 'white',
+        width: '100%',
+        height: '60%',
+      },
     };
   },
   created() {},
@@ -45,17 +52,19 @@ export default {
       }
     },
 
-    openSearchForm(e) {
-      const parentCN = e.target.parentNode.classList;
-      console.log(e.target);
-      if (parentCN.contains('on')) {
-        parentCN.remove('on');
+    openSearchForm() {
+      const searchForm = this.$el.classList;
+      console.log(searchForm);
+
+      if (searchForm.contains('on')) {
+        searchForm.remove('on');
         this.bType = 'submit';
         return;
       }
 
-      parentCN.add('on');
+      searchForm.add('on');
       this.bType = 'button';
+      return;
     },
   },
 };

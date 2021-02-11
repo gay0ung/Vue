@@ -1,18 +1,21 @@
-@import '../../assets/scss/_mixins';
-@import '../../assets/scss/_variables';
+@import "../../assets/scss/_mixins";
+@import "../../assets/scss/_variables";
 
 .detail-page {
   padding: 100px 3% 0;
   .detail-info {
     outline: 3px solid green;
-    display: grid;
+    // display: grid;
+    // grid-auto-rows: auto;
     height: 100%;
-    gap: 80px;
+    // gap: 80px;
+
     .d-list {
       position: relative;
+      // @include slideStyle("detail");
       grid-auto-rows: auto;
       div {
-        gap:10px
+        gap: 10px;
       }
     }
 
@@ -22,11 +25,11 @@
       right: 0;
       left: 0;
       width: 100%;
-      height: 70% ;
+      height: 70%;
       @include backgroundStyle;
-      opacity: .9;
+      opacity: 0.9;
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         left: 0;
         right: 0;
@@ -34,107 +37,122 @@
         width: 100%;
         height: 100%;
         background-color: black;
-        opacity: .74;
+        opacity: 0.74;
       }
     }
 
     .main-info,
     .last-s-wrap {
-      @include gridCol('col');
+      @include gridCol("col");
       gap: 45px;
     }
-
-    .main-info {
-      * {
-        color: white;
-      }
-
-      .poster {
-        width: 350px;
-        height: 500px;
-        border-radius: 15px;
-        @include backgroundStyle;
-      }
-    }
-
-    .contents {
+    .info-wrap {
       display: grid;
-      height: 90%;
-      grid-template-rows: repeat(3,auto) 51% 1fr;
+      grid-auto-rows: auto;
+      gap: 80px;
+      .main-info {
+        * {
+          color: white;
+        }
 
-      .title {
-        font-size: 2.4em;
-        height: fit-content;
-        span {
-          font-size: 0.7em;
+        .poster {
+          width: 350px;
+          height: 500px;
+          border-radius: 15px;
+          @include backgroundStyle;
+        }
+      }
+
+      .contents {
+        display: grid;
+        height: 90%;
+        grid-template-rows: repeat(3, auto) 51% 1fr;
+
+        .title {
+          font-size: 2.4em;
+          height: fit-content;
+          span {
+            font-size: 0.7em;
+            font-weight: 300;
+          }
+        }
+        .title.en {
+          font-size: 1.4em;
+          padding-bottom: 10px;
           font-weight: 300;
         }
-      }
-      .title.en {
-        font-size: 1.4em;
-        padding-bottom: 10px;
-        font-weight: 300;
-      }
 
-      strong {
-        font-size: 1.4em;
-      }
+        strong {
+          font-size: 1.4em;
+        }
 
-      .genres {
-        display: flex;
-        gap: 6px;
-        font-weight: 300;
-      }
+        .genres {
+          display: flex;
+          gap: 6px;
+          font-weight: 300;
+        }
 
-      .overview {
-        @include gridCol('col');
-        margin-top: 20px;
-        width: 100%;
-        p {
-          height: 100%;
+        .overview {
+          // @include gridCol("col");
+          margin-top: 20px;
+          width: 100%;
+          p {
+            height: 100%;
+            overflow-y: scroll;
+          }
+        }
+
+        .director {
+          margin-top: 20px;
+
+          ul {
+            display: grid;
+            grid-template-columns: repeat(2, max-content);
+            gap: 30px;
+          }
         }
       }
 
-      .director {
-        margin-top: 20px;
+      // tv일경우
+      .seasons-wrap {
+        @include gridCol("col");
+        gap: 20px;
+        .poster {
+          width: 220px;
+          height: 340px;
+        }
+        .list {
+          @include slideStyle("seasons");
+        }
       }
-    }
 
-    // tv일경우
-    .seasons-wrap {
-      @include gridCol('col');
-      gap: 20px;
-      .poster {
-        width: 220px;
-        height: 340px;
-      }
-      .list {
-        @include slideStyle('seasons')
-      }
-    }
-
-    .keyword {
-      height: auto;
-      ul {
-        display: flex;
-        height: fit-content;
-        gap: 10px;
-        font-size: 1.3em;
-        li {
+      // movie일 경우
+      .keyword {
+        height: auto !important;
+        ul {
+          display: flex;
           height: fit-content;
-          button {
-            padding: 3px 9px;
-            border-radius: 20px;
-            &:hover {
-              background-color: rgb(207, 209, 207);
+          gap: 10px;
+          font-size: 1.3em;
+          padding-bottom: 20px;
+          li {
+            height: fit-content;
+            button {
+              padding: 3px 9px;
+              border-radius: 20px;
+              &:hover {
+                background-color: rgb(207, 209, 207);
+              }
             }
           }
         }
       }
-    }
 
-    .list {
-      @include slideStyle('detail')
+      .list {
+        @include slideStyle("detail");
+
+        // gap: 80px;
+      }
     }
   }
 }

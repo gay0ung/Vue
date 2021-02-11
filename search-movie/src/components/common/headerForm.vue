@@ -13,7 +13,7 @@
         </li>
       </ul>
     </nav>
-    <div class="search-wrap">
+    <div class="search-wrap" :style="{ display: 'none' }">
       <button class="search-btn" @click="openTheList">탐색하기</button>
       <div>
         <ul class="search-types">

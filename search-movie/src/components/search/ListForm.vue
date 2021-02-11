@@ -1,40 +1,49 @@
 <template>
   <div class="slide-wrap">
-    <transition name="slide">
-      <ul class="slides" :style="{ width: slideWarpWidth }">
-        <li
-          v-for="(media, idx) in searchData ||
-            dailyData ||
-            weeklyData ||
-            cast ||
-            seasons ||
-            similar"
-          :key="idx"
-          :style="{ width: slideWidth }"
+    <ul class="slides" :style="{ width: slideWarpWidth }">
+      <li
+        v-for="(media, idx) in searchData ||
+          dailyData ||
+          weeklyData ||
+          cast ||
+          seasons ||
+          similar"
+        :key="idx"
+        :style="{ width: slideWidth }"
+      >
+        <div
+          class="slide-poster"
+          :style="{
+            backgroundImage: `url(${checkingPathType(media)})`,
+          }"
+          @click.prevent="mediaDetail(media.id, media.media_type)"
         >
-          <div
-            class="slide-poster"
-            :style="{
-              backgroundImage: `url(${checkingPathType(media)})`,
-            }"
-            @click.prevent="mediaDetail(media.id, media.media_type)"
-          ></div>
+          <transition>
+            <button type="button" class="favorite" key="save">
+              <i>{{ save ? '★' : '☆' }}</i>
+            </button>
+          </transition>
+        </div>
 
-          <div class="slide-info">
-            <h4>{{ media.title || media.name }}</h4>
-            <transition>
-              <button type="button" v-if="save" key="save">
-                <i>{{ save ? '★' : '☆' }}</i>
-              </button>
-            </transition>
-          </div>
-        </li>
-      </ul>
-    </transition>
+        <div class="slide-info">
+          <h4>{{ media.title || media.name }}</h4>
+        </div>
+      </li>
+    </ul>
 
     <div class="controls" @click="slideHandler" v-if="btnShow">
-      <button type="button" id="prev">prev</button>
-      <button type="button" id="next">next</button>
+      <button type="button" class="prev">
+        <font-awesom-icon
+          :icon="['fas', 'chevron-left']"
+          :style="slidBtnStyle"
+        />
+      </button>
+      <button type="button" class="next">
+        <font-awesom-icon
+          :icon="['fas', 'chevron-right']"
+          :style="slidBtnStyle"
+        />
+      </button>
     </div>
   </div>
 </template>
@@ -47,11 +56,19 @@ import { checkPoster, checkProfileImg } from '@/utils/posterCheck.js';
 export default {
   data() {
     return {
-      save: true,
+      save: false,
+      // page관련
       curPage: 1,
+      pageNum: 0,
       btnShow: true,
+      // slideStyle
       slideWarpWidth: '',
       slideWidth: '',
+      slidBtnStyle: {
+        width: '100%',
+        heigth: '100%',
+        'font-size': '3.3em',
+      },
     };
   },
   mounted() {
@@ -59,6 +76,9 @@ export default {
   },
   beforeUpdate() {
     this.slideWdithCheck();
+    if (this.searchData.length < 5) {
+      this.btnShow = false;
+    }
   },
   props: [
     'searchData',
@@ -131,58 +151,38 @@ export default {
       }
 
       let pages = 0;
-      let ggrandParentCN = this.$el.offsetParent.classList;
-      // consoel.dir(this.$el);
-      switch (ggrandParentCN[0]) {
-        case 'similar-wrap':
-          pages = Math.ceil(itemLen / 6);
-          this.slideWarpWidth = `${parentWidth * pages}px`;
-          this.slideWidth = `${((parentWidth * pages) / 6) * pages}px`;
+      let ggrandParentCN = this.$el.offsetParent.classList[0];
+
+      const pagesForm = NUM => {
+        pages = Math.ceil(itemLen / NUM);
+        this.pageNum = pages;
+        this.slideWarpWidth = `${parentWidth * pages}px`;
+        this.slideWidth = `${(parentWidth * pages) / (NUM * pages)}px`;
+      };
+
+      switch (ggrandParentCN) {
+        case 'similer':
+          pagesForm(8);
           break;
         case 'cast':
-          pages = Math.ceil(itemLen / 8);
-          this.slideWarpWidth = `${parentWidth * pages}px`;
-          this.slideWidth = `${((parentWidth * pages) / 8) * pages}px`;
+          pagesForm(7);
           break;
         case 'seasons-wrap':
-          pages = Math.ceil(itemLen / 10);
-          this.slideWarpWidth = `${parentWidth * pages}px`;
-          this.slideWidth = `${((parentWidth * pages) / 10) * pages}px`;
+          pagesForm(10);
           break;
-        default:
-          pages = Math.ceil(itemLen / 5);
-          this.slideWarpWidth = `${parentWidth * pages}px`;
-          this.slideWidth = `${((parentWidth * pages) / 5) * pages}px`;
+        case undefined:
+          pagesForm(5);
           break;
       }
-
-      // pages = Math.ceil(itemLen / 5);
-      // this.slideWarpWidth = `${parentWidth * pages}px`;
-      // this.slideWidth = `${((parentWidth * pages) / 5) * pages}px`;
-
-      // if (ggrandParentCN.contains('seasons-wrap')) {
-      //   pages = Math.ceil(itemLen / 10);
-      //   this.slideWidth = `${parentWidth * pages}px`;
-      //   this.slideWidth = `${((parentWidth * pages) / 10) * pages}px`;
-      // } else {
-      //   pages = Math.ceil(itemLen / 6);
-      //   this.slideWidth = `${parentWidth * pages}px`;
-      //   this.slideWidth = `${((parentWidth * pages) / 6) * pages}px`;
-      // }
-      // console.log(parentWidth);
-      // console.log(ggrandParentCN[0]);
     },
 
     slideHandler(e) {
       const tagID = e.target.id;
 
-      const slides = this.$el.children[0], // ul
-        slide = Array.from(slides.children); //li
+      const slides = this.$el.children[0]; // ul
+      const slidesWidth = slides.clientWidth;
 
-      const slidesWidth = slides.clientWidth,
-        slideLen = slide.length;
-
-      const pageNum = Math.ceil(slideLen / 5); // 1페이지당 5개li
+      const pageNum = this.pageNum;
       const slideWidth = slidesWidth / pageNum;
 
       if (tagID === 'next') {
@@ -209,8 +209,9 @@ export default {
 };
 </script>
 
-<style>
-@import url('../../assets/css/slide.css');
+<style lang="scss">
+@import './slide.scss';
+
 .slides-enter-active {
   transition: left ease 0.4s;
 }
