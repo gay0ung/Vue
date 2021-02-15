@@ -16,17 +16,20 @@
           :style="{
             backgroundImage: `url(${checkingPathType(media)})`,
           }"
-          @click.prevent="mediaDetail(media.id, media.media_type)"
+          @click.prevent="
+            mediaDetail($event, { id: media.id, type: media.media_type })
+          "
         >
           <transition>
             <button type="button" class="favorite" key="save">
-              <i>{{ save ? '★' : '☆' }}</i>
+              <font-awesom-icon class="fav" :icon="['far', 'star']" />
             </button>
           </transition>
         </div>
 
         <div class="slide-info">
-          <h4>{{ media.title || media.name }}</h4>
+          <strong>{{ media.character }}</strong>
+          <p>{{ media.title || media.name }}</p>
         </div>
       </li>
     </ul>
@@ -88,7 +91,11 @@ export default {
     'seasons',
     'similar',
   ],
-  computed: {},
+  computed: {
+    checkCast() {
+      return console.log(this);
+    },
+  },
   methods: {
     ...mapActions([
       'FETCH_DETAILE',
@@ -117,11 +124,14 @@ export default {
 
       return existData === 'cast'
         ? this.checkProfileImg(data.profile_path)
-        : this.checkPoster(data.poster_path);
+        : this.checkPoster(data.backdrop_path);
     },
+    mediaDetail(e, listObj) {
+      const { type, id } = listObj;
+      const { tagName } = e.target;
 
-    mediaDetail(id, type) {
-      let typeObj = { type: type, id: id };
+      if (tagName !== 'DIV') return;
+      let typeObj = { type, id };
 
       this.FETCH_DETAILE(typeObj);
 
@@ -177,21 +187,26 @@ export default {
     },
 
     slideHandler(e) {
-      const tagID = e.target.id;
+      console.log(this);
+      const tagID = e.target.parentElement.classList;
 
       const slides = this.$el.children[0]; // ul
       const slidesWidth = slides.clientWidth;
 
       const pageNum = this.pageNum;
       const slideWidth = slidesWidth / pageNum;
+      console.dir();
+      if (e.target.tagName === 'PATH') return;
 
-      if (tagID === 'next') {
+      if (tagID.contains('next')) {
         // 마지막 페이지 인 경우
         if (this.curPage === pageNum) {
+          console.log(this.curPage);
           slides.style.left = `0px`;
           this.curPage = 1;
           return;
         }
+
         slides.style.left = `${-slideWidth * this.curPage}px`;
         this.curPage++;
       } else {
@@ -204,6 +219,7 @@ export default {
         slides.style.left = `${-slideWidth * (this.curPage - 2)}px`;
         this.curPage--;
       }
+      console.log(this.curPage);
     },
   },
 };

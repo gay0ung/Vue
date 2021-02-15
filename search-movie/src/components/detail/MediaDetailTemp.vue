@@ -42,7 +42,12 @@
           </ul>
           <div class="overview">
             <strong>줄거리</strong>
-            <p v-if="detail.overview">{{ checkOverview(detail.overview) }}</p>
+            <template v-if="detail.overview.length > 1">
+              <p v-if="detail.overview">{{ checkOverview(detail.overview) }}</p>
+            </template>
+            <template v-else>
+              <p>줄거리가 없습니다.</p>
+            </template>
           </div>
           <div class="director">
             <template v-if="media_info.type === 'movie'">

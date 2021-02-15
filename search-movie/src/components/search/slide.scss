@@ -1,8 +1,11 @@
 @import "../../assets/scss/_mixins";
 
-$slide-btn: 40px;
-$fav-btn: 40px;
-$slid-pos: -34px;
+$slide-btn: 3%;
+$slide-pos: -3%;
+$slide-pdr: 10px;
+
+$fav-btn: 35px;
+$f-color: white;
 
 .slide-wrap {
   @include widthHeigth;
@@ -12,14 +15,13 @@ $slid-pos: -34px;
     position: absolute;
     @include widthHeigth;
     display: flex;
-
-    // gap: 20px;
+    z-index: 100;
+    transition: left ease 0.8s;
 
     li {
       position: relative;
-      padding: 0 10px;
+      padding: 0 $slide-pdr;
       @include slideStyle("slide");
-      // align-self: center;
 
       .slide-poster {
         @include backgroundStyle;
@@ -30,45 +32,60 @@ $slid-pos: -34px;
         .favorite {
           background-color: transparent;
           position: absolute;
-          right: 0;
+          top: 5px;
+          right: $slide-pdr + 5px;
           width: $fav-btn;
           height: $fav-btn;
           font-size: x-large;
           display: grid;
           place-items: center;
+          display: none;
           opacity: 0.3;
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+        .fav {
+          @include widthHeigth;
+          color: rgb(190, 175, 35);
         }
       }
     }
   }
 
   .controls {
-    background-color: lime;
     position: absolute;
-    width: 100%;
-    // height: $slide-btn;
-    top: 50%;
-    // z-index: 400;
-
+    top: 0;
+    @include widthHeigth;
     button {
+      // background-color: lime;
       position: absolute;
-      width: $slide-btn;
-      height: $slide-btn;
+      width: 3%;
+      height: 100%;
+      top: 0;
+      bottom: 0;
       background-color: transparent;
-      color: white;
+      color: $f-color;
+      top: 50%;
       transform: translateY(-50%);
       z-index: 400;
-      // left: $slid-pos;
       opacity: 0.3;
-      &.prev {
-        left: $slid-pos;
-      }
 
-      &.next {
-        right: $slid-pos;
-      }
       &:hover {
         opacity: 1;
+        background-color: rgba(128, 128, 128, 0.055);
+      }
+      &.prev {
+        left: $slide-pos;
+      }
+      &.next {
+        right: $slide-pos;
+      }
+      svg {
+        // @include widthHeigth;
+        width: 100%;
+        font-size: 20px;
       }
     }
   }
@@ -87,6 +104,36 @@ $slid-pos: -34px;
       transform: scale(1.2);
       z-index: 200;
       position: relative;
+
+      .favorite {
+        right: 5px !important;
+        display: block !important;
+      }
     }
+  }
+}
+
+.list {
+  color: $f-color;
+}
+
+.cast {
+  .favorite {
+    display: none !important;
+  }
+  .slide-info {
+    gap: 3px !important;
+    display: grid;
+    place-items: center;
+    p {
+      font-size: 0.7em;
+    }
+  }
+}
+
+.similer {
+  .favorite {
+    width: 30px !important;
+    height: 30px !important;
   }
 }

@@ -24,19 +24,26 @@
 
 @mixin slideStyle($type) {
   display: grid;
-  gap: 10px;
+  gap: 20px;
   // grid-template-rows: auto 1fr;
 
   @if $type == "main" {
-    grid-auto-rows: minmax(200px, 550px);
-    gap: 40px;
+    grid-template-rows: auto;
+    gap: 100px;
   } @else if $type == "detail" {
     grid-template-rows: auto 1fr;
     height: 300px;
   } @else if $type == "seasons" {
     height: 200px;
   } @else if $type == "slide" {
-    grid-template-rows: 1fr 5%;
+    grid-template-rows: 1fr 10%;
     justify-items: center;
   }
+}
+
+@mixin detailMain {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 20px;
+  margin-top: 20px;
 }
