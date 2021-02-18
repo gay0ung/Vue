@@ -1,15 +1,21 @@
 <template>
   <div class="app-header">
     <h1 class="h-logo">
-      <router-link to="/main">YOUNGFLIX</router-link>
+      <router-link :to="{ name: 'main', params: { type: 'main' } }"
+        >YOUNGFLIX</router-link
+      >
     </h1>
     <nav>
       <ul class="h-nav">
         <li>
-          <router-link to="/tv">TV프로그램</router-link>
+          <router-link :to="{ name: 'main', params: { type: 'tv' } }"
+            >TV프로그램</router-link
+          >
         </li>
         <li>
-          <router-link to="/movie">영화</router-link>
+          <router-link :to="{ name: 'main', params: { type: 'movie' } }"
+            >영화</router-link
+          >
         </li>
       </ul>
     </nav>
@@ -44,12 +50,12 @@
         </ul>
       </div>
     </div>
-    <SearchForm></SearchForm>
+    <SearchForm />
   </div>
 </template>
 
 <script>
-import SearchForm from '@/components/search/SearchForm.vue';
+import SearchForm from '@/components/common/SearchForm.vue';
 import { mapActions, mapState } from 'vuex';
 export default {
   components: {

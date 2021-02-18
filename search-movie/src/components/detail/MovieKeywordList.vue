@@ -23,20 +23,22 @@
 import { mapState, mapActions } from 'vuex';
 export default {
   computed: {
-    ...mapState(['keywords']),
+    ...mapState(['keywords', 'mediaInfo']),
   },
   methods: {
     ...mapActions(['FETCH_KEYWORDS_MEDIA_LIST']),
-    getSimilerMedia(id) {
+    getSimilerMedia(id, keyword) {
       console.log('this work!');
-      const type = this.$route.query.path;
-
+      const { type } = this.mediaInfo;
       this.FETCH_KEYWORDS_MEDIA_LIST({
         id: id,
         type: type === 'movie' ? 'movies' : type,
       });
 
-      this.$router.push({ name: 'sList' });
+      this.$router.push({
+        name: 'sList',
+        query: { path: 'keyword', name: keyword },
+      });
     },
   },
 };

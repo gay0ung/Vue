@@ -21,6 +21,7 @@ body {
 }
 body {
   padding-bottom: 30px;
+  overflow: hidden scroll;
 }
 
 h1,
@@ -111,6 +112,9 @@ i {
         h3 {
           font-size: 1.4em;
         }
+      }
+      &.result {
+        gap: 10px;
       }
     }
   }

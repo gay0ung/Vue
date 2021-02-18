@@ -16,7 +16,7 @@ $f-color: white;
     @include widthHeigth;
     display: flex;
     z-index: 100;
-    transition: left ease 0.8s;
+    // transition: left ease 0.8s;
 
     li {
       position: relative;
@@ -28,6 +28,7 @@ $f-color: white;
         width: 100%;
         border-radius: 10px;
         cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.705);
 
         .favorite {
           background-color: transparent;
@@ -117,6 +118,7 @@ $f-color: white;
   color: $f-color;
 }
 
+// cast
 .cast {
   .favorite {
     display: none !important;
@@ -131,9 +133,19 @@ $f-color: white;
   }
 }
 
+// 비슷한 장르
 .similer {
   .favorite {
     width: 30px !important;
     height: 30px !important;
+  }
+}
+
+// 검색결과페이지
+.search-result-page {
+  .result {
+    &.wrapper {
+      @include slideStyle("search");
+    }
   }
 }

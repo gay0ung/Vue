@@ -1,34 +1,32 @@
 <template>
   <div class="seasons-wrap d-list">
-    <div class="last_episode_to_air">
+    <div class="last_episode_to_air ">
       <h3>{{ detail.in_production ? '현재 시즌' : '지난 시즌' }}</h3>
       <div class="last-s-wrap">
         <div
           v-if="lastSeasons.poster_path !== null"
           class="poster"
           :style="{
-            backgroundImage: `url(${checkPoster(lastSesons.poster_path)})`,
+            backgroundImage: `url(${chekcImages(lastSeasons.poster_path)})`,
           }"
         ></div>
-        <ul>
-          <li>
-            <strong>{{ lastSesons.name }}</strong>
-            <span>{{
-              `${lastAirDate.year} | ${lastSesons.episode_count} 화`
-            }}</span>
-            <p>
-              {{
-                `${detail.name}의 ${lastSesons.season_number}번째 시즌이 ${lastAirDate.year}년 ${lastAirDate.month}월 ${lastAirDate.day}일에 방영되었습니다.`
-              }}
-            </p>
-            <button>에피소드</button>
-          </li>
-        </ul>
+        <div class="last-contents">
+          <strong>{{ lastSeasons.name }}</strong>
+          <span>{{
+            `${lastAirDate.year} | ${lastSeasons.episode_count} 화`
+          }}</span>
+          <p>
+            {{
+              `${detail.name}의 ${lastSeasons.season_number}번째 시즌이 ${lastAirDate.year}년 ${lastAirDate.month}월 ${lastAirDate.day}일에 방영되었습니다.`
+            }}
+          </p>
+          <button class="epi-btn">에피소드 보기</button>
+        </div>
       </div>
     </div>
     <div class="list all-seasons">
       <h4>전체 시리즈</h4>
-      <ListForm :seasons="detail.seasons" />
+      <ListForm :seasons="seasons" />
     </div>
   </div>
 </template>
@@ -36,13 +34,13 @@
 <script>
 import ListForm from '@/components/search/ListForm';
 import { mapState } from 'vuex';
-import { checkPoster } from '@/utils/posterCheck.js';
+import { chekcImages } from '@/utils/posterCheck.js';
 
 export default {
   components: { ListForm },
   data() {
     return {
-      lastSesons: null,
+      lastSeasons: null,
       lastAirDate: this.splitDate,
     };
   },
@@ -55,20 +53,20 @@ export default {
     this.splitDate();
   },
   computed: {
-    ...mapState(['detail']),
+    ...mapState(['detail', 'seasons']),
   },
   methods: {
-    checkPoster(path) {
-      return checkPoster(path);
+    chekcImages(path) {
+      return chekcImages(path);
     },
     getLastSeasons() {
-      let seasons = this.detail.seasons;
+      let seasons = this.seasons;
 
-      this.lastSesons = seasons.slice(-1)[0];
+      this.lastSeasons = seasons.slice(-1)[0];
     },
 
     splitDate() {
-      let date = this.lastSesons.air_date;
+      let date = this.lastSeasons.air_date;
       const splitStr = date.split('-');
       let airDate = {
         year: splitStr[0],

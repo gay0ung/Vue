@@ -1,6 +1,8 @@
 @import "../../assets/scss/_mixins";
 @import "../../assets/scss/_variables";
 
+$epi-pos: 20px;
+
 .detail-page {
   padding: 100px 3% 0;
   .detail-info {
@@ -8,9 +10,36 @@
 
     .d-list {
       position: relative;
-      grid-auto-rows: auto;
-      div {
-        gap: 10px;
+
+      &.seasons-wrap {
+        color: white;
+
+        .last_episode_to_air {
+          @include slideStyle("detail");
+          height: auto;
+          position: relative;
+        }
+        .last-s-wrap {
+          background-color: rgba(255, 255, 255, 0.041);
+          border-radius: 20px;
+          overflow: hidden;
+          .last-contents {
+            margin-top: 20px;
+            height: 70%;
+            strong {
+              padding-right: 20px;
+            }
+            p {
+              margin-top: 50px;
+            }
+            .epi-btn {
+              position: absolute;
+              padding: 10px 20px;
+              right: $epi-pos;
+              bottom: $epi-pos;
+            }
+          }
+        }
       }
     }
 
@@ -87,7 +116,7 @@
         }
 
         .overview {
-          width: 100%;
+          width: 70%;
           @include detailMain;
           p {
             height: 100%;
@@ -113,11 +142,12 @@
 
       // tv일경우
       .seasons-wrap {
-        @include gridCol("col");
+        @include gridCol("col-S");
         gap: 20px;
         .poster {
           width: 220px;
           height: 340px;
+          @include backgroundStyle;
         }
         .list {
           @include slideStyle("seasons");

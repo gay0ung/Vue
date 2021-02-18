@@ -3,32 +3,30 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
+const Main = () => import('@/views/MainPage.vue');
+const SList = () => import('@/views/SearchResultPage.vue');
+
+const Detail = () => import('@/views/DetailtPage.vue');
+
 const routes = [
   {
     path: '/',
     redirect: '/main',
   },
   {
-    path: '/main',
-    component: () => import('@/views/MainPage.vue'),
-  },
-  {
-    path: '/movie',
-    component: () => import('@/views/MoviePage.vue'),
-  },
-  {
-    path: '/tv',
-    component: () => import('@/views/TVPage.vue'),
+    name: 'main',
+    path: '/:type',
+    component: Main,
   },
   {
     name: 'sList',
     path: '/sList',
-    component: () => import('@/views/SearchResultPage.vue'),
+    component: SList,
   },
   {
-    name: 'Detail',
+    name: 'detail',
     path: '/sDetail',
-    component: () => import('@/views/DetailtPage.vue'),
+    component: Detail,
   },
 ];
 
@@ -37,9 +35,5 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
-
-// router.beforeRouteEnter((to, from, next) => {
-//   console.log(to, from, next);
-// });
 
 export default router;

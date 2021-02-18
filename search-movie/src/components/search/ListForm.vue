@@ -2,22 +2,27 @@
   <div class="slide-wrap">
     <ul class="slides" :style="{ width: slideWarpWidth }">
       <li
-        v-for="(media, idx) in searchData ||
+        v-for="(item, idx) in searchData ||
           dailyData ||
           weeklyData ||
           cast ||
           seasons ||
-          similar"
+          similar ||
+          keywordData"
         :key="idx"
         :style="{ width: slideWidth }"
       >
         <div
           class="slide-poster"
           :style="{
-            backgroundImage: `url(${checkingPathType(media)})`,
+            backgroundImage: `url(${checkingPathType(item)})`,
           }"
           @click.prevent="
-            mediaDetail($event, { id: media.id, type: media.media_type })
+            mediaDetail($event, {
+              id: item.id,
+              type: item.media_type !== undefined ? item.media_type : 'movie',
+              title: item.title !== undefined ? item.title : item.name,
+            })
           "
         >
           <transition>
@@ -28,8 +33,8 @@
         </div>
 
         <div class="slide-info">
-          <strong>{{ media.character }}</strong>
-          <p>{{ media.title || media.name }}</p>
+          <strong>{{ item.character }}</strong>
+          <p>{{ item.title || item.name }}</p>
         </div>
       </li>
     </ul>
@@ -54,7 +59,7 @@
 <script>
 import { mapActions, mapMutations } from 'vuex';
 
-import { checkPoster, checkProfileImg } from '@/utils/posterCheck.js';
+import { chekcImages, checkProfileImg } from '@/utils/posterCheck.js';
 
 export default {
   data() {
@@ -74,14 +79,12 @@ export default {
       },
     };
   },
+
   mounted() {
     this.slideWdithCheck();
   },
   beforeUpdate() {
     this.slideWdithCheck();
-    if (this.searchData.length < 5) {
-      this.btnShow = false;
-    }
   },
   props: [
     'searchData',
@@ -90,12 +93,9 @@ export default {
     'cast',
     'seasons',
     'similar',
+    'keywordData',
   ],
-  computed: {
-    checkCast() {
-      return console.log(this);
-    },
-  },
+
   methods: {
     ...mapActions([
       'FETCH_DETAILE',
@@ -106,8 +106,8 @@ export default {
     ]),
     ...mapMutations(['SET_ID']),
 
-    checkPoster(data) {
-      return checkPoster(data);
+    chekcImages(data) {
+      return chekcImages(data);
     },
     checkProfileImg(path) {
       return checkProfileImg(path);
@@ -115,39 +115,53 @@ export default {
     checkingPathType(data) {
       const dataList = this.$props;
       let existData = '';
-      // console.log(this.$props);
+
       for (let name in dataList) {
         if (dataList[name] !== undefined) {
           existData = name;
         }
       }
 
-      return existData === 'cast'
-        ? this.checkProfileImg(data.profile_path)
-        : this.checkPoster(data.backdrop_path);
+      switch (existData) {
+        case 'cast':
+          return this.checkProfileImg(data.profile_path);
+
+        case 'seasons':
+          return this.chekcImages(data.poster_path);
+
+        default:
+          return data.backdrop_path === null
+            ? this.chekcImages(data.poster_path)
+            : this.chekcImages(data.backdrop_path);
+      }
     },
+
+    // 상세페이지이동
     mediaDetail(e, listObj) {
-      const { type, id } = listObj;
+      const { type, id, title } = listObj;
       const { tagName } = e.target;
 
       if (tagName !== 'DIV') return;
-      let typeObj = { type, id };
-
-      this.FETCH_DETAILE(typeObj);
+      console.log(title);
+      this.FETCH_DETAILE({ type, id });
 
       if (type === 'movie' || type === 'tv') {
-        this.FETCH_KEYWORDS_LIST(typeObj); // 키워드리스트
-        this.FETCH_CREDITS_LIST(typeObj); // 관계자들 목록
-        this.FETCH_SIMILAR_LIST(typeObj); // 비슷한 장르 추천
+        this.FETCH_KEYWORDS_LIST({ type, id }); // 키워드리스트
+        this.FETCH_CREDITS_LIST({ type, id }); // 관계자들 목록
+        this.FETCH_SIMILAR_LIST({ type, id }); // 비슷한 장르 추천
       }
 
       if (type === 'person') {
         this.FETCH_PERSON_CREDITS(id);
       }
 
-      this.SET_ID(typeObj);
+      this.SET_ID({ type, id });
+      console.log(type);
 
-      this.$router.push({ name: 'Detail' });
+      if (this.$route.path !== '/sDetail')
+        this.$router.push({
+          name: 'detail',
+        });
     },
 
     slideWdithCheck() {
@@ -187,7 +201,6 @@ export default {
     },
 
     slideHandler(e) {
-      console.log(this);
       const tagID = e.target.parentElement.classList;
 
       const slides = this.$el.children[0]; // ul
@@ -201,7 +214,6 @@ export default {
       if (tagID.contains('next')) {
         // 마지막 페이지 인 경우
         if (this.curPage === pageNum) {
-          console.log(this.curPage);
           slides.style.left = `0px`;
           this.curPage = 1;
           return;
@@ -219,7 +231,6 @@ export default {
         slides.style.left = `${-slideWidth * (this.curPage - 2)}px`;
         this.curPage--;
       }
-      console.log(this.curPage);
     },
   },
 };

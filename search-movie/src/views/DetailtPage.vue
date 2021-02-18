@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <DetailForm></DetailForm>
-  </div>
+  <DetailForm></DetailForm>
 </template>
 
 <script>
@@ -12,3 +10,7 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+@import '../components/detail/detail.scss';
+</style>

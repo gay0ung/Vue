@@ -6,6 +6,8 @@
   } @else if $col == "col-N" {
     // grid-auto-columns: auto;
     grid-template-columns: repeat(2, auto);
+  } @else if $col == "col-S" {
+    grid-auto-rows: auto;
   } @else {
     grid-template-columns: auto 1fr;
   }
@@ -25,19 +27,20 @@
 @mixin slideStyle($type) {
   display: grid;
   gap: 20px;
-  // grid-template-rows: auto 1fr;
 
   @if $type == "main" {
-    grid-template-rows: auto;
+    // grid-template-rows: auto;
     gap: 100px;
   } @else if $type == "detail" {
     grid-template-rows: auto 1fr;
     height: 300px;
   } @else if $type == "seasons" {
-    height: 200px;
+    // height: 200px;
   } @else if $type == "slide" {
-    grid-template-rows: 1fr 10%;
+    grid-template-rows: 1fr 20%;
     justify-items: center;
+  } @else if $type == "search" {
+    grid-template-rows: repeat(3, 1fr);
   }
 }
 

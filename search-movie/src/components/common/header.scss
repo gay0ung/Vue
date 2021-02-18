@@ -50,6 +50,7 @@ header {
     right: 0;
     // background-color: aqua;
     width: 40px;
+    // transition: width ease 1.2s;
     form {
       @include gridCol("col");
 
@@ -57,6 +58,13 @@ header {
         width: $search-btn;
         height: $search-btn;
         background-color: transparent;
+        svg {
+          &.svg-inline--fa.fa-w-16 {
+            @include widthHeigth;
+            color: white;
+            font-size: medium;
+          }
+        }
       }
       input {
         padding-left: 10px;

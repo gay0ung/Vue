@@ -1,32 +1,42 @@
 <template>
   <div class="search-result-page">
     <div class="wrapper result">
-      <!-- <p class="message">검색결과 {{ searchDB.length }}</p> -->
-
-      <template v-if="path.path === 'search'">
-        <!-- 사람,드라마, 영화 순으로 정리 하기 -->
+      <template v-if="query.path === 'search'">
+        <!-- 인물 -->
         <div class="list s-person" v-if="arrangingData().person.length !== 0">
-          <strong>사람</strong>
+          <strong
+            >사람 <span>({{ arrangingData().person.length }})</span></strong
+          >
           <ListForm :searchData="arrangingData().person" />
         </div>
+        <!-- 영화 -->
         <div class="list s-movie" v-if="arrangingData().movie.length !== 0">
-          <strong>영화</strong>
+          <strong
+            >영화 <span>({{ arrangingData().movie.length }})</span></strong
+          >
           <ListForm :searchData="arrangingData().movie" />
         </div>
+        <!-- tv -->
         <div class="list s-tv" v-if="arrangingData().tv.length !== 0">
-          <strong>TV 프로그램</strong>
+          <strong
+            >TV 프로그램 <span>({{ arrangingData().tv.length }})</span></strong
+          >
           <ListForm :searchData="arrangingData().tv" />
         </div>
       </template>
 
       <!-- keyword로 검색했을 경우 -->
-      <template v-else>
+      <template v-else-if="query.path === 'keyword'">
         <div
           class="list s-movie"
-          v-if="kMediaList.length !== 0 && path.type === 'movie'"
+          v-if="kMediaList.length !== 0 && mediaInfo.type === 'movie'"
         >
-          <strong>{{ path.name }} 검색 결과</strong>
-          <ListForm :searchData="kMediaList" />
+          <strong>
+            <span>'{{ query.name }}'</span> 검색 결과 ({{
+              kMediaList.length
+            }})</strong
+          >
+          <ListForm :keywordData="kMediaList" />
         </div>
       </template>
     </div>
@@ -34,34 +44,26 @@
 </template>
 movieDB.results
 <script>
-import { checkPoster } from '@/utils/posterCheck.js';
 import { mapState, mapActions } from 'vuex';
 import ListForm from '@/components/search/ListForm';
 
 export default {
   data() {
     return {
-      path: this.$route.query,
+      query: this.$route.query,
     };
-  },
-  created() {
-    // <i class="fas fa-star"></i> 즐겨찾기 했을 경우
   },
   components: {
     ListForm,
   },
   computed: {
-    ...mapState(['searchDB', 'kMediaList', 'kMediaList']),
+    ...mapState(['searchDB', 'kMediaList', 'kMediaList', 'mediaInfo']),
   },
   methods: {
     ...mapActions(['FETCH_DETAILE']),
-    checkPoster(path) {
-      return checkPoster(path);
-    },
     // 영화,tv,인물 끼리 정렬
     arrangingData() {
       const searchDB = this.searchDB;
-
       let arranged = {
         tv: [],
         movie: [],

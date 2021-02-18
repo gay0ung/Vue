@@ -22,7 +22,7 @@ export default new Vuex.Store({
     searchDB: [], // search result
 
     // detail
-    media_info: {},
+    mediaInfo: {},
     detail: [], // click detail
 
     trandDaily: [], // trand daily
@@ -33,6 +33,7 @@ export default new Vuex.Store({
 
     movieList: [],
     tvList: [],
+    seasons: [],
 
     recommend: [],
     similar: [],
@@ -53,7 +54,7 @@ export default new Vuex.Store({
       state.inputValue = inputValue;
     },
     SET_ID(state, mObj) {
-      state.media_info = { type: mObj.type, id: mObj.id };
+      state.mediaInfo = { type: mObj.type, id: mObj.id };
     },
     SET_TRENDING_DAILY(state, tData) {
       state.trandDaily = tData.results;
@@ -66,6 +67,7 @@ export default new Vuex.Store({
     },
     SET_MEDIA_DETAILE(state, data) {
       state.detail = data;
+      state.seasons = data.seasons;
     },
     SET_MEDIA_RECOMMEND(state, data) {
       state.recommend = data;

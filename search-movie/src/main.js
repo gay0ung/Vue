@@ -6,11 +6,20 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faSearch as fasSearch } from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft as fasChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { faChevronRight as fasChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faUser as fasUser } from '@fortawesome/free-solid-svg-icons';
 import { faStar as fasStar } from '@fortawesome/free-regular-svg-icons';
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
+
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-library.add(fasSearch, fasChevronLeft, fasChevronRight, fasStar, farStar);
+library.add(
+  fasSearch,
+  fasChevronLeft,
+  fasChevronRight,
+  fasStar,
+  fasUser,
+  farStar,
+);
 
 Vue.component('font-awesom-icon', FontAwesomeIcon);
 
