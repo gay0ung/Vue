@@ -2,9 +2,8 @@
   <div id="app">
     <TodoHeader></TodoHeader>
     <TodoInput v-on:addTodo="addTodo"></TodoInput>
-    <TodoList v-bind:propsdata="todoItems" @removeTodo="removeTodo"></TodoList>
-    <!-- @removeTodo는 v-on:removeTodo의 약식문법이다. -->
-    <TodoFooter v-on:removeAll="clearAll"></TodoFooter>
+    <TodoList :propsdata="todoItems" @removeTodo="removeTodo"></TodoList>
+    <TodoFooter v-show="todoItems.length > 0" v-on:removeAll="clearAll"></TodoFooter>
   </div>
 </template>
 
@@ -30,8 +29,6 @@ export default {
   props: ["propsdata"],
   methods: {
     addTodo(todoItem) {
-      // todoItem 인자는 TodoInput컴포넌트에서 올려보낸
-      // 로컬스토리지에 데이터를 추가하는 로직
       localStorage.setItem(todoItem, todoItem);
       this.todoItems.push(todoItem);
     },
@@ -54,10 +51,22 @@ export default {
 </script>
 
 <style>
+* {
+  box-sizing: border-box; 
+  margin: 0;
+  padding:0;
+}
 body {
+
   text-align: center;
   background-color: #f5f6fa;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  -ms-overflow-style: none; 
 }
+::-webkit-scrollbar { display: none;}
+
 input {
   border-style: groove;
   width: 200px;
@@ -67,5 +76,9 @@ button {
 }
 .shadow {
   box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.03);
+}
+#app {
+  width: 50%;
+  min-width: 780px;
 }
 </style>

@@ -1,6 +1,5 @@
 <template>
   <section>
-    <!-- 에니메이션 추가해보기 -->
     <transition-group name="list" tag="ul">
       <li v-for="(todoItem, index) in propsdata" :key="todoItem" class="shadow">
         <i class="checkBtn fa fa-check"></i>
@@ -55,7 +54,7 @@ li {
   margin-left: auto;
   color: #e84118;
 }
-/* trasition-group */
+
 /*  name:list */
 .list-item {
   display: inline-block;
