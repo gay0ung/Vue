@@ -1,0 +1,73 @@
+@import '../../assets/scss/variables';
+
+$search-btn:37px;
+@mixin showBtn {
+  background-color: $red2;
+  color: $white;
+}
+
+.header__inr{
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  display: grid;
+  grid-template-columns: repeat(2, max-content) 1fr;
+  padding: 10px 20px;
+
+  .h__logo {
+    margin-right: 20px;
+    a {
+      color: $red2;
+    }
+
+  }
+
+  .h__nav{
+    ul {
+      display: flex;
+      height: 100%;
+      align-items: center;
+      column-gap: 18px;
+    }
+  }
+
+  .search__form {
+    display: flex;
+    align-items: center;
+    justify-self: self-end;
+    form {
+      display: flex;
+
+      input {
+        width: fit-content;
+        padding: 3px 10px;
+        width: 0;
+        transition: width ease .4s;
+      }
+      
+      button {
+        width: $search-btn;
+        height: $search-btn;
+        font-size: large;
+        background-color: transparent;
+        color: $white;
+        transition: all ease .2s;
+        &:hover{
+          @include showBtn;
+        }
+      }
+
+      &.show {   
+        background-color: $white;
+        input {
+          width: 250px;
+        }
+        button {
+          @include showBtn;
+        }
+      }
+    }
+  }
+  
+}
