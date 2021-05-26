@@ -5,8 +5,7 @@ Vue.use(VueRouter);
 
 const Main = () => import('@/views/MainPage.vue');
 const SList = () => import('@/views/SearchResultPage.vue');
-
-const Detail = () => import('@/views/DetailtPage.vue');
+const Detail = () => import('@/views/DetailPage.vue');
 
 const routes = [
   {

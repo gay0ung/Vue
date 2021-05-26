@@ -1,14 +1,14 @@
-<template>
+cr<template>
   <header class="app-header-page">
-    <headerForm></headerForm>
+    <HeaderForm></HeaderForm>
   </header>
 </template>
 
 <script>
-import headerForm from '@/components/common/headerForm.vue';
+import HeaderForm from '@/components/common/HeaderForm.vue';
 export default {
   components: {
-    headerForm,
+    HeaderForm,
   },
 };
 </script>
