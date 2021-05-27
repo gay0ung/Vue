@@ -1,9 +1,16 @@
 <template>
-  <div class="movie__wrap"></div>
+  <div class="movie__wrap">
+    <MovieForm />
+  </div>
 </template>
 
 <script>
-export default {};
+import MovieForm from '@/components/main/movie/MovieForm.vue';
+export default {
+  components: {
+    MovieForm,
+  },
+};
 </script>
 
 <style></style>

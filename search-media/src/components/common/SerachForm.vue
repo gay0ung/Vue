@@ -3,10 +3,10 @@
     <form @submit.prevent="submitForm">
       <input
         type="text"
-        v-model="inputValue"
+        v-model="inputQuery"
         placeholder="영화, Tv프로그램, 인물을 입력해주세요"
       />
-      <button :type="btnType" @click.prevent="showSearchForm">
+      <button type="submit">
         <fa-icon :icon="['fas', 'search']" />
       </button>
     </form>
@@ -14,60 +14,46 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapActions, mapMutations, mapState } from 'vuex';
 
 const SHOW = 'show';
 export default {
   data() {
     return {
-      inputValue: null,
-      btnType: 'button',
+      inputQuery: null,
     };
   },
 
-  created() {},
+  computed: {
+    ...mapState(['inputValue']),
+  },
 
   methods: {
+    ...mapActions(['SEARCH_DATA']),
     ...mapMutations(['SET_VALUE']),
-    submitForm() {
-      if (this.inputValue) {
-        this.SET_VALUE(this.inputValue);
-        this.$cookies.set('s-query', this.inputValue);
+    submitForm(e) {
+      const formEl = e.target;
+      const inputEl = formEl[0];
 
-        this.inputValue = null;
-
-        if (this.$route.path !== '/search') {
-          this.$router.push('/search');
-        }
+      if (formEl.classList.contains(SHOW)) {
+        this.$route.name === 'search'
+          ? formEl.classList.add(SHOW)
+          : formEl.classList.remove(SHOW);
       }
-    },
 
-    showSearchForm() {
-      const formEl = this.$el.firstChild;
-      const inputEl = this.$el.firstChild[0];
+      formEl.classList.add(SHOW);
+      setTimeout(() => inputEl.focus(), 800);
 
-      switch (formEl.classList.contains(SHOW)) {
-        case true:
-          if (this.inputValue) {
-            if (this.$route.path !== '/search') {
-              formEl.classList.add(SHOW);
-              this.$router.push('/search');
-            } else {
-              formEl.classList.add(SHOW);
-            }
-          } else {
-            formEl.classList.remove(SHOW);
-            this.inputValue = null;
-          }
-          return;
-        case false:
-          formEl.classList.add(SHOW);
-          setTimeout(() => inputEl.focus(), 800);
-          this.btnType = 'submit';
-          return;
+      if (this.inputQuery) {
+        this.SEARCH_DATA(this.inputQuery);
+        this.SET_VALUE(this.inputQuery ?? this.inputValue);
 
-        default:
-          break;
+        this.$cookies.set('s-query', this.inputQuery);
+
+        this.inputQuery = null;
+
+        if (this.$route.name !== 'search')
+          this.$router.push({ name: 'search', query: { state: 'search' } });
       }
     },
   },

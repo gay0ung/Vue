@@ -1,0 +1,51 @@
+@import '../../assets/scss/_mixins.scss';
+@import '../../assets/scss/_variables.scss';
+
+$hero-web:440px;
+$hero-tablet:300px;
+$hero-phone:250px;
+
+.main__inr{
+  background-color: rgb(128, 240, 184);
+  padding-bottom: 100px;
+
+  .hero__wrap{
+    height: $hero-web;
+    margin-bottom: 50px;
+    position: relative;
+    .hero__img{
+      @include widthHeight;
+      @include backgroundImage;
+    }
+    .hero__cover{
+      background-color: #0d0d0d78;
+      @include widthHeight;
+    }
+    .hero__content{
+      position: absolute;
+      @include yCenter;
+      left: 3%;
+      @include flexCol;
+      row-gap: 10px;
+      * {
+        color:$white;
+      }
+      strong {
+        font-size: 2.3em;
+        
+      }
+      p {
+        font-size: 1.3em;
+      }
+
+    }
+  }
+
+  .main__contents{
+    margin: 0 auto;
+    width: 90%;
+    max-width: $maxHeight;
+    @include flexCol;
+    row-gap: 60px;
+  }
+}

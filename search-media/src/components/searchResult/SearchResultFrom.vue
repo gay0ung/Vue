@@ -7,7 +7,7 @@
 <script>
 export default {
   created() {
-    console.log(this.$store);
+    console.log(this.$store.state.inputValue);
   },
 };
 </script>

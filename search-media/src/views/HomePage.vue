@@ -1,9 +1,14 @@
 <template>
-  <div class="home__wrap"></div>
+  <div class="home__wrap">
+    <HomeForm />
+  </div>
 </template>
 
 <script>
-export default {};
+import HomeForm from '@/components/main/home/HomeForm.vue';
+export default {
+  components: { HomeForm },
+};
 </script>
 
 <style></style>

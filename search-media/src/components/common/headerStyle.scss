@@ -5,12 +5,18 @@ $search-btn:37px;
   background-color: $red2;
   color: $white;
 }
-
-.header__inr{
+.header__wrap{
   position: fixed;
-  left: 0;
+  left: 50%;
   right: 0;
   top: 0;
+  transform: translateX(-50%);
+  max-width: $maxHeight;
+  width: 100%;  
+  z-index: 100;
+}
+.header__inr{
+
   display: grid;
   grid-template-columns: repeat(2, max-content) 1fr;
   padding: 10px 20px;

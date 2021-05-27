@@ -5,7 +5,7 @@
 /* reset -----------------------------------------------------------------*/
 html,
 body {
-  @include widthHeight;
+  width: 100%;
   margin: 0;
   padding: 0;
   border: 0;
@@ -15,7 +15,6 @@ body {
   background-color: $black;
 }
 body {
-  padding-bottom: 30px;
   overflow: hidden scroll;
 }
 
@@ -46,7 +45,6 @@ textarea {
 a {
   cursor: pointer;
   text-decoration: none;
-  // color: white;
   &.on {
     font-weight: bolder;
   }
@@ -86,4 +84,12 @@ i {
   font-style: normal;
 }
 
+#app {
+  width: 100%;   
+  margin: 0 auto;
+
+  > div {
+    height: 100%;
+  }
+}
 

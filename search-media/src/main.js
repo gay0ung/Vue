@@ -6,11 +6,13 @@ import VueCookies from 'vue-cookies';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faSearch as fasSearch } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft as fasChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight as fasChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 Vue.use(VueCookies);
-Vue.$cookies.config('1d');
+Vue.$cookies.config('60');
 
-library.add(fasSearch);
+library.add(fasSearch, fasChevronLeft, fasChevronRight);
 Vue.component('fa-icon', FontAwesomeIcon);
 
 Vue.config.productionTip = false;

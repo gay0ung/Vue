@@ -1,0 +1,72 @@
+@import '../../assets/scss/_variables.scss';
+@import '../../assets/scss/_mixins.scss';
+
+$slide-btn-web:40px;
+.slide__wrap{
+  position: relative;
+  padding-bottom: 50px;
+
+  @include flexCol;
+  h3 {
+    margin-bottom: 30px;
+  }
+  .slide__box{
+    position: relative;
+
+    .slides{
+    // position: absolute;
+    display: flex;
+    left: 0;
+    li {
+      width: 20%;
+      padding: 0 10px;
+      @include flexCol;
+      .slide__poster{
+        transition: transform ease .4s;
+        cursor: pointer;
+        border-radius: 15px;
+        @include backgroundImage;
+      }
+
+      .slide__title {
+        align-self: center;
+      }
+
+      &:hover{
+        .slide__poster{
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
+  }
+
+ 
+ 
+ .slide__controls {
+    button {
+      position: absolute;
+      width: $slide-btn-web;
+      height: $slide-btn-web;
+      font-size: large;
+      opacity: 1;
+      transition: opacity ease .4s;
+      @include yCenter;
+      svg {
+        @include widthHeight;
+      }
+      &#next {
+        right: 0;
+      }
+    }
+ 
+  }
+   &:hover {
+    .slide__controls{
+      button {    
+        opacity: 1;
+        
+      }
+    }
+  }
+}

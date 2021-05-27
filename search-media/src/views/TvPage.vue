@@ -1,9 +1,16 @@
 <template>
-  <div class="tv__wrap"></div>
+  <div class="tv__wrap">
+    <TvForm />
+  </div>
 </template>
 
 <script>
-export default {};
+import TvForm from '@/components/main/tv/TvForm.vue';
+export default {
+  components: {
+    TvForm,
+  },
+};
 </script>
 
 <style></style>
