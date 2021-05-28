@@ -1,4 +1,5 @@
-@import '../../assets/scss/variables';
+@import '../../assets/scss/_variables.scss';
+@import '../../assets/scss/_mixins.scss';
 
 $search-btn:37px;
 @mixin showBtn {
@@ -11,12 +12,34 @@ $search-btn:37px;
   right: 0;
   top: 0;
   transform: translateX(-50%);
-  max-width: $maxHeight;
   width: 100%;  
   z-index: 100;
+  transition: background-color ease .4s;
+  &.dark {
+    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+    background-color: $white;
+    .header__inr {
+      .search__form{
+        form {
+          button {
+            color: $black;
+          }
+          &.show {
+            input {
+              // background-color: $black;
+              box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
+            }
+            button {
+              color: $white;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 .header__inr{
-
+  @include maxWidth;
   display: grid;
   grid-template-columns: repeat(2, max-content) 1fr;
   padding: 10px 20px;

@@ -1,14 +1,17 @@
-@import '../../assets/scss/_variables.scss';
-@import '../../assets/scss/_mixins.scss';
+@import '../../../assets/scss/_variables.scss';
+@import '../../../assets/scss/_mixins.scss';
 
 $slide-btn-web:40px;
 .slide__wrap{
   position: relative;
   padding-bottom: 50px;
+  overflow: hidden;
 
   @include flexCol;
   h3 {
     margin-bottom: 30px;
+    color: $red2;
+    font-size: 1.4em;
   }
   .slide__box{
     position: relative;
@@ -26,10 +29,13 @@ $slide-btn-web:40px;
         cursor: pointer;
         border-radius: 15px;
         @include backgroundImage;
+        margin-bottom :10px;
       }
 
       .slide__title {
         align-self: center;
+        color: $white;
+        font-weight: 400;
       }
 
       &:hover{
@@ -49,12 +55,15 @@ $slide-btn-web:40px;
       width: $slide-btn-web;
       height: $slide-btn-web;
       font-size: large;
-      opacity: 1;
+      opacity: 0;
       transition: opacity ease .4s;
       @include yCenter;
+      color: $red1;
+      background-color: transparent;
       svg {
         @include widthHeight;
       }
+
       &#next {
         right: 0;
       }

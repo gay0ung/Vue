@@ -22,12 +22,11 @@
         <fa-icon :icon="['fas', 'chevron-right']" />
       </button>
     </div>
-    <!-- {{ slideResize() }} -->
   </div>
 </template>
 
 <script>
-import { checkImages } from '../../utils/imageCheck.js';
+import { checkImages } from '../../../utils/imageCheck.js';
 export default {
   props: ['data', 'title'],
   data() {
@@ -51,7 +50,7 @@ export default {
       if (this.$el && this.$props.data) {
         const slides = this.$el.children[1].firstChild;
         const dataNum = this.$props.data.length;
-        console.dir(this.$el.children[1].firstChild.clientHeight);
+
         const pageTotal = dataNum / 5;
         slides.style.width = `${this.$el.clientWidth * pageTotal}px`;
         // slides.style.height = `${slides.clientHeight}px`;

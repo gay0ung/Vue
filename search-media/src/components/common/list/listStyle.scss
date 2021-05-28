@@ -1,0 +1,57 @@
+@import '../../../assets/scss/_variables.scss';
+@import '../../../assets/scss/_mixins.scss';
+
+.list__wrap {
+  padding-top: 66px;
+  display: grid;
+  row-gap: 40px;
+  @include maxWidth;
+
+  .list__wrap__title{}
+
+  .lists{
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 20px;
+    
+    li {
+      // background-color: lightblue;
+      padding: 0 10px;
+
+      .list__image{
+        background-color: $white;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        border-radius: 15px;;
+        align-items: center;
+        @include backgroundImage;
+        span{
+          background-color: transparent;
+          color: rgb(144, 133, 133);
+          // opacity: 0.4;
+        }
+      }
+    };
+
+   
+  }
+
+  &.search {
+    .lists {
+      li {
+        width: 10%;
+      }
+    }
+  }
+
+  &.person {
+    .lists {
+      li {
+        width: 10%;
+                
+        
+      }
+    }
+  }
+}

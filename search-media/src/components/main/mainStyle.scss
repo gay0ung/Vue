@@ -1,12 +1,11 @@
 @import '../../assets/scss/_mixins.scss';
 @import '../../assets/scss/_variables.scss';
 
-$hero-web:440px;
+$hero-web:600px;
 $hero-tablet:300px;
 $hero-phone:250px;
 
 .main__inr{
-  background-color: rgb(128, 240, 184);
   padding-bottom: 100px;
 
   .hero__wrap{
@@ -16,6 +15,7 @@ $hero-phone:250px;
     .hero__img{
       @include widthHeight;
       @include backgroundImage;
+      background-position: top;
     }
     .hero__cover{
       background-color: #0d0d0d78;
@@ -23,8 +23,9 @@ $hero-phone:250px;
     }
     .hero__content{
       position: absolute;
+      width: 50%;
       @include yCenter;
-      left: 3%;
+      left: 8%;
       @include flexCol;
       row-gap: 10px;
       * {
@@ -32,19 +33,18 @@ $hero-phone:250px;
       }
       strong {
         font-size: 2.3em;
-        
       }
       p {
-        font-size: 1.3em;
+        font-size: 1em;
+        color: #f2f2f28f;;
       }
 
     }
   }
 
   .main__contents{
-    margin: 0 auto;
     width: 90%;
-    max-width: $maxHeight;
+    @include maxWidth;
     @include flexCol;
     row-gap: 60px;
   }

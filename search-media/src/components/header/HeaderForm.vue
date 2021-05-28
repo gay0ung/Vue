@@ -19,6 +19,7 @@
 import SearchForm from './SerachForm';
 export default {
   components: { SearchForm },
+  methods: {},
 };
 </script>
 

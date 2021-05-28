@@ -7,8 +7,9 @@ module.exports = {
   parserOptions: {
     parser: "babel-eslint",
   },
+  plugins: ['prettier'],
   rules: {
-    "no-console": "off",
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     "prettier/prettier": [
       "error",
       {

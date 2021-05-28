@@ -11,6 +11,31 @@ export default {
   components: {
     AppHeader,
   },
+  data() {
+    return {
+      curRoute: null,
+    };
+  },
+  // created() {},
+  mounted() {
+    this.backgroundColor();
+  },
+  updated() {
+    this.backgroundColor();
+  },
+  methods: {
+    backgroundColor() {
+      let curRoute = this.curRoute;
+      curRoute = this.$route.name;
+
+      if (this) {
+        if (curRoute !== 'home' && curRoute !== 'movie' && curRoute !== 'tv') {
+          return (window.document.firstElementChild.style.backgroundColor =
+            '#fffff');
+        }
+      }
+    },
+  },
 };
 </script>
 

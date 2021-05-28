@@ -33,7 +33,6 @@ export default new Vuex.Store({
       try {
         const { data } = await searchApi(value);
         commit('SET_SEARCH_RESULTS', data);
-        console.log(data);
         return data;
       } catch (err) {
         console.log(err.response);

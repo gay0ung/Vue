@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import SlideForm from '../../slide/SlideForm.vue';
+import SlideForm from '../../common/slide/SlideForm.vue';
 import MainTemp from '../MainTemp.vue';
 
 export default {
