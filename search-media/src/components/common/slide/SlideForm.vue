@@ -9,6 +9,9 @@
             :style="{
               backgroundImage: `url(${checkImages(item.poster_path)})`,
             }"
+            @click.prevent="
+              handleDetail({ id: item.id, type: item.media_type })
+            "
           ></div>
           <b class="slide__title">{{ item.name || item.title }}</b>
         </li>
@@ -26,9 +29,10 @@
 </template>
 
 <script>
+import { mapActions, mapMutations } from 'vuex';
 import { checkImages } from '../../../utils/imageCheck.js';
 export default {
-  props: ['data', 'title'],
+  props: ['data', 'title', 'mediaInfo'],
   data() {
     return { pageNum: 0 };
   },
@@ -43,6 +47,15 @@ export default {
     window.addEventListener('resize', this.handleResize);
   },
   methods: {
+    ...mapMutations(['SET_MEDIA_INFO']),
+    ...mapActions([
+      'FETCH_DETAIL',
+      'FETCH_RECOMMENDATIONS',
+      'FETCH_SIMILAR',
+      'FETCH_KEYWORDS',
+      'FETCH_CREDITS',
+      'FETCH_WATCH_PROVIDERS',
+    ]),
     checkImages(path) {
       return checkImages(path);
     },
@@ -90,6 +103,18 @@ export default {
       // console.log('이후');
       // this.$el.children[1].style.left = `${slidesWidth * curPage}px`;
       // curPage--;
+    },
+    handleDetail({ type, id }) {
+      this.SET_MEDIA_INFO({ type, id });
+      this.FETCH_DETAIL({ type, id });
+      this.FETCH_RECOMMENDATIONS({ type, id });
+      this.FETCH_SIMILAR({ type, id });
+      this.FETCH_KEYWORDS({ type, id });
+      this.FETCH_CREDITS({ type, id });
+      this.FETCH_WATCH_PROVIDERS({ type, id });
+
+      this.$cookies.set('m-info', { type, id });
+      this.$router.push({ path: `detail/${id}` });
     },
   },
 };

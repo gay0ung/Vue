@@ -1,9 +1,14 @@
 <template>
-  <div class="detail__wrap"></div>
+  <div class="detail__wrap">
+    <DetailTemp />
+  </div>
 </template>
 
 <script>
-export default {};
+import DetailTemp from '../components/detail/DetailTemp.vue';
+export default {
+  components: { DetailTemp },
+};
 </script>
 
 <style></style>

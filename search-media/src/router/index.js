@@ -25,7 +25,7 @@ const routes = [
   { name: 'movie', path: '/movie', component: Movie },
   { name: 'person', path: '/person', component: Person },
   { name: 'search', path: '/search', component: Search },
-  { name: 'detail', path: '/detail', component: Detail },
+  { name: 'detail', path: '/detail/:id', component: Detail },
   { name: 'favorite', path: '/favorite', component: Favorite },
 ];
 

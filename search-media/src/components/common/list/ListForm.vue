@@ -1,6 +1,6 @@
 <template>
   <div :class="`list__wrap ${type}`">
-    <h3 class="list__wrap__title"></h3>
+    <h3 class="list__wrap__title">{{ changeKO(type) }}</h3>
     <ul class="lists">
       <li class="list" v-for="item in listData" :key="item.id">
         <div
@@ -10,6 +10,7 @@
               item.poster_path || item.profile_path,
             )})`,
           }"
+          @click.prevent="handleDetail"
         ></div>
         <b class="list__title">{{ item.title || item.name }}</b>
         <span v-if="item.known_for_department">
@@ -23,7 +24,7 @@
 <script>
 import { checkImages } from '../../../utils/imageCheck.js';
 export default {
-  props: ['type', 'listData'],
+  props: ['state', 'type', 'listData'],
   mounted() {
     window.addEventListener('resize', this.handleResize);
   },
@@ -38,22 +39,24 @@ export default {
       return checkImages(path);
     },
     handleResize() {
-      console.log('resizing');
       if (this.$el && this.$props.listData) {
         const listEl = this.$el.lastChild;
         const listEls = [...listEl.children];
         console.dir(listEls);
-        if (this.$props.type === 'person') {
-          console.log('사람');
-        } else {
-          const listHeight = Math.floor(listEls[0].clientWidth / 3) * 4;
-          console.log();
-          listEls.map(el => {
-            return (el.firstChild.style.height = `${listHeight}px`);
-          });
-          console.log(this.$props.type);
-        }
+
+        const listHeight = Math.floor(listEls[0].clientWidth / 3) * 4;
+        console.log();
+        listEls.map(el => {
+          return (el.firstChild.style.height = `${listHeight}px`);
+        });
+        console.log(this.$props.type);
       }
+    },
+    changeKO(type) {
+      return type === 'movie' ? '영화' : type === 'tv' ? 'tv 프로그램' : '인물';
+    },
+    handleDetail() {
+      console.log('detail');
     },
   },
 };

@@ -1,7 +1,7 @@
 <template>
   <div class="search__inr">
     <div v-for="(result, type) in filterType()" :key="type">
-      <ListForm :type="'search'" :listData="result" />
+      <ListForm :state="'search'" :type="type" :listData="result" />
       <!-- <h3 class="search__title">{{ type }}</h3>
       <ul class="search__type__wrap">
         <li v-for="item in result" :key="item.id">
@@ -37,19 +37,20 @@ export default {
   components: { ListForm },
   created() {
     if (!this.searchDB) {
-      this.againData();
+      this.getDataAgain();
     }
-    this.filterType();
   },
+  mounted() {},
   updated() {
     this.filterType();
   },
+
   computed: {
     ...mapState(['inputValue', 'searchDB']),
   },
   methods: {
     ...mapActions(['SEARCH_DATA']),
-    againData() {
+    getDataAgain() {
       this.SEARCH_DATA(this.inputValue);
     },
     filterType() {

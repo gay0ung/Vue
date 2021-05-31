@@ -14,9 +14,15 @@
         <p>{{ randomData.overview }}</p>
       </div>
     </div>
+
     <div class="main__contents">
       <SlideForm :title="'오늘의 인기 목록'" :data="trandDaily" />
       <SlideForm :title="'이번주 인기 목록'" :data="trandWeekly" />
+      <SlideForm
+        v-if="mType === 'movie' || mType === 'tv'"
+        :title="'현재 TOP 20'"
+        :data="popularDB"
+      />
       <slot></slot>
     </div>
   </div>
@@ -40,28 +46,29 @@ export default {
     this.getTrendingData(this.$props.mType);
     this.randomMedia();
   },
-  mounted() {
-    this.randomMedia();
-  },
+
   updated() {
     this.randomMedia();
   },
   computed: {
-    ...mapState(['trandDaily', 'trandWeekly']),
+    ...mapState(['trandDaily', 'trandWeekly', 'popularDB']),
   },
   methods: {
-    ...mapActions(['FETCH_TRENDING']),
+    ...mapActions(['FETCH_TRENDING', 'FETCH_POPULAR']),
     getTrendingData(type) {
-      this.FETCH_TRENDING({
-        type: `${type === 'home' ? 'all' : type}`,
-        time: 'day',
-        commitType: 'SET_TRENDING_DAILY',
-      });
-      this.FETCH_TRENDING({
-        type: `${type === 'home' ? 'all' : type}`,
-        time: 'week',
-        commitType: 'SET_TRENDING_WEEKLY',
-      });
+      if (this.$props) {
+        this.FETCH_TRENDING({
+          type: `${type === 'home' ? 'all' : type}`,
+          time: 'day',
+          commitType: 'SET_TRENDING_DAILY',
+        });
+        this.FETCH_TRENDING({
+          type: `${type === 'home' ? 'all' : type}`,
+          time: 'week',
+          commitType: 'SET_TRENDING_WEEKLY',
+        });
+        if (type !== 'home') this.FETCH_POPULAR({ type });
+      }
     },
     randomMedia() {
       if (this.trandWeekly) {

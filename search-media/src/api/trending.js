@@ -1,7 +1,19 @@
-import { client, KEY } from './client';
+import { client, clientKey } from './client';
 
-function trandingApi({ type, time }) {
-  return client.get(`trending/${type}/${time}?${KEY}&language=ko-KR&page=1`);
+function trendingApi({ type, time }) {
+  return client.get(`trending/${type}/${time}${clientKey}`);
 }
 
-export { trandingApi };
+function popularApi({ type }) {
+  return client.get(`${type}/popular${clientKey}`);
+}
+
+function tvOnTheAir() {
+  return client.get(`tv/on_the_air${clientKey}`);
+}
+
+function movieUpcoming() {
+  return client.get(`movie/upcoming${clientKey}`);
+}
+
+export { trendingApi, popularApi, tvOnTheAir, movieUpcoming };

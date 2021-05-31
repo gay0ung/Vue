@@ -16,7 +16,6 @@ export default {
       curRoute: null,
     };
   },
-  // created() {},
   mounted() {
     this.backgroundColor();
   },
@@ -28,11 +27,10 @@ export default {
       let curRoute = this.curRoute;
       curRoute = this.$route.name;
 
-      if (this) {
-        if (curRoute !== 'home' && curRoute !== 'movie' && curRoute !== 'tv') {
-          return (window.document.firstElementChild.style.backgroundColor =
-            '#fffff');
-        }
+      if (curRoute === 'home' || curRoute === 'movie' || curRoute === 'tv') {
+        window.document.body.style.backgroundColor = '#0D0D0D';
+      } else {
+        window.document.body.style.backgroundColor = '#ffffff';
       }
     },
   },
