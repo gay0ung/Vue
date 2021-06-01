@@ -23,7 +23,7 @@ const routes = [
   },
   { name: 'tv', path: '/tv', component: Tv },
   { name: 'movie', path: '/movie', component: Movie },
-  { name: 'person', path: '/person', component: Person },
+  { name: 'person', path: '/person/:id', component: Person },
   { name: 'search', path: '/search', component: Search },
   { name: 'detail', path: '/detail/:id', component: Detail },
   { name: 'favorite', path: '/favorite', component: Favorite },

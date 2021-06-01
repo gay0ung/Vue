@@ -97,7 +97,20 @@ i {
 
   > div {
     height: 100%;
-    padding-bottom: 100px
+    padding: $webHeader 0 100px;
+
+    > div {
+      // padding: 0 40px;
+    }
+
+    &.home__wrap,
+    &.movie__wrap,
+    &.tv__wrap {
+      padding-top: 0;
+      > div {
+        // padding: 0;
+      }
+    }
   }
 }
 

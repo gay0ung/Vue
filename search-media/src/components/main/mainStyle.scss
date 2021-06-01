@@ -9,17 +9,14 @@ $hero-phone:250px;
   padding-bottom: 100px;
 
   .hero__wrap{
-    height: $hero-web;
-    margin-bottom: 50px;
-    position: relative;
+    @include heroBlock($hero-web);
+    
     .hero__img{
-      @include widthHeight;
-      @include backgroundImage;
-      background-position: top;
+      @include heroBackground;
     }
     .hero__cover{
-      background-color: #0d0d0d78;
       @include widthHeight;
+      background-color: #0d0d0d78;
     }
     .hero__content{
       position: absolute;

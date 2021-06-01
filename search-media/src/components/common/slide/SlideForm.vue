@@ -9,9 +9,7 @@
             :style="{
               backgroundImage: `url(${checkImages(item.poster_path)})`,
             }"
-            @click.prevent="
-              handleDetail({ id: item.id, type: item.media_type })
-            "
+            @click="handleDetail({ id: item.id, type: item.media_type })"
           ></div>
           <b class="slide__title">{{ item.name || item.title }}</b>
         </li>
@@ -107,11 +105,13 @@ export default {
     handleDetail({ type, id }) {
       this.SET_MEDIA_INFO({ type, id });
       this.FETCH_DETAIL({ type, id });
-      this.FETCH_RECOMMENDATIONS({ type, id });
-      this.FETCH_SIMILAR({ type, id });
-      this.FETCH_KEYWORDS({ type, id });
-      this.FETCH_CREDITS({ type, id });
-      this.FETCH_WATCH_PROVIDERS({ type, id });
+      if (type !== 'person') {
+        this.FETCH_RECOMMENDATIONS({ type, id });
+        this.FETCH_SIMILAR({ type, id });
+        this.FETCH_KEYWORDS({ type, id });
+        this.FETCH_CREDITS({ type, id });
+        this.FETCH_WATCH_PROVIDERS({ type, id });
+      }
 
       this.$cookies.set('m-info', { type, id });
       this.$router.push({ path: `detail/${id}` });

@@ -8,6 +8,7 @@
 import HeaderForm from '@/components/header/HeaderForm.vue';
 export default {
   components: { HeaderForm },
+
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
   },
@@ -17,16 +18,18 @@ export default {
   methods: {
     headerStyle() {
       const curRoute = this.$route.name;
-      return curRoute !== 'home' && curRoute !== 'movie' && curRoute !== 'tv'
-        ? 'dark'
-        : '';
+      return curRoute === 'home' || curRoute === 'movie' || curRoute === 'tv'
+        ? ''
+        : 'dark';
     },
     handleScroll() {
       const scrollY = window.scrollY;
-
-      scrollY > 0
-        ? this.$el.classList.add('dark')
-        : this.$el.classList.remove('dark');
+      const curRoute = this.$route.name;
+      if (curRoute === 'home' || curRoute === 'movie' || curRoute === 'tv') {
+        scrollY > 0
+          ? this.$el.classList.add('dark')
+          : this.$el.classList.remove('dark');
+      }
     },
   },
 };

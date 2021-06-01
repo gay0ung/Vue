@@ -1,0 +1,58 @@
+@import '../../assets/scss/_mixins.scss';
+@import '../../assets/scss/_variables.scss';
+$detail-hero-web:600px;
+$detail-hero-tablet:400px;
+$detail-hero-phone:400px;
+
+.detail__inr{
+  .detail__hero__wrap{
+    @include heroBlock($detail-hero-web);
+
+    .hero__img {
+      @include heroBackground;   
+      .hero__cover{
+        @include widthHeight;
+        background-color: #0d0d0db9;
+      }
+    }
+
+    .hero__content{
+      position: absolute;
+      @include center;
+      width: 80%;
+      display: grid;
+      column-gap: 45px;
+      justify-content: center;
+      grid-template-columns: 40% 1fr;
+
+      .detail__img{
+        @include backgroundImage;
+        border-radius: 20px;
+        max-width: 380px;
+        justify-items: center;
+      }
+      
+      .hero__info__box{
+        display: grid;
+        grid-template-rows: repeat(4,max-content) 1fr ;
+        background-color: #0d0d0db9;
+        border-radius: 20px;
+        padding: 10px;
+        > * {
+          padding-bottom: 10px;
+          &:last-child {
+            padding-bottom: 0;
+          }
+        }
+        * {
+          color:$white;
+        }
+
+        .genres{
+          display: flex;
+          column-gap: 10px;
+        }
+      }
+    }
+  }
+}

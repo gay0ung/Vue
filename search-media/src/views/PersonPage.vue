@@ -1,9 +1,14 @@
 <template>
-  <div class="person__wrap"></div>
+  <div class="person__wrap">
+    <PersonDetailForm />
+  </div>
 </template>
 
 <script>
-export default {};
+import PersonDetailForm from '../components/detail/personDetail/PersonDetailForm.vue';
+export default {
+  components: { PersonDetailForm },
+};
 </script>
 
 <style></style>

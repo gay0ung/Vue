@@ -1,29 +1,12 @@
 <template>
   <div class="search__inr">
-    <div v-for="(result, type) in filterType()" :key="type">
-      <ListForm :state="'search'" :type="type" :listData="result" />
-      <!-- <h3 class="search__title">{{ type }}</h3>
-      <ul class="search__type__wrap">
-        <li v-for="item in result" :key="item.id">
-          <div
-            class="search__poster"
-            :style="{
-              backgroundImage: `url(${checkImages(
-                item.poster_path || item.profile_path,
-              )})`,
-            }"
-          >
-            <span v-if="!item.poster_path && !item.profile_path">
-              {{ item.media_type === 'person' ? 'NO IMAGE' : 'NO POSTER' }}
-            </span>
-          </div>
-          <b class="search__title">{{ item.title || item.name }}</b>
-          <span v-if="item.known_for_department">
-            {{ item.known_for_department }}
-          </span>
-        </li>
-      </ul> -->
-    </div>
+    <ListForm
+      v-for="(result, type) in filterType()"
+      :key="type"
+      :state="'search'"
+      :type="type"
+      :listData="result"
+    />
   </div>
 </template>
 
@@ -39,8 +22,11 @@ export default {
     if (!this.searchDB) {
       this.getDataAgain();
     }
+    this.filterType();
   },
-  mounted() {},
+  mounted() {
+    this.filterType();
+  },
   updated() {
     this.filterType();
   },

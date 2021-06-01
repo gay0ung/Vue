@@ -10,7 +10,21 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
-
+@mixin heroBlock($height) {
+  height: $height;
+  margin-bottom: 50px;
+  position: relative;
+}
+@mixin heroBackground {
+  @include widthHeight;
+  @include backgroundImage;
+  background-position: top;
+}
+@mixin center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
 @mixin xCenter {
   left: 50%;
   transform: translateX(-50%);

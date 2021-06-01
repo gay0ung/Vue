@@ -6,6 +6,7 @@ $search-btn:37px;
   background-color: $red2;
   color: $white;
 }
+
 .header__wrap{
   position: fixed;
   left: 50%;
@@ -43,9 +44,12 @@ $search-btn:37px;
   display: grid;
   grid-template-columns: repeat(2, max-content) 1fr;
   padding: 10px 20px;
-
+  height: $webHeader;
+  
   .h__logo {
     margin-right: 20px;
+    align-self: center;      
+    display: flex;
     a {
       color: $red2;
     }

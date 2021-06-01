@@ -70,7 +70,6 @@ export default new Vuex.Store({
 
     //  detail
     SET_DETAIL(state, detailDB) {
-      console.log(detailDB);
       state.detailDB = detailDB;
     },
     SET_RECOMMENDATIONS(state, recommendationsDB) {
@@ -80,7 +79,6 @@ export default new Vuex.Store({
       state.similarDB = similarDB.results;
     },
     SET_KEYWORDS(state, keywordsDB) {
-      console.log(keywordsDB);
       state.keywordsDB = keywordsDB.keywords || keywordsDB.results;
     },
     SET_CREDITS(state, creditsDB) {
