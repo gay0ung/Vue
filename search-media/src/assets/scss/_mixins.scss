@@ -44,3 +44,19 @@
   max-width: $maxWidth;
   margin: 0 auto;
 }
+
+@mixin h3Style {
+  color: #0d0d0d;
+  position: relative;
+  z-index: 2;
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    background-color: $red2;
+    @include xCenter;
+    z-index: -1;
+    bottom: 0;
+  }
+}

@@ -1,33 +1,37 @@
 import { client, clientKey } from './client';
 
-function detailApi({ type, id }) {
+const detailApi = ({ type, id }) => {
   return client.get(`${type}/${id}${clientKey}`);
-}
+};
 
-function recommendationsApi({ type, id }) {
+const recommendationsApi = ({ type, id }) => {
   return client.get(`${type}/${id}/recommendations${clientKey}`);
-}
+};
 
-function similarApi({ type, id }) {
+const similarApi = ({ type, id }) => {
   return client.get(`${type}/${id}/similar${clientKey}`);
-}
+};
 
-function keywordsApi({ type, id }) {
+const keywordsApi = ({ type, id }) => {
   return client.get(`${type}/${id}/keywords${clientKey}`);
-}
+};
 
-function creditsApi({ type, id }) {
+const keywordListsApi = ({ id }) => {
+  return client.get(`keyword/${id}/movies${clientKey}`);
+};
+
+const creditsApi = ({ type, id }) => {
   return client.get(`${type}/${id}/credits${clientKey}`);
-}
+};
 
-function watchProviders({ type, id }) {
+const watchProviders = ({ type, id }) => {
   return client.get(`${type}/${id}/watch/providers${clientKey}`);
-}
+};
 
 // person
-function personCreditsApi({ id }) {
+const personCreditsApi = ({ id }) => {
   return client.get(`person/${id}/combined_credits${clientKey}`);
-}
+};
 
 export {
   detailApi,
@@ -35,6 +39,7 @@ export {
   recommendationsApi,
   similarApi,
   keywordsApi,
+  keywordListsApi,
   creditsApi,
   personCreditsApi,
 };

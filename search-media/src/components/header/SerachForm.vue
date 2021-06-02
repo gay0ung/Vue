@@ -52,7 +52,10 @@ export default {
 
         this.inputQuery = null;
 
-        if (this.$route.name !== 'search')
+        if (
+          this.$route.name !== 'search' ||
+          this.$route.query.state === 'keyword'
+        )
           this.$router.push({ name: 'search', query: { state: 'search' } });
       }
     },

@@ -1,23 +1,25 @@
 <template>
   <div :class="`list__wrap ${type}`">
     <h3 class="list__wrap__title">{{ changeKO(type) }}</h3>
-    <ul class="lists" ref="listsEl">
-      <li class="list" v-for="item in listData" :key="item.id">
-        <div
-          class="list__image"
-          :style="{
-            backgroundImage: `url(${checkImages(
-              item.poster_path || item.profile_path,
-            )})`,
-          }"
-          @click="handleDetail({ id: item.id, type: item.media_type })"
-        ></div>
-        <b class="list__title">{{ item.title || item.name }}</b>
-        <span v-if="item.known_for_department">
-          {{ item.known_for_department }}
-        </span>
-      </li>
-    </ul>
+    <div class="list__box">
+      <ul class="lists" ref="listsEl">
+        <li class="list" v-for="item in listData" :key="item.id">
+          <div
+            class="list__image"
+            :style="{
+              backgroundImage: `url(${checkImages(item)})`,
+            }"
+            @click="
+              handleDetail({
+                id: item.id,
+                type: mType,
+              })
+            "
+          ></div>
+          <slot :item="item"></slot>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -25,7 +27,7 @@
 import { mapActions } from 'vuex';
 import { checkImages } from '../../../utils/imageCheck.js';
 export default {
-  props: ['state', 'type', 'listData'],
+  props: ['state', 'type', 'listData', 'mType', 'title'],
 
   mounted() {
     this.handleResize();
@@ -37,6 +39,7 @@ export default {
   beforeDestroy() {
     window.addEventListener('resize', this.handleResize);
   },
+  computed: {},
   methods: {
     ...mapActions([
       'FETCH_DETAIL',
@@ -46,41 +49,77 @@ export default {
       'FETCH_CREDITS',
       'FETCH_WATCH_PROVIDERS',
     ]),
-    checkImages(path) {
-      return checkImages(path);
+    checkImages(item) {
+      if (this.$props) {
+        const type = this.$props.type;
+        return type === 'similar' ||
+          type === 'recommend' ||
+          type === 'tv' ||
+          type === 'movie' ||
+          type === 'k-search'
+          ? checkImages(item.backdrop_path)
+          : checkImages(item.poster_path || item.profile_path);
+      }
     },
     handleResize() {
       // listsEl
       if (!this.$el && !this.$props.listData) return false;
 
-      const listEl = this.$el.lastChild;
+      const listBoxEl = this.$el.lastChild;
+      const listEl = this.$el.lastChild.firstChild;
       const listEls = [...listEl.children];
-      console.dir(listEls);
+      const listWidth = this.$el.clientWidth;
+      const type = this.$props.type;
+      const mType = this.$props.mType;
+
+      const dataLen = this.$props.listData.length;
+      const pageNum = Math.ceil(dataLen / (type === 'cast' ? 10 : 4));
+
+      listBoxEl.style.width = `${listWidth}px`;
+      if (type !== 'search' && type !== 'k-search') {
+        listEl.style.width = `${listWidth * pageNum}px`;
+      }
 
       return listEls.map(el => {
         el.firstChild.style.height = `${Math.floor(listEls[0].clientWidth / 3) *
-          4}px`;
+          (type === 'cast' || mType === 'person' ? 4 : 2)}px`;
       });
     },
     changeKO(type) {
-      return type === 'movie' ? '영화' : type === 'tv' ? 'tv 프로그램' : '인물';
+      if (type === 'search') {
+        return this.$props.mType === 'movie'
+          ? '영화'
+          : this.$props.mType === 'tv'
+          ? 'tv 프로그램'
+          : '인물';
+      }
+
+      return type === 'k-search'
+        ? this.title
+        : type === 'cast'
+        ? '출연진'
+        : type === 'similar'
+        ? '비슷한 장르'
+        : '추천 목록';
     },
     handleDetail({ type, id }) {
-      console.log('detail');
-
       this.FETCH_DETAIL({ type, id });
-      if (type !== 'person') {
+
+      if (type === 'movie' || type === 'tv') {
         this.FETCH_RECOMMENDATIONS({ type, id });
         this.FETCH_SIMILAR({ type, id });
         this.FETCH_KEYWORDS({ type, id });
         this.FETCH_CREDITS({ type, id });
         this.FETCH_WATCH_PROVIDERS({ type, id });
-        this.$router.push({ path: `detail/${id}` });
-      } else {
-        this.$router.push({ path: `person/${id}` });
-      }
 
-      this.$cookies.set('m-info', { type, id });
+        if (this.$route.name !== 'detail') {
+          this.$router.push({ name: 'detail', path: `detail/${id}` });
+        }
+        this.$cookies.set('m-info', { type, id });
+      } else {
+        this.$router.push({ name: 'person', path: `person/${id}` });
+        this.$cookies.set('p-info', { type, id });
+      }
     },
   },
 };

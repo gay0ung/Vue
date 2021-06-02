@@ -22,14 +22,13 @@ $detail-hero-phone:400px;
       width: 80%;
       display: grid;
       column-gap: 45px;
-      justify-content: center;
-      grid-template-columns: 40% 1fr;
+      grid-template-columns: 30% 1fr;
 
       .detail__img{
         @include backgroundImage;
         border-radius: 20px;
-        max-width: 380px;
-        justify-items: center;
+        max-width: 365px;
+        
       }
       
       .hero__info__box{
@@ -51,6 +50,75 @@ $detail-hero-phone:400px;
         .genres{
           display: flex;
           column-gap: 10px;
+        }
+
+        .watch__provider{
+          height: 80px;
+          display: flex;
+          background-color: #0d0d0db9;
+          > div {
+            width: 50%;
+            padding: 0 9px 6px;
+            display: grid;
+            row-gap: 5px;
+            grid-template-rows: max-content 1fr;
+            ul {
+              display: flex;
+              column-gap: 5px;
+              li {
+                @include widthHeight;
+                @include backgroundImage;
+              }
+            }
+            strong { 
+              color: rgba(245, 245, 245, 0.411);
+              font-weight: 400;
+            }
+           
+          }
+
+          p {
+            font-size: small;
+            color: rgba(245, 245, 245, 0.411);
+          }
+        }
+      }
+    }
+  }
+  
+  .detail__contents {
+    @include flexCol;
+    @include maxWidth;
+    padding:0 60px ;
+    h3 {
+      font-size: 1.6em;
+      @include h3Style;
+    }
+    row-gap: 70px;
+    > div {
+      display: grid;
+      row-gap: 20px;
+    }
+    .detail__keywords {
+
+      .keywords{
+        display: flex;
+        flex-wrap: wrap;
+        gap:25px 15px ;
+        
+        .keyword {
+          cursor: pointer;
+          background-color: $white;
+          padding: 3px 10px;
+          transition: all ease .3s;
+          color: $black;
+          &:hover {
+            background-color: $red2;
+            color: white;
+          } 
+        }
+        p {
+          color: #0d0d0d67;
         }
       }
     }

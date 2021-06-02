@@ -11,6 +11,7 @@ import {
 import {
   creditsApi,
   detailApi,
+  keywordListsApi,
   keywordsApi,
   recommendationsApi,
   similarApi,
@@ -23,6 +24,8 @@ export default new Vuex.Store({
   state: {
     inputValue: Cookie.get('s-query') || null,
     mediaInfo: JSON.parse(Cookie.get('m-info')) || null,
+    personInfo: JSON.parse(Cookie.get('p-info')) || null,
+    keywordInfo: JSON.parse(Cookie.get('k-info')) || null,
     searchDB: null,
 
     // main page
@@ -38,6 +41,7 @@ export default new Vuex.Store({
     recommendationsDB: null,
     similarDB: null,
     keywordsDB: null,
+    mediaOfKeyword: null,
     creditsDB: null,
     watchProvidersDB: null,
   },
@@ -48,6 +52,15 @@ export default new Vuex.Store({
     },
     SET_MEDIA_INFO(state, mediaInfo) {
       state.mediaInfo = { type: mediaInfo.type, id: mediaInfo.id };
+      if (mediaInfo.type === 'person') {
+        state.personInfo = { type: mediaInfo.type, id: mediaInfo.id };
+      }
+    },
+    SET_KEYWORD_INFO(state, keywordInfo) {
+      state.mediaInfo = {
+        id: keywordInfo.id,
+        name: keywordInfo.name,
+      };
     },
     SET_SEARCH_RESULTS(state, data) {
       state.searchDB = data.results;
@@ -80,6 +93,9 @@ export default new Vuex.Store({
     },
     SET_KEYWORDS(state, keywordsDB) {
       state.keywordsDB = keywordsDB.keywords || keywordsDB.results;
+    },
+    SET_MEDIA_OF_KEYWORD(state, mediaOfKeyword) {
+      state.mediaOfKeyword = mediaOfKeyword.results;
     },
     SET_CREDITS(state, creditsDB) {
       const { cast, crew } = creditsDB;
@@ -164,6 +180,14 @@ export default new Vuex.Store({
       try {
         const { data } = await keywordsApi({ type, id });
         commit('SET_KEYWORDS', data);
+      } catch (err) {
+        console.log(err.response);
+      }
+    },
+    async FETCH_MEDIA_OF_KEYWORD({ commit }, { id }) {
+      try {
+        const { data } = await keywordListsApi({ id });
+        commit('SET_MEDIA_OF_KEYWORD', data);
       } catch (err) {
         console.log(err.response);
       }

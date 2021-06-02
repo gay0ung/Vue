@@ -45,24 +45,100 @@
             <p v-if="detailDB.overview">{{ detailDB.overview }}</p>
             <p v-else>등록된 줄거리가 없습니다.</p>
           </div>
+          <template v-if="watchProvidersDB">
+            <div class="watch__provider">
+              <div v-for="({ id, txt }, i) in providerData" :key="i">
+                <strong>{{ txt }}</strong>
+                <ul
+                  v-if="watchProvidersDB[id] && watchProvidersDB[id].length > 0"
+                >
+                  <li
+                    ref="logoEl"
+                    v-for="(item, i) in watchProvidersDB[id]"
+                    :key="i"
+                    :style="{
+                      backgroundImage: `url(${checkImages(item.logo_path)})`,
+                    }"
+                  ></li>
+                </ul>
+                <p v-if="watchProvidersDB === undefined">
+                  {{ txt }}이 없습니다.
+                </p>
+              </div>
+            </div>
+          </template>
+          <template v-else>
+            <div class="watch__provider">
+              <div v-for="({ txt }, i) in providerData" :key="i">
+                <strong>{{ txt }}</strong>
+                <p>{{ txt }}이 없습니다.</p>
+              </div>
+            </div>
+          </template>
         </div>
       </div>
     </div>
     <div class="detail__contents">
       <ListForm
         v-if="creditsDB"
+        :mType="'person'"
         :type="'cast'"
         :listData="splitCast(creditsDB.cast)"
-      ></ListForm>
+      >
+        <template #default="{item}">
+          <b class="list__title"> {{ item.character }}</b>
+          <span>
+            {{ item.title || item.name }}
+          </span>
+        </template>
+      </ListForm>
+      <slot name="tv"></slot>
+      <div class="detail__keywords">
+        <h3>키워드</h3>
+        <ul class="keywords" v-if="keywordsDB && keywordsDB.length > 0">
+          <li
+            class="keyword"
+            v-for="{ id, name } in keywordsDB"
+            :key="`k-${id}`"
+            @click.prevent="handleKeyword({ id, name })"
+          >
+            # {{ name }}
+          </li>
+        </ul>
+        <p v-else>등록된 키워드가 없습니다.</p>
+      </div>
+
+      <ListForm
+        v-if="similarDB && similarDB.length > 0"
+        :mType="mType"
+        :type="'similar'"
+        :listData="similarDB"
+      >
+        <template #default="{item}">
+          <b class="list__title">
+            {{ item.title || item.name }}
+          </b>
+        </template>
+      </ListForm>
+
+      <ListForm
+        v-if="recommendationsDB"
+        :mType="mType"
+        :type="'recommend'"
+        :listData="recommendationsDB.slice(0, 20)"
+      >
+        <template #default="{item}">
+          <b class="list__title">
+            {{ item.title || item.name }}
+          </b>
+        </template>
+      </ListForm>
     </div>
-    <slot name="tv"></slot>
-    <slot name="movie"></slot>
-    {{ detailDB }}
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapMutations, mapState } from 'vuex';
 import ListForm from '../common/list/ListForm.vue';
 import { checkImages } from '../../utils/imageCheck.js';
 import { splitReleaseDate } from '../../utils/filter.js';
@@ -70,6 +146,14 @@ import { splitReleaseDate } from '../../utils/filter.js';
 export default {
   components: { ListForm },
   props: ['mType'],
+  data() {
+    return {
+      providerData: [
+        { id: 'flatrate', txt: '시청 가능한 플랫폼' },
+        { id: 'buy', txt: '구매 가능한 플랫폼' },
+      ],
+    };
+  },
   created() {
     if (!this.detailDB && this.mediaInfo) {
       this.getDataAgain();
@@ -80,7 +164,11 @@ export default {
     window.addEventListener('resize', this.handleResize);
   },
   updated() {
+    if (!this.detailDB && this.mediaInfo) {
+      this.getDataAgain();
+    }
     this.handleResize();
+    this.providerLogoStyle();
   },
   beforeDestroy() {
     window.addEventListener('resize', this.handleResize);
@@ -97,11 +185,13 @@ export default {
     ]),
   },
   methods: {
+    ...mapMutations(['SET_KEYWORD_INFO']),
     ...mapActions([
       'FETCH_DETAIL',
       'FETCH_RECOMMENDATIONS',
       'FETCH_SIMILAR',
       'FETCH_KEYWORDS',
+      'FETCH_MEDIA_OF_KEYWORD',
       'FETCH_CREDITS',
       'FETCH_WATCH_PROVIDERS',
     ]),
@@ -117,22 +207,41 @@ export default {
         this.FETCH_WATCH_PROVIDERS({ type, id });
       }
     },
+    setWathchProvider() {
+      if (this.watchProvidersDB) console.log(this.watchProvidersDB);
+    },
     checkImages(path) {
       return checkImages(path);
     },
     handleResize() {
-      console.log(this.$refs.detailImgEl);
       if (!this.$refs.detailImgEl) return false;
-
+      this.providerLogoStyle();
       let { clientWidth, style } = this.$refs.detailImgEl;
 
-      return (style.height = `${Math.floor(clientWidth / 3) * 4}px`);
+      return (style.height = `${Math.floor(clientWidth / 9) * 14}px`);
     },
     splitReleaseDate(date) {
       return splitReleaseDate(date);
     },
     splitCast(cast) {
       return cast.slice(0, 20);
+    },
+    providerLogoStyle() {
+      if (this && this.$refs.logoEl) {
+        const logoEl = this.$refs.logoEl;
+        const logoHeight = logoEl[0].clientHeight;
+        console.dir();
+        logoEl.map(el => {
+          el.style.width = `${logoHeight}px`;
+        });
+      }
+    },
+    handleKeyword({ id, name }) {
+      this.SET_KEYWORD_INFO({ id, name });
+      this.FETCH_MEDIA_OF_KEYWORD({ id });
+
+      this.$cookies.set('k-info', { id, name });
+      this.$router.push({ name: 'search', query: { state: 'keyword' } });
     },
   },
 };
