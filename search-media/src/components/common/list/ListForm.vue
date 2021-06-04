@@ -39,7 +39,7 @@ export default {
   beforeDestroy() {
     window.addEventListener('resize', this.handleResize);
   },
-  computed: {},
+
   methods: {
     ...mapActions([
       'FETCH_DETAIL',
@@ -100,7 +100,9 @@ export default {
         ? '출연진'
         : type === 'similar'
         ? '비슷한 장르'
-        : '추천 목록';
+        : type === 'recommendation'
+        ? '추천 목록'
+        : '';
     },
     handleDetail({ type, id }) {
       this.FETCH_DETAIL({ type, id });

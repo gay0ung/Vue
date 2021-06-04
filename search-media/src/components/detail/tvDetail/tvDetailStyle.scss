@@ -1,0 +1,16 @@
+@import '../../../assets/scss/_mixins.scss';
+
+.seasons__wrap {
+  display: grid;
+  .current_season{
+    @include flexCol;
+
+    .last__episode {
+      width: 100%;
+      .last__image {
+        width: 30%;
+        height: 100px;
+      }
+    }
+  }
+}

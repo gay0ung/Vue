@@ -60,3 +60,9 @@
     bottom: 0;
   }
 }
+
+@mixin  contentBox {
+  content: '';
+  position: absolute;
+  width: 100%;
+}

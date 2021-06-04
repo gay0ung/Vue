@@ -16,10 +16,20 @@ $search-btn:37px;
   width: 100%;  
   z-index: 100;
   transition: background-color ease .4s;
+  .h__logo {
+    padding-right: 20px;
+  }
   &.dark {
     box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
     background-color: $white;
     .header__inr {
+      .h__nav {
+        ul {
+          a { 
+            color: $black;
+          }
+        }
+      }
       .search__form{
         form {
           button {
@@ -62,6 +72,21 @@ $search-btn:37px;
       height: 100%;
       align-items: center;
       column-gap: 18px;
+      a {
+        color: $white;
+        font-weight: bold;
+        position: relative;
+        &.checked{
+          &:after {
+            @include contentBox;
+            height: 3px;
+            background-color:$red2;
+            left: 0;
+            bottom: -2px;
+            z-index: -1;
+          }
+        }
+      }
     }
   }
 

@@ -10,6 +10,7 @@ module.exports = {
   plugins: ['prettier'],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-unused-vars': ["warn", {"args": "after-used"}],
     "prettier/prettier": [
       "error",
       {
@@ -22,6 +23,7 @@ module.exports = {
         bracketSpacing: true,
         arrowParens: "avoid",
         eslint: "recommended",
+        ignoreRestSiblings: false ,
       },
     ],
 
